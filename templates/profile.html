@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - FutsalPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'futsal-green': '#2D5016',
+                        'futsal-light-green': '#4A7C59',
+                        'futsal-orange': '#FF6B35',
+                        'futsal-blue': '#1E40AF',
+                        'futsal-gray': '#F8FAFC'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #2D5016 0%, #4A7C59 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-active {
+            background: linear-gradient(135deg, #FF6B35 0%, #e55a2b 100%);
+            color: white;
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+
+        .booking-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .booking-card.upcoming {
+            border-left-color: #FF6B35;
+        }
+
+        .booking-card.completed {
+            border-left-color: #10B981;
+        }
+
+        .booking-card.cancelled {
+            border-left-color: #EF4444;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(45, 80, 22, 0.1) 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-futsal-gray font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="/placeholder.svg?height=40&width=40&text=Logo" alt="FutsalPro Logo" class="h-10 w-10">
+                    <span class="text-2xl font-bold text-futsal-green">FutsalPro</span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-futsal-orange transition-colors">Home</a>
+                    <a href="#" class="text-gray-600 hover:text-futsal-orange transition-colors">Book Court</a>
+                    <div class="relative">
+                        <button id="profileDropdown"
+                            class="flex items-center space-x-2 text-gray-600 hover:text-futsal-orange transition-colors">
+                            <img src="/placeholder.svg?height=32&width=32&text=User" alt="Profile"
+                                class="h-8 w-8 rounded-full">
+                            <span>John Doe</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        <div id="dropdownMenu"
+                            class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border hidden">
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">Help</a>
+                            <hr class="my-1">
+                            <a href="login.html" class="block px-4 py-2 text-red-600 hover:bg-gray-50">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Profile Header -->
+        <div class="gradient-bg rounded-2xl p-8 mb-8 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="relative z-10">
+                <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                    <div class="relative">
+                        <img src="/placeholder.svg?height=120&width=120&text=Profile" alt="Profile Picture"
+                            class="h-30 w-30 rounded-full border-4 border-white shadow-lg">
+                        <button
+                            class="absolute bottom-0 right-0 bg-futsal-orange text-white p-2 rounded-full hover:bg-orange-600 transition-colors">
+                            <i class="fas fa-camera text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="text-center md:text-left flex-1">
+                        <h1 class="text-3xl font-bold mb-2">John Doe</h1>
+                        <p class="text-white text-opacity-90 mb-4">Member since January 2024</p>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2">
+                                <div class="text-2xl font-bold">24</div>
+                                <div class="text-sm opacity-90">Total Bookings</div>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2">
+                                <div class="text-2xl font-bold">1,250</div>
+                                <div class="text-sm opacity-90">Loyalty Points</div>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2">
+                                <div class="text-2xl font-bold">Gold</div>
+                                <div class="text-sm opacity-90">Member Status</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-white rounded-xl shadow-sm mb-8 overflow-hidden">
+            <div class="flex flex-wrap border-b">
+                <button class="tab-btn tab-active px-6 py-4 font-semibold transition-all" data-tab="dashboard">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </button>
+                <button class="tab-btn px-6 py-4 font-semibold text-gray-600 hover:text-futsal-orange transition-all"
+                    data-tab="bookings">
+                    <i class="fas fa-calendar-alt mr-2"></i>My Bookings
+                </button>
+                <button class="tab-btn px-6 py-4 font-semibold text-gray-600 hover:text-futsal-orange transition-all"
+                    data-tab="rewards">
+                    <i class="fas fa-gift mr-2"></i>Rewards
+                </button>
+
+
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard-content" class="tab-content">
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stats-card rounded-xl p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Upcoming Bookings</p>
+                            <p class="text-3xl font-bold text-futsal-green">3</p>
+                        </div>
+                        <div class="bg-futsal-orange text-white p-3 rounded-lg">
+                            <i class="fas fa-calendar-check text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card rounded-xl p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">This Month</p>
+                            <p class="text-3xl font-bold text-futsal-green">8</p>
+                        </div>
+                        <div class="bg-futsal-green text-white p-3 rounded-lg">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card rounded-xl p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Spent</p>
+                            <p class="text-3xl font-bold text-futsal-green">$480</p>
+                        </div>
+                        <div class="bg-futsal-blue text-white p-3 rounded-lg">
+                            <i class="fas fa-dollar-sign text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card rounded-xl p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Favorite Court</p>
+                            <p class="text-lg font-bold text-futsal-green">Court A</p>
+                        </div>
+                        <div class="bg-yellow-500 text-white p-3 rounded-lg">
+                            <i class="fas fa-star text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity & Upcoming Bookings -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Activity</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-green-100 text-green-600 p-2 rounded-lg">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Booking Completed</p>
+                                <p class="text-sm text-gray-600">Court B - Dec 15, 2024 at 7:00 PM</p>
+                            </div>
+                            <span class="text-xs text-gray-500">2 days ago</span>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">
+                                <i class="fas fa-calendar-plus"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">New Booking</p>
+                                <p class="text-sm text-gray-600">Court A - Dec 20, 2024 at 6:00 PM</p>
+                            </div>
+                            <span class="text-xs text-gray-500">1 week ago</span>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-yellow-100 text-yellow-600 p-2 rounded-lg">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Reward Earned</p>
+                                <p class="text-sm text-gray-600">50 points for completing booking</p>
+                            </div>
+                            <span class="text-xs text-gray-500">1 week ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Bookings -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-900">Upcoming Bookings</h3>
+                        <a href="#" class="text-futsal-orange hover:text-orange-600 font-medium">View All</a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="booking-card upcoming bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-gray-900">Court A - Indoor</h4>
+                                <span
+                                    class="bg-futsal-orange text-white text-xs px-2 py-1 rounded-full">Confirmed</span>
+                            </div>
+                            <div class="text-sm text-gray-600 space-y-1">
+                                <p><i class="fas fa-calendar mr-2"></i>December 20, 2024</p>
+                                <p><i class="fas fa-clock mr-2"></i>6:00 PM - 7:00 PM</p>
+                                <p><i class="fas fa-dollar-sign mr-2"></i>$25.00</p>
+                            </div>
+                            <div class="flex space-x-2 mt-3">
+                                <button
+                                    class="text-futsal-orange hover:text-orange-600 text-sm font-medium">Reschedule</button>
+                                <button class="text-red-600 hover:text-red-700 text-sm font-medium">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div class="booking-card upcoming bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-gray-900">Court B - Outdoor</h4>
+                                <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Pending</span>
+                            </div>
+                            <div class="text-sm text-gray-600 space-y-1">
+                                <p><i class="fas fa-calendar mr-2"></i>December 22, 2024</p>
+                                <p><i class="fas fa-clock mr-2"></i>8:00 PM - 9:00 PM</p>
+                                <p><i class="fas fa-dollar-sign mr-2"></i>$20.00</p>
+                            </div>
+                            <div class="flex space-x-2 mt-3">
+                                <button
+                                    class="text-futsal-orange hover:text-orange-600 text-sm font-medium">Reschedule</button>
+                                <button class="text-red-600 hover:text-red-700 text-sm font-medium">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Tab -->
+        <div id="bookings-content" class="tab-content hidden">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <!-- Booking Filters -->
+                <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+                    <h2 class="text-2xl font-bold text-gray-900">My Bookings</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            class="booking-filter active bg-futsal-orange text-white px-4 py-2 rounded-lg font-medium"
+                            data-filter="all">
+                            All Bookings
+                        </button>
+                        <button
+                            class="booking-filter bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200"
+                            data-filter="upcoming">
+                            Upcoming
+                        </button>
+                        <button
+                            class="booking-filter bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200"
+                            data-filter="completed">
+                            Completed
+                        </button>
+                        <button
+                            class="booking-filter bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200"
+                            data-filter="cancelled">
+                            Cancelled
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bookings List -->
+                <div class="space-y-4" id="bookings-list">
+                    <!-- Upcoming Booking -->
+                    <div class="booking-item upcoming booking-card bg-gray-50 rounded-lg p-6 border">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-900">Court A - Indoor Premium</h3>
+                                    <span
+                                        class="bg-futsal-orange text-white text-xs px-3 py-1 rounded-full">Upcoming</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                                    <div>
+                                        <i class="fas fa-calendar mr-2 text-futsal-orange"></i>
+                                        <span>December 20, 2024</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock mr-2 text-futsal-orange"></i>
+                                        <span>6:00 PM - 7:00 PM</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-map-marker-alt mr-2 text-futsal-orange"></i>
+                                        <span>Main Complex</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-sm">
+                                    <span class="text-gray-600">Booking ID:</span>
+                                    <span class="font-mono text-gray-900">#FB2024120001</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 lg:mt-0 lg:ml-6 text-right">
+                                <div class="text-2xl font-bold text-futsal-green mb-2">$25.00</div>
+                                <div class="flex flex-col lg:flex-row gap-2">
+                                    <button
+                                        class="bg-futsal-orange text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                        <i class="fas fa-edit mr-1"></i>Reschedule
+                                    </button>
+                                    <button
+                                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                                        <i class="fas fa-times mr-1"></i>Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Booking -->
+                    <div class="booking-item completed booking-card bg-gray-50 rounded-lg p-6 border">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-900">Court B - Outdoor</h3>
+                                    <span
+                                        class="bg-green-500 text-white text-xs px-3 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                                    <div>
+                                        <i class="fas fa-calendar mr-2 text-futsal-orange"></i>
+                                        <span>December 15, 2024</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock mr-2 text-futsal-orange"></i>
+                                        <span>7:00 PM - 8:00 PM</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-map-marker-alt mr-2 text-futsal-orange"></i>
+                                        <span>East Complex</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-sm">
+                                    <span class="text-gray-600">Booking ID:</span>
+                                    <span class="font-mono text-gray-900">#FB2024121501</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 lg:mt-0 lg:ml-6 text-right">
+                                <div class="text-2xl font-bold text-futsal-green mb-2">$20.00</div>
+                                <div class="flex flex-col lg:flex-row gap-2">
+                                    <button
+                                        class="bg-futsal-green text-white px-4 py-2 rounded-lg hover:bg-futsal-light-green transition-colors">
+                                        <i class="fas fa-redo mr-1"></i>Book Again
+                                    </button>
+                                    <button
+                                        class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                                        <i class="fas fa-star mr-1"></i>Rate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cancelled Booking -->
+                    <div class="booking-item cancelled booking-card bg-gray-50 rounded-lg p-6 border">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-900">Court C - Indoor</h3>
+                                    <span class="bg-red-500 text-white text-xs px-3 py-1 rounded-full">Cancelled</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                                    <div>
+                                        <i class="fas fa-calendar mr-2 text-futsal-orange"></i>
+                                        <span>December 10, 2024</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock mr-2 text-futsal-orange"></i>
+                                        <span>5:00 PM - 6:00 PM</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-map-marker-alt mr-2 text-futsal-orange"></i>
+                                        <span>Main Complex</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-sm">
+                                    <span class="text-gray-600">Booking ID:</span>
+                                    <span class="font-mono text-gray-900">#FB2024121001</span>
+                                    <span class="text-red-600 ml-2">• Refunded</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 lg:mt-0 lg:ml-6 text-right">
+                                <div class="text-2xl font-bold text-gray-500 mb-2">$25.00</div>
+                                <div class="flex flex-col lg:flex-row gap-2">
+                                    <button
+                                        class="bg-futsal-green text-white px-4 py-2 rounded-lg hover:bg-futsal-light-green transition-colors">
+                                        <i class="fas fa-redo mr-1"></i>Book Again
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center justify-between mt-8">
+                    <div class="text-sm text-gray-600">
+                        Showing 1-3 of 24 bookings
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-2 bg-futsal-orange text-white rounded-lg">1</button>
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">2</button>
+                        <button
+                            class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">3</button>
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rewards Tab -->
+        <div id="rewards-content" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Loyalty Status -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Loyalty Program</h2>
+
+                        <!-- Current Status -->
+                        <div class="gradient-bg rounded-xl p-6 text-white mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold">Gold Member</h3>
+                                    <p class="text-white text-opacity-90">1,250 points earned</p>
+                                </div>
+                                <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                    <i class="fas fa-crown text-2xl"></i>
+                                </div>
+                            </div>
+
+                            <!-- Progress to Next Level -->
+                            <div class="mb-4">
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Progress to Platinum</span>
+                                    <span>1,250 / 2,000 points</span>
+                                </div>
+                                <div class="bg-white bg-opacity-20 rounded-full h-3">
+                                    <div class="progress-bar bg-white rounded-full h-3" style="width: 62.5%"></div>
+                                </div>
+                            </div>
+
+                            <p class="text-sm text-white text-opacity-90">
+                                Earn 750 more points to reach Platinum status and unlock exclusive benefits!
+                            </p>
+                        </div>
+
+                        <!-- Points History -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Points Activity</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-green-100 text-green-600 p-2 rounded-lg">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Booking Completed</p>
+                                            <p class="text-sm text-gray-600">Court B booking on Dec 15</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600 font-semibold">+50 pts</span>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">
+                                            <i class="fas fa-gift"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Bonus Points</p>
+                                            <p class="text-sm text-gray-600">Weekend booking bonus</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600 font-semibold">+25 pts</span>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="bg-red-100 text-red-600 p-2 rounded-lg">
+                                            <i class="fas fa-minus"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-900">Reward Redeemed</p>
+                                            <p class="text-sm text-gray-600">Free court hour voucher</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-red-600 font-semibold">-500 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Rewards -->
+                <div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Available Rewards</h3>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gray-900">Free Court Hour</h4>
+                                    <span class="text-futsal-orange font-semibold">500 pts</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Get 1 hour of free court time</p>
+                                <button
+                                    class="w-full bg-futsal-orange text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                    Redeem
+                                </button>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gray-900">Equipment Rental</h4>
+                                    <span class="text-futsal-orange font-semibold">200 pts</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Free equipment rental for one session</p>
+                                <button
+                                    class="w-full bg-futsal-orange text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                    Redeem
+                                </button>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gray-900">Cafe Voucher</h4>
+                                    <span class="text-futsal-orange font-semibold">150 pts</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">$10 voucher for sports cafe</p>
+                                <button
+                                    class="w-full bg-futsal-orange text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                    Redeem
+                                </button>
+                            </div>
+
+                            <div class="border border-gray-300 rounded-lg p-4 opacity-60">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gray-900">Premium Court Access</h4>
+                                    <span class="text-gray-500 font-semibold">2000 pts</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Unlock premium court booking privileges</p>
+                                <button class="w-full bg-gray-300 text-gray-500 py-2 rounded-lg cursor-not-allowed">
+                                    Need 750 more points
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings-content" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Personal Information -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Personal Information</h3>
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" value="John"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" value="Doe"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" value="john.doe@example.com"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" value="+1 (555) 123-4567"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                            <input type="date" value="1990-01-15"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-futsal-orange text-white py-3 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Update Information
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="space-y-6">
+                    <!-- Change Password -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Change Password</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Current Password</label>
+                                <input type="password"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+                                <input type="password"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
+                                <input type="password"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-futsal-orange">
+                            </div>
+
+                            <button type="submit"
+                                class="w-full bg-futsal-green text-white py-3 rounded-lg hover:bg-futsal-light-green transition-colors font-semibold">
+                                Change Password
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Notification Preferences -->
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Notification Preferences</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Email Notifications</h4>
+                                    <p class="text-sm text-gray-600">Receive booking confirmations and updates</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-futsal-orange">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">SMS Notifications</h4>
+                                    <p class="text-sm text-gray-600">Get text reminders for upcoming bookings</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-futsal-orange">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Marketing Emails</h4>
+                                    <p class="text-sm text-gray-600">Receive promotions and special offers</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-futsal-orange">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Tab -->
+        <div id="messages-content" class="tab-content hidden">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Messages</h2>
+                    <button
+                        class="bg-futsal-orange text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        <i class="fas fa-plus mr-2"></i>New Message
+                    </button>
+                </div>
+
+                <!-- Message List -->
+                <div class="space-y-4">
+                    <div
+                        class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-futsal-orange text-white p-2 rounded-lg">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">FutsalPro Support</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Your booking for Court A has been confirmed.
+                                        Please arrive 15 minutes early...</p>
+                                    <span class="text-xs text-gray-500 mt-2 block">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="bg-futsal-orange text-white text-xs px-2 py-1 rounded-full">New</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-futsal-green text-white p-2 rounded-lg">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Booking Reminder</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Don't forget about your upcoming booking
+                                        tomorrow at 6:00 PM...</p>
+                                    <span class="text-xs text-gray-500 mt-2 block">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-yellow-500 text-white p-2 rounded-lg">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Reward Notification</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Congratulations! You've earned 50 loyalty
+                                        points for your recent booking...</p>
+                                    <span class="text-xs text-gray-500 mt-2 block">3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Future Features -->
+                <div class="mt-8 p-6 bg-gray-50 rounded-lg text-center">
+                    <i class="fas fa-comments text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">More Features Coming Soon</h3>
+                    <p class="text-gray-600">We're working on adding live chat, message history archive, and team
+                        communication features.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+
+                // Remove active class from all tabs
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('text-gray-600', 'hover:text-futsal-orange');
+                });
+
+                // Add active class to clicked tab
+                button.classList.add('tab-active');
+                button.classList.remove('text-gray-600', 'hover:text-futsal-orange');
+
+                // Hide all tab contents
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+
+                // Show selected tab content
+                document.getElementById(tabName + '-content').classList.remove('hidden');
+            });
+        });
+
+        // Profile dropdown
+        const profileDropdown = document.getElementById('profileDropdown');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        profileDropdown.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!profileDropdown.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+
+        // Booking filters
+        const bookingFilters = document.querySelectorAll('.booking-filter');
+        const bookingItems = document.querySelectorAll('.booking-item');
+
+        bookingFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                const filterType = filter.getAttribute('data-filter');
+
+                // Update active filter
+                bookingFilters.forEach(f => {
+                    f.classList.remove('active', 'bg-futsal-orange', 'text-white');
+                    f.classList.add('bg-gray-100', 'text-gray-700');
+                });
+
+                filter.classList.add('active', 'bg-futsal-orange', 'text-white');
+                filter.classList.remove('bg-gray-100', 'text-gray-700');
+
+                // Filter bookings
+                bookingItems.forEach(item => {
+                    if (filterType === 'all' || item.classList.contains(filterType)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+
+        // Close toast
+        document.getElementById('toastClose').addEventListener('click', () => {
+            document.getElementById('toast').classList.add('translate-x-full');
+        });
+
+        // Form submissions
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                showToast('Settings updated successfully!');
+            });
+        });
+
+        // Booking actions
+        document.addEventListener('click', (e) => {
+            if (e.target.textContent.includes('Reschedule')) {
+                e.preventDefault();
+                showToast('Reschedule request submitted!');
+            } else if (e.target.textContent.includes('Cancel')) {
+                e.preventDefault();
+                if (confirm('Are you sure you want to cancel this booking?')) {
+                    showToast('Booking cancelled successfully!');
+                }
+            } else if (e.target.textContent.includes('Book Again')) {
+                e.preventDefault();
+                showToast('Redirecting to booking page...');
+            } else if (e.target.textContent.includes('Redeem')) {
+                e.preventDefault();
+                showToast('Reward redeemed successfully!');
+            }
+        });
+
+        // Smooth scrolling
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+
+</html>

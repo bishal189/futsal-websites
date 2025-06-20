@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - FutsalPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'futsal-green': '#2D5016',
+                        'futsal-light-green': '#4A7C59',
+                        'futsal-orange': '#FF6B35',
+                        'futsal-blue': '#1E40AF',
+                        'futsal-gray': '#F8FAFC'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #2D5016 0%, #4A7C59 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-futsal-gray font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="/placeholder.svg?height=40&width=40&text=Logo" alt="FutsalPro Logo" class="h-10 w-10">
+                    <span class="text-2xl font-bold text-futsal-green">FutsalPro</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-futsal-orange transition-colors">Home</a>
+                    <a href="#facilities"
+                        class="text-gray-700 hover:text-futsal-orange transition-colors">Facilities</a>
+                    <a href="#news" class="text-gray-700 hover:text-futsal-orange transition-colors">News</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-futsal-orange transition-colors">Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-futsal-orange transition-colors">Contact</a>
+                    <a href="login.html" class="text-gray-700 hover:text-futsal-orange transition-colors">SignIn</a>
+
+                </div>
+
+                <div class="hidden md:flex space-x-4">
+                    <button
+                        class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
+                        Book Now
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="text-gray-700 hover:text-futsal-orange transition-colors">Home</a>
+                    <a href="#facilities"
+                        class="text-gray-700 hover:text-futsal-orange transition-colors">Facilities</a>
+                    <a href="#news" class="text-gray-700 hover:text-futsal-orange transition-colors">News</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-futsal-orange transition-colors">Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-futsal-orange transition-colors">Contact</a>
+                    <button
+                        class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium w-full">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="gradient-bg rounded-2xl p-8 mb-8 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-10"></div>
+            <div class="relative z-10 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Terms of Service</h1>
+                <p class="text-xl text-white text-opacity-90">Please read these terms carefully before using our
+                    services</p>
+            </div>
+        </div>
+
+        <!-- Terms Content -->
+        <div class="bg-white rounded-xl shadow-sm p-8 max-w-4xl mx-auto">
+            <div class="prose prose-lg max-w-none">
+                <!-- Last Updated -->
+                <div class="bg-white border-l-4 border-green-500 shadow-md rounded-lg p-4 mb-8">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-clock text-green-600"></i>
+                        <p class="text-sm text-gray-700 mb-0">
+                            <strong class="text-green-700">Last Updated:</strong> December 19, 2024
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">1. Agreement to Terms</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        These Terms of Service ("Terms") constitute a legally binding agreement between you and
+                        FutsalPro ("Company," "we," "us," or "our") concerning your access to and use of our website and
+                        futsal court booking services.us," or "our") concerning your access to and use of our website
+                        and futsal court booking services.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        By accessing or using our services, you agree to be bound by these Terms. If you do not agree to
+                        these Terms, you may not access or use our services.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        We reserve the right to change or modify these Terms at any time and in our sole discretion. If
+                        we make changes to these Terms, we will provide notice by updating the date at the top of these
+                        Terms and, in some cases, we may provide additional notice.
+                    </p>
+                </section>
+
+                <!-- Eligibility -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">2. Eligibility</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        You must be at least 13 years of age to use our services. If you are under 18 years of age, you
+                        must have your parent or guardian's permission to use our services and agree to these Terms.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        By using our services, you represent and warrant that you meet the eligibility requirements and
+                        have the right, authority, and capacity to enter into these Terms.
+                    </p>
+                </section>
+
+                <!-- Account Registration -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">3. Account Registration</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        To access certain features of our services, you may be required to register for an account. When
+                        you register for an account, you must provide accurate and complete information and keep your
+                        account information updated.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        You are solely responsible for the activity that occurs on your account, and you must keep your
+                        account password secure. You must notify us immediately of any breach of security or
+                        unauthorized use of your account.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        We reserve the right to withdraw or amend our services, and any service or material we provide
+                        on our website, in our sole discretion without notice.
+                    </p>
+                </section>
+
+                <!-- Booking and Reservations -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">4. Booking and Reservations</h2>
+
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.1 Booking Process</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        All bookings are subject to availability and confirmation. We reserve the right to refuse any
+                        booking at our sole discretion.
+                    </p>
+
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.2 Payment</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Payment is required at the time of booking. We accept various payment methods as indicated on
+                        our website. All prices are subject to change without notice.
+                    </p>
+
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.3 Cancellation Policy</h3>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                        <li>Cancellations made 24 hours or more before the booking time: Full refund</li>
+                        <li>Cancellations made 12-24 hours before the booking time: 50% refund</li>
+                        <li>Cancellations made less than 12 hours before the booking time: No refund</li>
+                        <li>No-shows: No refund</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.4 Rescheduling</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Bookings may be rescheduled subject to availability and must be done at least 12 hours before
+                        the original booking time.
+                    </p>
+                </section>
+
+                <!-- Facility Rules -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">5. Facility Rules and Conduct</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        When using our facilities, you agree to:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                        <li>Follow all posted rules and regulations</li>
+                        <li>Respect other users and staff</li>
+                        <li>Use appropriate sports attire and footwear</li>
+                        <li>Not bring outside food or beverages (unless specified)</li>
+                        <li>Not use tobacco, alcohol, or illegal substances on the premises</li>
+                        <li>Report any injuries or incidents immediately</li>
+                        <li>Leave the facility in the same condition as found</li>
+                    </ul>
+                    <p class="text-gray-700 leading-relaxed">
+                        Violation of facility rules may result in immediate removal from the premises and forfeiture of
+                        booking fees.
+                    </p>
+                </section>
+
+                <!-- Liability and Assumption of Risk -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">6. Liability and Assumption of Risk</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        <strong>ASSUMPTION OF RISK:</strong> You acknowledge that participation in futsal and use of our
+                        facilities involves inherent risks of injury. You voluntarily assume all risks associated with
+                        your use of our facilities.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        <strong>LIMITATION OF LIABILITY:</strong> To the fullest extent permitted by law, FutsalPro
+                        shall not be liable for any indirect, incidental, special, consequential, or punitive damages,
+                        or any loss of profits or revenues.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        <strong>INDEMNIFICATION:</strong> You agree to indemnify and hold harmless FutsalPro from any
+                        claims, damages, or expenses arising from your use of our facilities or violation of these
+                        Terms.
+                    </p>
+                </section>
+
+                <!-- Intellectual Property -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">7. Intellectual Property Rights</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        The services and their original content, features, and functionality are and will remain the
+                        exclusive property of FutsalPro and its licensors. The services are protected by copyright,
+                        trademark, and other laws.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        You may not reproduce, distribute, modify, create derivative works of, publicly display,
+                        publicly perform, republish, download, store, or transmit any of the material on our services
+                        without our prior written consent.
+                    </p>
+                </section>
+
+                <!-- User Content -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">8. User Content</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Our services may allow you to post, link, store, share and otherwise make available certain
+                        information, text, graphics, videos, or other material. You are responsible for the content that
+                        you post to the services.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        By posting content to our services, you grant us the right and license to use, modify, publicly
+                        perform, publicly display, reproduce, and distribute such content on and through the services.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        You represent and warrant that your content does not violate any third-party rights and complies
+                        with all applicable laws.
+                    </p>
+                </section>
+
+                <!-- Prohibited Uses -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">9. Prohibited Uses</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        You may not use our services:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                        <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
+                        <li>To violate any international, federal, provincial, or state regulations, rules, laws, or
+                            local ordinances</li>
+                        <li>To infringe upon or violate our intellectual property rights or the intellectual property
+                            rights of others</li>
+                        <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                        <li>To submit false or misleading information</li>
+                        <li>To upload or transmit viruses or any other type of malicious code</li>
+                        <li>To spam, phish, pharm, pretext, spider, crawl, or scrape</li>
+                        <li>For any obscene or immoral purpose</li>
+                        <li>To interfere with or circumvent the security features of the services</li>
+                    </ul>
+                </section>
+
+                <!-- Termination -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">10. Termination</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        We may terminate or suspend your account and bar access to the services immediately, without
+                        prior notice or liability, under our sole discretion, for any reason whatsoever, including but
+                        not limited to a breach of the Terms.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        If you wish to terminate your account, you may simply discontinue using the services or contact
+                        us to request account deletion.
+                    </p>
+                </section>
+
+                <!-- Disclaimer -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">11. Disclaimer</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        The information on this website is provided on an "as is" basis. To the fullest extent permitted
+                        by law, this Company:
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                        <li>Excludes all representations and warranties relating to this website and its contents</li>
+                        <li>Excludes all liability for damages arising out of or in connection with your use of this
+                            website</li>
+                    </ul>
+                </section>
+
+                <!-- Governing Law -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">12. Governing Law</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        These Terms shall be interpreted and governed by the laws of the jurisdiction in which FutsalPro
+                        operates, without regard to its conflict of law provisions. Any disputes arising under these
+                        Terms shall be subject to the exclusive jurisdiction of the courts in that jurisdiction.
+                    </p>
+                </section>
+
+                <!-- Changes to Terms -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">13. Changes to Terms</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a
+                        revision is material, we will provide at least 30 days notice prior to any new terms taking
+                        effect.
+                    </p>
+                </section>
+
+                <!-- Contact Information -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">14. Contact Information</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        If you have any questions about these Terms of Service, please contact us:
+                    </p>
+                    <div class="bg-futsal-gray rounded-lg p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">Email</h4>
+                                <p class="text-gray-700">legal@futsalpro.com</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">Phone</h4>
+                                <p class="text-gray-700">+1 (555) 123-4567</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">Address</h4>
+                                <p class="text-gray-700">123 Sports Complex Drive<br>Futsal City, FC 12345</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-2">Business Hours</h4>
+                                <p class="text-gray-700">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Acknowledgment -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">15. Acknowledgment</h2>
+                    <p class="text-gray-700 leading-relaxed">
+                        By using our services, you acknowledge that you have read these Terms of Service and agree to be
+                        bound by them. These Terms constitute the entire agreement between you and FutsalPro regarding
+                        your use of our services.
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- Back to Top -->
+        <div class="text-center mt-8">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="bg-futsal-orange text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors">
+                <i class="fas fa-arrow-up mr-2"></i>Back to Top
+            </button>
+        </div>
+    </main>
+
+    <footer class="bg-futsal-green text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="/logo.png" alt="Kankai Futsal Logo" class="h-12 w-12 rounded-full shadow-md">
+                        <span class="text-2xl font-extrabold text-white">Kankai Futsal</span>
+                    </div>
+
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        कनकाईको पहिलो प्रिमियम फुटसल अनुभव — अत्याधुनिक सुविधाहरू, व्यावसायिक वातावरण, र एक ऊर्जाशील खेल
+                        समुदायको साथ!
+                    </p>
+
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-300 hover:text-futsal-orange transition-colors">Home</a>
+                        </li>
+                        <li><a href="#facilities"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Facilities</a></li>
+                        <li><a href="#news" class="text-gray-300 hover:text-futsal-orange transition-colors">News</a>
+                        </li>
+                        <li><a href="#gallery"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Gallery</a></li>
+                        <li><a href="#contact"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Court
+                                Booking</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
+                                Rental</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Training
+                                Programs</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Tournaments</a>
+                        </li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Private
+                                Events</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
+                    <p class="text-gray-300 mb-4">Stay updated with our latest news and offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
+                        <button type="submit"
+                            class="w-full bg-futsal-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 mt-12 pt-8 text-center">
+                <p class="text-gray-300">
+                    © 2025 Kankai Fustal!. All rights reserved. |
+                    <a href="privacy.html" class="hover:text-futsal-orange transition-colors">Privacy Policy</a> |
+                    <a href="terms.html" class="hover:text-futsal-orange transition-colors">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
