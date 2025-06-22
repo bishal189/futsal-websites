@@ -55,10 +55,10 @@
 
                 <!-- Right Section -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <button
+                    <a href="{% url 'booking_page' %}"
                         class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
                         Book Now
-                    </button>
+                    </a>
 
                     {% if user.is_authenticated %}
                     <!-- Profile dropdown with Alpine.js -->
@@ -120,10 +120,10 @@
                         class="text-gray-700 hover:text-futsal-orange transition-colors">SignIn</a>
                     {% endif %}
 
-                    <button
+                    <a href="{% url 'booking_page' %}"
                         class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium w-full">
                         Book Now
-                    </button>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -156,14 +156,14 @@
 
             <!-- Buttons with staggered animation -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
+                <a href="{% url 'booking_page' %}"
                     class="bg-futsal-orange text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-600 transition-all transform hover:scale-105 animate__animated animate__zoomIn animate__delay-3s">
                     Book a Match
-                </button>
-                <button
-                    class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-futsal-green transition-all animate__animated animate__zoomIn animate__delay-3s">
-                    Explore Facilities
-                </button>
+                    </button>
+                    <button
+                        class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-futsal-green transition-all animate__animated animate__zoomIn animate__delay-3s">
+                        Explore Facilities
+                    </button>
             </div>
         </div>
 
@@ -836,7 +836,8 @@
                 <div>
                     <h3 class="text-xl font-semibold mb-6">Services</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Court
+                        <li><a href="{% url 'booking_page' %}"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Court
                                 Booking</a></li>
                         <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
                                 Rental</a></li>

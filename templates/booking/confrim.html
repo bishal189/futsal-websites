@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futsal Booking Confirmed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'scale-in': 'scaleIn 0.5s ease-out forwards',
+                        'bounce-gentle': 'bounceGentle 2s infinite'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        bounceGentle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="min-h-screen bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 flex items-center justify-center p-4">
+    <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8 max-w-md w-full border border-white/20">
+
+        <!-- Success Icon -->
+        <div class="flex justify-center mb-6">
+            <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center animate-scale-in">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="text-center mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <h1 class="text-3xl font-bold text-gray-800 mb-3">Booking Confirmed!</h1>
+            <p class="text-gray-600 text-lg">Your futsal court has been successfully reserved</p>
+        </div>
+
+        <!-- Booking Details Card -->
+        <div class="bg-gray-50 rounded-xl p-6 mb-6 opacity-0 animate-fade-in-up" style="animation-delay: 0.4s;">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                </svg>
+                Booking Details
+            </h2>
+
+            <div class="space-y-3">
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-600 font-medium">Date</span>
+                    <span class="text-gray-800 font-semibold">June 25, 2025</span>
+                </div>
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-600 font-medium">Time</span>
+                    <span class="text-gray-800 font-semibold">7:00 PM - 8:00 PM</span>
+                </div>
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-600 font-medium">Duration</span>
+                    <span class="text-gray-800 font-semibold">1 Hour</span>
+                </div>
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-600 font-medium">Price</span>
+                    <span class="text-green-600 font-bold text-lg">Rs. 1,200</span>
+                </div>
+
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-600 font-medium">Booking ID</span>
+                    <span class="text-gray-800 font-mono text-sm bg-gray-200 px-2 py-1 rounded">#FB2025001</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Notes -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 opacity-0 animate-fade-in-up"
+            style="animation-delay: 0.8s;">
+            <div class="flex">
+                <svg class="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z">
+                    </path>
+                </svg>
+                <div>
+                    <h4 class="font-semibold text-yellow-800 mb-1">Important Notes</h4>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li>• Please arrive 10 minutes before your booking time</li>
+                        <li>• Bring your own futsal shoes and equipment</li>
+                        <li>• Cancellation allowed up to 2 hours before booking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4 opacity-0 animate-fade-in-up" style="animation-delay: 1s;">
+            <button onclick="window.print()"
+                class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
+                    </path>
+                </svg>
+                Print Receipt
+            </button>
+            <button onclick="goToHome()"
+                class="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                </svg>
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function goToHome() {
+            // Replace with your actual home page URL
+            window.location.href = '/';
+        }
+
+        // Auto-scroll to top on load
+        window.addEventListener('load', function () {
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+
+</html>

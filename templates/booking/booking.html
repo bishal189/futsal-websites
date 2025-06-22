@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Court - FutsalPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'futsal-green': '#2D5016',
+                        'futsal-light-green': '#4A7C59',
+                        'futsal-orange': '#FF6B35',
+                        'futsal-blue': '#1E40AF',
+                        'futsal-gray': '#F8FAFC',
+                        'primary': '#16a34a',
+                        'primary-dark': '#15803d'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .date-selected {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: white;
+            border: 2px solid #15803d;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            transform: scale(1.05);
+        }
+
+        .date-available {
+            background: white;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .date-available:hover {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: #16a34a;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.1);
+        }
+
+        .date-past {
+            background: #f9fafb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .time-selected {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: white;
+            border: 2px solid #15803d;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            transform: scale(1.02);
+        }
+
+        .time-booked {
+            background: linear-gradient(135deg, #fca5a5, #f87171);
+            color: #991b1b;
+            cursor: not-allowed;
+            border: 1px solid #dc2626;
+        }
+
+        .time-available {
+            background: white;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .time-available:hover {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: #16a34a;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.1);
+        }
+
+        .booking-card {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-nav-btn {
+            transition: all 0.2s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            color: #16a34a;
+            transform: scale(1.1);
+        }
+
+        .confirm-btn {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            background: linear-gradient(135deg, #15803d, #16a34a);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+        }
+
+        .confirm-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .summary-item {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #16a34a;
+        }
+
+        .input-field {
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #16a34a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-futsal-gray font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="/placeholder.svg?height=40&width=40&text=Logo" alt="FutsalPro Logo" class="h-10 w-10">
+                    <span class="text-2xl font-bold text-futsal-green">FutsalPro</span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-futsal-orange transition-colors">Home</a>
+                    <a href="profile.html" class="text-gray-600 hover:text-futsal-orange transition-colors">My
+                        Profile</a>
+                    <div class="flex items-center space-x-2 text-gray-600">
+                        <img src="./profile.jpeg" alt="Profile" class="h-8 w-8 rounded-full">
+                        <span>John Doe</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Date & Time Selection -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Date Selection -->
+                <div class="bg-white rounded-lg border booking-card p-6">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-calendar-alt text-futsal-orange mr-2"></i>
+                        Select Date
+                    </h2>
+
+                    <!-- Calendar Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <button id="prevMonth" class="calendar-nav-btn p-3 hover:bg-gray-100 rounded-full">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="monthYear" class="font-semibold text-gray-900 text-lg"></h3>
+                        <button id="nextMonth" class="calendar-nav-btn p-3 hover:bg-gray-100 rounded-full">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-1 mb-2">
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sun</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Mon</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Tue</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Wed</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Thu</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Fri</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sat</div>
+                    </div>
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-2"></div>
+                </div>
+
+                <!-- Time Selection -->
+                <div id="timeSection" class="bg-white rounded-lg border booking-card p-6 hidden">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-clock text-futsal-orange mr-2"></i>
+                        Available Time Slots
+                        <div id="timeSlotLoader" class="spinner ml-3 hidden"></div>
+                    </h2>
+                    <div id="timeSlots" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    <div id="timeSlotError" class="hidden text-red-600 text-sm mt-2">
+                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                        Error loading time slots. Please try again.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg border booking-card p-6 sticky top-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-clipboard-list text-futsal-orange mr-2"></i>
+                        Booking Summary
+                    </h2>
+
+                    <div id="emptyState" class="text-center py-8">
+                        <div class="text-4xl mb-4">📅</div>
+                        <p class="text-gray-500 text-sm">Select date and time to continue</p>
+                    </div>
+
+                    <div id="bookingDetails" class="hidden">
+                        <!-- Selected Details -->
+                        <div class="space-y-3 mb-6">
+                            <div class="summary-item">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600 font-medium">Court:</span>
+                                    <span id="selectedCourt" class="font-semibold text-gray-900"></span>
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600 font-medium">Date:</span>
+                                    <span id="selectedDate" class="font-semibold text-gray-900"></span>
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600 font-medium">Time:</span>
+                                    <span id="selectedTime" class="font-semibold text-gray-900"></span>
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600 font-medium">Duration:</span>
+                                    <span class="font-semibold text-gray-900">1 hour</span>
+                                </div>
+                            </div>
+                            <div class="summary-item border-t-2 border-futsal-orange">
+                                <div class="flex justify-between">
+                                    <span class="font-semibold text-gray-900">Total:</span>
+                                    <span id="totalAmount" class="font-bold text-lg text-futsal-orange">NPR 0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Form -->
+                        <form id="bookingForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-user text-futsal-orange mr-1"></i>
+                                    Full Name *
+                                </label>
+                                <input type="text" id="playerName" required
+                                    class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Enter your full name">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-phone text-futsal-orange mr-1"></i>
+                                    Phone Number *
+                                </label>
+                                <input type="tel" id="contactNumber" required
+                                    class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="9841234567">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-sticky-note text-futsal-orange mr-1"></i>
+                                    Notes (Optional)
+                                </label>
+                                <textarea id="notes" rows="3"
+                                    class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    placeholder="Any special requests or notes..."></textarea>
+                            </div>
+
+                            <button type="submit" id="confirmButton"
+                                class="confirm-btn w-full text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <span id="buttonText">
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    Confirm Booking
+                                </span>
+                                <span id="buttonSpinner" class="hidden">
+                                    <div class="spinner mr-2"></div>
+                                    Processing...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 m-4 max-w-md w-full shadow-2xl">
+            <div class="text-center">
+                <div class="text-6xl mb-4 text-green-500">✅</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Confirmed!</h3>
+                <p class="text-gray-600 text-sm mb-4">Your court has been successfully booked.</p>
+
+                <div id="bookingConfirmationDetails" class="bg-gray-50 p-4 rounded-lg mb-6 text-left">
+                    <!-- Booking details will be inserted here -->
+                </div>
+
+                <div class="flex justify-center gap-4">
+                    <button onclick="viewBookingDetails()"
+                        class="bg-futsal-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg">
+                        <i class="fas fa-eye mr-2"></i>
+                        View Details
+                    </button>
+                    <button onclick="closeSuccessModal()"
+                        class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg">
+                        <i class="fas fa-home mr-2"></i>
+                        Go Home
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-8 m-4 max-w-md w-full shadow-2xl">
+            <div class="text-center">
+                <div class="text-6xl mb-4 text-red-500">❌</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Failed</h3>
+                <p id="errorMessage" class="text-gray-600 text-sm mb-6">Something went wrong. Please try again.</p>
+                <button onclick="closeErrorModal()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg">
+                    <i class="fas fa-times mr-2"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-futsal-green text-white py-16 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="/logo.png" alt="Kankai Futsal Logo" class="h-12 w-12 rounded-full shadow-md">
+                        <span class="text-2xl font-extrabold text-white">Kankai Futsal</span>
+                    </div>
+
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        कनकाईको पहिलो प्रिमियम फुटसल अनुभव — अत्याधुनिक सुविधाहरू, व्यावसायिक वातावरण, र एक ऊर्जाशील खेल
+                        समुदायको साथ!
+                    </p>
+
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-300 hover:text-futsal-orange transition-colors">Home</a>
+                        </li>
+                        <li><a href="#facilities"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Facilities</a></li>
+                        <li><a href="#news" class="text-gray-300 hover:text-futsal-orange transition-colors">News</a>
+                        </li>
+                        <li><a href="#gallery"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Gallery</a></li>
+                        <li><a href="#contact"
+                                class="text-gray-300 hover:text-futsal-orange transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Court
+                                Booking</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
+                                Rental</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Training
+                                Programs</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Tournaments</a>
+                        </li>
+                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Private
+                                Events</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
+                    <p class="text-gray-300 mb-4">Stay updated with our latest news and offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Enter your email"
+                            class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
+                        <button type="submit"
+                            class="w-full bg-futsal-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 mt-12 pt-8 text-center">
+                <p class="text-gray-300">
+                    © 2025 Kankai Fustal!. All rights reserved. |
+                    <a href="privacy.html" class="hover:text-futsal-orange transition-colors">Privacy Policy</a> |
+                    <a href="terms.html" class="hover:text-futsal-orange transition-colors">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTimeSlot = null;
+        let selectedTimeSlotData = null;
+        let currentCourtId = 1; // Default court ID
+        let currentCourtData = null;
+        let availableSlots = [];
+
+        // Get CSRF token
+        function getCSRFToken() {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'csrftoken') {
+                    return value;
+                }
+            }
+            return '';
+        }
+
+        // API calls
+        async function fetchAvailableSlots(date, courtId = 1) {
+            try {
+                const response = await fetch(`/api/available-slots/?date=${date}&court_id=${courtId}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to fetch slots');
+                }
+
+                return data;
+            } catch (error) {
+                console.error('Error fetching slots:', error);
+                throw error;
+            }
+        }
+
+        async function createBooking(bookingData) {
+            try {
+                const response = await fetch('/api/create-booking/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken()
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to create booking');
+                }
+
+                return data;
+            } catch (error) {
+                console.error('Error creating booking:', error);
+                throw error;
+            }
+        }
+
+        // Calendar functions
+        function initCalendar() {
+            updateCalendar();
+
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateCalendar();
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateCalendar();
+            });
+        }
+
+        function updateCalendar() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+            document.getElementById('monthYear').textContent =
+                `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            // Empty cells before month starts
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'h-12';
+                grid.appendChild(emptyCell);
+            }
+
+            // Days of the month
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dayEl = document.createElement('div');
+                const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                const year = cellDate.getFullYear();
+                const month = String(cellDate.getMonth() + 1).padStart(2, '0');
+                const dayStr = String(cellDate.getDate()).padStart(2, '0');
+                const dateString = `${year}-${month}-${dayStr}`;
+
+                dayEl.textContent = day;
+                dayEl.className = 'h-12 flex items-center justify-center rounded-lg cursor-pointer text-sm font-medium transition-all duration-200';
+
+                if (cellDate < today) {
+                    dayEl.classList.add('date-past');
+                } else {
+                    dayEl.classList.add('date-available');
+                    dayEl.addEventListener('click', () => selectDate(dateString, dayEl));
+                }
+
+                if (selectedDate === dateString) {
+                    dayEl.classList.remove('date-available');
+                    dayEl.classList.add('date-selected');
+                }
+
+                grid.appendChild(dayEl);
+            }
+        }
+
+        async function selectDate(dateString, element) {
+            // Remove selection from previously selected date
+            if (selectedDate) {
+                const prevSelected = document.querySelector('.date-selected');
+                if (prevSelected) {
+                    prevSelected.classList.remove('date-selected');
+                    prevSelected.classList.add('date-available');
+                }
+            }
+
+            // Set new selection
+            selectedDate = dateString;
+            selectedTimeSlot = null;
+            selectedTimeSlotData = null;
+
+            // Update the clicked element
+            element.classList.remove('date-available');
+            element.classList.add('date-selected');
+
+            // Show loading state and fetch time slots
+            await showTimeSlots();
+            updateSummary();
+        }
+
+        async function showTimeSlots() {
+            const timeSection = document.getElementById('timeSection');
+            const loader = document.getElementById('timeSlotLoader');
+            const container = document.getElementById('timeSlots');
+            const errorDiv = document.getElementById('timeSlotError');
+
+            // Show time section and loading state
+            timeSection.classList.remove('hidden');
+            loader.classList.remove('hidden');
+            container.innerHTML = '';
+            errorDiv.classList.add('hidden');
+
+            try {
+                const data = await fetchAvailableSlots(selectedDate, currentCourtId);
+                availableSlots = data.slots;
+                currentCourtData = {
+                    name: data.court_name,
+                    hourly_rate: data.hourly_rate
+                };
+
+                // Hide loader
+                loader.classList.add('hidden');
+
+                // Display time slots
+                availableSlots.forEach(slot => {
+                    const slotEl = document.createElement('div');
+                    slotEl.textContent = slot.display_time;
+                    slotEl.className = 'p-3 text-center text-sm font-medium rounded-lg cursor-pointer transition-all duration-200';
+
+                    if (slot.is_booked) {
+                        slotEl.classList.add('time-booked');
+                    } else {
+                        slotEl.classList.add('time-available');
+                        slotEl.addEventListener('click', () => selectTimeSlot(slot, slotEl));
+                    }
+
+                    container.appendChild(slotEl);
+                });
+
+                if (availableSlots.length === 0) {
+                    container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No time slots available for this date</div>';
+                }
+
+            } catch (error) {
+                loader.classList.add('hidden');
+                errorDiv.classList.remove('hidden');
+                console.error('Error loading time slots:', error);
+            }
+        }
+
+        function selectTimeSlot(slotData, element) {
+            // Remove selection from previously selected time slot
+            const prevSelected = document.querySelector('.time-selected');
+            if (prevSelected) {
+                prevSelected.classList.remove('time-selected');
+                prevSelected.classList.add('time-available');
+            }
+
+            // Set new selection
+            selectedTimeSlot = slotData.start_time;
+            selectedTimeSlotData = slotData;
+
+            // Update the clicked element
+            element.classList.remove('time-available');
+            element.classList.add('time-selected');
+
+            updateSummary();
+        }
+
+        function updateSummary() {
+            if (selectedDate && selectedTimeSlot && currentCourtData) {
+                document.getElementById('emptyState').classList.add('hidden');
+                document.getElementById('bookingDetails').classList.remove('hidden');
+
+                // Update court info
+                document.getElementById('selectedCourt').textContent = currentCourtData.name;
+
+                // Update date
+                const [year, month, day] = selectedDate.split('-');
+                const date = new Date(year, month - 1, day);
+                document.getElementById('selectedDate').textContent =
+                    date.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+
+                // Update time
+                document.getElementById('selectedTime').textContent = selectedTimeSlotData.display_time;
+
+                // Update total amount
+                document.getElementById('totalAmount').textContent = `NPR ${currentCourtData.hourly_rate.toLocaleString()}`;
+
+            } else {
+                document.getElementById('emptyState').classList.remove('hidden');
+                document.getElementById('bookingDetails').classList.add('hidden');
+            }
+        }
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('playerName').value.trim();
+            const phone = document.getElementById('contactNumber').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+
+            // Validation
+            if (!name || !phone) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            if (phone.length < 10) {
+                showError('Please enter a valid phone number');
+                return;
+            }
+
+            if (!selectedDate || !selectedTimeSlotData) {
+                showError('Please select a date and time');
+                return;
+            }
+
+            // Show loading state
+            const button = document.getElementById('confirmButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonSpinner = document.getElementById('buttonSpinner');
+
+            button.disabled = true;
+            buttonText.classList.add('hidden');
+            buttonSpinner.classList.remove('hidden');
+
+            try {
+                const bookingData = {
+                    court_id: currentCourtId,
+                    date: selectedDate,
+                    time_slot_id: selectedTimeSlotData.id,
+                    player_name: name,
+                    contact_number: phone,
+                    notes: notes
+                };
+
+                const response = await createBooking(bookingData);
+
+                // Show success modal with booking details
+                showSuccessModal(response);
+
+            } catch (error) {
+                showError(error.message || 'Failed to create booking. Please try again.');
+            } finally {
+                // Reset button state
+                button.disabled = false;
+                buttonText.classList.remove('hidden');
+                buttonSpinner.classList.add('hidden');
+            }
+        });
+
+        // Modal functions
+        function showSuccessModal(bookingResponse) {
+            const modal = document.getElementById('successModal');
+            const detailsDiv = document.getElementById('bookingConfirmationDetails');
+
+            // Populate booking details
+            detailsDiv.innerHTML = `
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="font-medium">Booking ID:</span>
+                        <span class="font-bold text-futsal-orange">${bookingResponse.booking_id}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-medium">Player:</span>
+                        <span>${bookingResponse.booking_details.player_name}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-medium">Date:</span>
+                        <span>${bookingResponse.booking_details.date}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-medium">Time:</span>
+                        <span>${bookingResponse.booking_details.time}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-medium">Court:</span>
+                        <span>${bookingResponse.booking_details.court}</span>
+                    </div>
+                    <div class="flex justify-between border-t pt-2">
+                        <span class="font-bold">Total Amount:</span>
+                        <span class="font-bold text-futsal-orange">NPR ${bookingResponse.booking_details.total_amount.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+
+            // Store booking ID for viewing details
+            window.currentBookingId = bookingResponse.booking_id;
+
+            modal.classList.remove('hidden');
+        }
+
+        function showError(message) {
+            const modal = document.getElementById('errorModal');
+            const messageEl = document.getElementById('errorMessage');
+            messageEl.textContent = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            // Reset form and selections
+            resetForm();
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.add('hidden');
+        }
+
+        function viewBookingDetails() {
+            if (window.currentBookingId) {
+                window.location.href = `/confirmation/${window.currentBookingId}/`;
+            }
+        }
+
+        function resetForm() {
+            selectedDate = null;
+            selectedTimeSlot = null;
+            selectedTimeSlotData = null;
+            document.getElementById('bookingForm').reset();
+            updateCalendar();
+            document.getElementById('timeSection').classList.add('hidden');
+            updateSummary();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            initCalendar();
+
+            // Check if we have CSRF token
+            if (!getCSRFToken()) {
+                console.warn('CSRF token not found. Make sure to include {% csrf_token %} in your Django template.');
+            }
+        });
+    </script>
+</body>
+
+</html>
