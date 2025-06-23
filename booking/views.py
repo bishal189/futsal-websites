@@ -310,17 +310,17 @@ def download_receipt(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     
     # Create the PDF template
-    template_path = 'bookings/receipt_pdf.html'
+    template_path = 'booking/receipt.html'
     template = get_template(template_path)
     
     # Context data for the template
     context = {
         'booking': booking,
         'current_date': timezone.now(),
-        'company_name': 'Kankai Futsal',
-        'company_address': 'Kankai, Jhapa, Nepal',
-        'company_phone': '+977-023-580000',
-        'company_email': 'info@kankaifutsal.com',
+        'company_name': 'KankaiFutsal(shreshacademy)',
+        'company_address': 'Kankai-3, Jhapa, Nepal',
+        'company_phone': '+977-9849484847',
+        'company_email': 'shreshacademy@gmail.com',
     }
     
     # Render the template with context
