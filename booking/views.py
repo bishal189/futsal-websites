@@ -13,6 +13,18 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count
 
 
+# for downloads 
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required
+from xhtml2pdf import pisa
+from io import BytesIO
+import os
+from django.conf import settings
+from django.utils import timezone
+
+
 
 def booking_page(request):
     """Main booking page view"""
@@ -286,3 +298,43 @@ def booking_calendar_data(request):
         return JsonResponse({'error': str(e)}, status=500)
     
     return JsonResponse({'events': []})
+
+
+
+@login_required
+def download_receipt(request, booking_id):
+    """
+    Generate and download PDF receipt for a booking
+    """
+    # Get the booking object
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    # Create the PDF template
+    template_path = 'bookings/receipt_pdf.html'
+    template = get_template(template_path)
+    
+    # Context data for the template
+    context = {
+        'booking': booking,
+        'current_date': timezone.now(),
+        'company_name': 'Kankai Futsal',
+        'company_address': 'Kankai, Jhapa, Nepal',
+        'company_phone': '+977-023-580000',
+        'company_email': 'info@kankaifutsal.com',
+    }
+    
+    # Render the template with context
+    html = template.render(context)
+    
+    # Create PDF
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    
+    if not pdf.err:
+        # Create HTTP response with PDF
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="receipt_{booking.booking_id}.pdf"'
+        response.write(result.getvalue())
+        return response
+    
+    return HttpResponse('Error generating PDF', status=500)

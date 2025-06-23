@@ -15,4 +15,7 @@ urlpatterns = [
     path('confirmation/<uuid:booking_id>/', views.booking_confirmation, name='booking_confirmation'),
     path('my-bookings/', views.my_bookings, name='dashboard'),
     path('cancel/<uuid:booking_id>/', views.cancel_booking, name='cancel_booking'),
+
+    #for download
+     path('download-receipt/<int:booking_id>/', views.download_receipt, name='download_receipt'),
 ]
