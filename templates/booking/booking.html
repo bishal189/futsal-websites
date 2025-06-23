@@ -1,11 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Court - FutsalPro</title>
+    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -27,6 +34,18 @@
         }
     </script>
     <style>
+        .time-slot {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3rem;
+
+        }
+
         .date-selected {
             background: linear-gradient(135deg, #16a34a, #22c55e);
             color: white;
@@ -132,6 +151,11 @@
             box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
         }
 
+        .input-field.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
         .loading {
             opacity: 0.7;
             pointer-events: none;
@@ -156,37 +180,64 @@
                 transform: rotate(360deg);
             }
         }
+
+        .message-alert {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .error-message {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-futsal-gray font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <nav class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="/placeholder.svg?height=40&width=40&text=Logo" alt="FutsalPro Logo" class="h-10 w-10">
-                    <span class="text-2xl font-bold text-futsal-green">FutsalPro</span>
-                </a>
+    {% include 'includes/header.html' %}
 
-                <div class="flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-600 hover:text-futsal-orange transition-colors">Home</a>
-                    <a href="profile.html" class="text-gray-600 hover:text-futsal-orange transition-colors">My
-                        Profile</a>
-                    <div class="flex items-center space-x-2 text-gray-600">
-                        <img src="./profile.jpeg" alt="Profile" class="h-8 w-8 rounded-full">
-                        <span>John Doe</span>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+
+    <section class="text-center mt-24 mb-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+            <span class="text-futsal-orange">Book Your</span> Court Now
+        </h1>
+        <p class="text-gray-600 mt-2 text-base md:text-lg">
+            Select your date and time to reserve your spot
+        </p>
+    </section>
 
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-8">
+    <main class="max-w-4xl mx-auto px-4 py-8" style="margin-top:5rem;">
+        {% if messages %}
+        <div class="mb-6 space-y-2">
+            {% for message in messages %}
+            <div
+                class="message-alert p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 border border-red-200 text-red-700{% elif message.tags == 'success' %}bg-green-50 border border-green-200 text-green-700{% elif message.tags == 'warning' %}bg-yellow-50 border border-yellow-200 text-yellow-700{% else %}bg-blue-50 border border-blue-200 text-blue-700{% endif %}">
+                <div class="flex items-center">
+                    <i
+                        class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% elif message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-info-circle{% endif %} mr-2"></i>
+                    <span class="text-sm font-medium">{{ message }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
 
             <!-- Date & Time Selection -->
             <div class="lg:col-span-2 space-y-6">
@@ -229,7 +280,7 @@
                         Available Time Slots
                         <div id="timeSlotLoader" class="spinner ml-3 hidden"></div>
                     </h2>
-                    <div id="timeSlots" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+                    <div id="timeSlots" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-fr"></div>
                     <div id="timeSlotError" class="hidden text-red-600 text-sm mt-2">
                         <i class="fas fa-exclamation-triangle mr-1"></i>
                         Error loading time slots. Please try again.
@@ -285,6 +336,18 @@
                             </div>
                         </div>
 
+                        <!-- Error Alert -->
+                        <div id="formErrorAlert" class="hidden mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-red-800">Please correct the following errors:
+                                    </h4>
+                                    <ul id="formErrorList" class="text-sm text-red-700 mt-1 list-disc list-inside"></ul>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Booking Form -->
                         <form id="bookingForm" class="space-y-4">
                             <div>
@@ -295,6 +358,10 @@
                                 <input type="text" id="playerName" required
                                     class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     placeholder="Enter your full name">
+                                <div id="nameError" class="hidden error-message text-red-600 text-sm mt-1">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    <span class="error-text"></span>
+                                </div>
                             </div>
 
                             <div>
@@ -305,6 +372,10 @@
                                 <input type="tel" id="contactNumber" required
                                     class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     placeholder="9841234567">
+                                <div id="phoneError" class="hidden error-message text-red-600 text-sm mt-1">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    <span class="error-text"></span>
+                                </div>
                             </div>
 
                             <div>
@@ -315,6 +386,30 @@
                                 <textarea id="notes" rows="3"
                                     class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                     placeholder="Any special requests or notes..."></textarea>
+                            </div>
+
+                            <!-- Terms and Privacy -->
+                            <div class="border-t pt-4">
+                                <div class="flex items-start space-x-3">
+                                    <input type="checkbox" id="termsAccepted"
+                                        class="mt-1 w-4 h-4 text-futsal-orange border-gray-300 rounded focus:ring-futsal-orange">
+                                    <div class="flex-1">
+                                        <label for="termsAccepted" class="text-sm text-gray-700 cursor-pointer">
+                                            I agree to the
+                                            <a href="{% url 'terms' %}"
+                                                class="text-futsal-orange hover:text-futsal-green font-medium">Terms of
+                                                Service</a>
+                                            and
+                                            <a href="{% url 'privacy' %}"
+                                                class="text-futsal-orange hover:text-futsal-green font-medium">Privacy
+                                                Policy</a> *
+                                        </label>
+                                        <div id="termsError" class="hidden error-message text-red-600 text-sm mt-1">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>
+                                            <span class="error-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <button type="submit" id="confirmButton"
@@ -335,135 +430,8 @@
         </div>
     </main>
 
-    <!-- Success Modal -->
-    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg p-8 m-4 max-w-md w-full shadow-2xl">
-            <div class="text-center">
-                <div class="text-6xl mb-4 text-green-500">✅</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Confirmed!</h3>
-                <p class="text-gray-600 text-sm mb-4">Your court has been successfully booked.</p>
-
-                <div id="bookingConfirmationDetails" class="bg-gray-50 p-4 rounded-lg mb-6 text-left">
-                    <!-- Booking details will be inserted here -->
-                </div>
-
-                <div class="flex justify-center gap-4">
-                    <button onclick="viewBookingDetails()"
-                        class="bg-futsal-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg">
-                        <i class="fas fa-eye mr-2"></i>
-                        View Details
-                    </button>
-                    <button onclick="closeSuccessModal()"
-                        class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg">
-                        <i class="fas fa-home mr-2"></i>
-                        Go Home
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error Modal -->
-    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg p-8 m-4 max-w-md w-full shadow-2xl">
-            <div class="text-center">
-                <div class="text-6xl mb-4 text-red-500">❌</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Booking Failed</h3>
-                <p id="errorMessage" class="text-gray-600 text-sm mb-6">Something went wrong. Please try again.</p>
-                <button onclick="closeErrorModal()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg">
-                    <i class="fas fa-times mr-2"></i>
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="bg-futsal-green text-white py-16 mt-16">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <img src="/logo.png" alt="Kankai Futsal Logo" class="h-12 w-12 rounded-full shadow-md">
-                        <span class="text-2xl font-extrabold text-white">Kankai Futsal</span>
-                    </div>
-
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        कनकाईको पहिलो प्रिमियम फुटसल अनुभव — अत्याधुनिक सुविधाहरू, व्यावसायिक वातावरण, र एक ऊर्जाशील खेल
-                        समुदायको साथ!
-                    </p>
-
-                    <div class="flex space-x-4">
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#home" class="text-gray-300 hover:text-futsal-orange transition-colors">Home</a>
-                        </li>
-                        <li><a href="#facilities"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Facilities</a></li>
-                        <li><a href="#news" class="text-gray-300 hover:text-futsal-orange transition-colors">News</a>
-                        </li>
-                        <li><a href="#gallery"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Gallery</a></li>
-                        <li><a href="#contact"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Services</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Court
-                                Booking</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
-                                Rental</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Training
-                                Programs</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Tournaments</a>
-                        </li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Private
-                                Events</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
-                    <p class="text-gray-300 mb-4">Stay updated with our latest news and offers.</p>
-                    <form class="space-y-3">
-                        <input type="email" placeholder="Enter your email"
-                            class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                        <button type="submit"
-                            class="w-full bg-futsal-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="border-t border-white/20 mt-12 pt-8 text-center">
-                <p class="text-gray-300">
-                    © 2025 Kankai Fustal!. All rights reserved. |
-                    <a href="privacy.html" class="hover:text-futsal-orange transition-colors">Privacy Policy</a> |
-                    <a href="terms.html" class="hover:text-futsal-orange transition-colors">Terms of Service</a>
-                </p>
-            </div>
-        </div>
-    </footer>
+    {% include 'includes/footer.html' %}
 
     <script>
         // Global variables
@@ -474,6 +442,163 @@
         let currentCourtId = 1; // Default court ID
         let currentCourtData = null;
         let availableSlots = [];
+
+        // Error handling functions
+        function showFieldError(fieldId, message) {
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            const inputField = document.getElementById(fieldId);
+
+            if (errorDiv && inputField) {
+                // Check if there's an error-text span, if not create one or use the errorDiv directly
+                let errorText = errorDiv.querySelector('.error-text');
+
+                if (!errorText) {
+                    // For terms checkbox, create the error-text span if it doesn't exist
+                    errorText = document.createElement('span');
+                    errorText.className = 'error-text';
+                    errorDiv.appendChild(errorText);
+                }
+
+                errorText.textContent = message;
+                errorDiv.classList.remove('hidden');
+                inputField.classList.add('error');
+            }
+        }
+        function hideFieldError(fieldId) {
+            const errorDiv = document.getElementById(fieldId + 'Error');
+            const inputField = document.getElementById(fieldId);
+
+            if (errorDiv && inputField) {
+                errorDiv.classList.add('hidden');
+                inputField.classList.remove('error');
+            }
+        }
+
+        function clearAllErrors() {
+            const errorFields = ['playerName', 'contactNumber', 'termsAccepted'];
+            errorFields.forEach(fieldId => hideFieldError(fieldId));
+
+            // Hide general error alert
+            document.getElementById('formErrorAlert').classList.add('hidden');
+        }
+
+        function showFormErrors(errors) {
+            const errorAlert = document.getElementById('formErrorAlert');
+            const errorList = document.getElementById('formErrorList');
+
+            errorList.innerHTML = '';
+            errors.forEach(error => {
+                const li = document.createElement('li');
+                li.textContent = error;
+                errorList.appendChild(li);
+            });
+
+            errorAlert.classList.remove('hidden');
+
+            // Scroll to error alert
+            errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function validateForm() {
+            clearAllErrors();
+
+            const name = document.getElementById('playerName').value.trim();
+            const phone = document.getElementById('contactNumber').value.trim();
+            const termsAccepted = document.getElementById('termsAccepted').checked;
+
+            let errors = [];
+            let isValid = true;
+
+            // Validate name
+            if (!name) {
+                showFieldError('playerName', 'Full name is required');
+                errors.push('Full name is required');
+                isValid = false;
+            } else if (name.length < 2) {
+                showFieldError('playerName', 'Name must be at least 2 characters long');
+                errors.push('Name must be at least 2 characters long');
+                isValid = false;
+            }
+
+            // Validate phone
+            if (!phone) {
+                showFieldError('contactNumber', 'Phone number is required');
+                errors.push('Phone number is required');
+                isValid = false;
+            } else if (!/^[0-9]{10}$/.test(phone.replace(/\s+/g, ''))) {
+                showFieldError('contactNumber', 'Please enter a valid 10-digit phone number');
+                errors.push('Please enter a valid 10-digit phone number');
+                isValid = false;
+            }
+
+            // Validate terms acceptance
+            if (!termsAccepted) {
+                showFieldError('termsAccepted', 'You must accept the terms and conditions');
+                errors.push('You must accept the terms and conditions');
+                isValid = false;
+            }
+
+            // Validate date and time selection
+            if (!selectedDate || !selectedTimeSlotData) {
+                errors.push('Please select a date and time');
+                isValid = false;
+            }
+
+            if (errors.length > 0) {
+                showFormErrors(errors);
+            }
+
+            return isValid;
+        }
+
+        // Add real-time validation
+        function setupRealTimeValidation() {
+            const nameField = document.getElementById('playerName');
+            const phoneField = document.getElementById('contactNumber');
+            const termsField = document.getElementById('termsAccepted');
+
+            nameField.addEventListener('blur', function () {
+                const value = this.value.trim();
+                if (value) {
+                    if (value.length < 2) {
+                        showFieldError('playerName', 'Name must be at least 2 characters long');
+                    } else {
+                        hideFieldError('playerName');
+                    }
+                }
+            });
+
+            nameField.addEventListener('input', function () {
+                if (this.value.trim()) {
+                    hideFieldError('playerName');
+                }
+            });
+
+            phoneField.addEventListener('blur', function () {
+                const value = this.value.trim();
+                if (value) {
+                    if (!/^[0-9]{10}$/.test(value.replace(/\s+/g, ''))) {
+                        showFieldError('contactNumber', 'Please enter a valid 10-digit phone number');
+                    } else {
+                        hideFieldError('contactNumber');
+                    }
+                }
+            });
+
+            phoneField.addEventListener('input', function () {
+                // Allow only numbers
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if (this.value.trim()) {
+                    hideFieldError('contactNumber');
+                }
+            });
+
+            termsField.addEventListener('change', function () {
+                if (this.checked) {
+                    hideFieldError('termsAccepted');
+                }
+            });
+        }
 
         // Get CSRF token
         function getCSRFToken() {
@@ -516,11 +641,6 @@
                 });
 
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.error || 'Failed to create booking');
-                }
-
                 return data;
             } catch (error) {
                 console.error('Error creating booking:', error);
@@ -643,9 +763,8 @@
                 // Display time slots
                 availableSlots.forEach(slot => {
                     const slotEl = document.createElement('div');
-                    slotEl.textContent = slot.display_time;
-                    slotEl.className = 'p-3 text-center text-sm font-medium rounded-lg cursor-pointer transition-all duration-200';
-
+                    slotEl.textContent = `${slot.start_time} - ${slot.end_time}`;
+                    slotEl.className = 'time-slot p-3 text-center text-sm font-medium rounded-lg cursor-pointer transition-all duration-200';
                     if (slot.is_booked) {
                         slotEl.classList.add('time-booked');
                     } else {
@@ -706,8 +825,7 @@
                     });
 
                 // Update time
-                document.getElementById('selectedTime').textContent = selectedTimeSlotData.display_time;
-
+                document.getElementById('selectedTime').textContent = `${selectedTimeSlotData.start_time} - ${selectedTimeSlotData.end_time}`;
                 // Update total amount
                 document.getElementById('totalAmount').textContent = `NPR ${currentCourtData.hourly_rate.toLocaleString()}`;
 
@@ -721,25 +839,14 @@
         document.getElementById('bookingForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
+            // Validate form before submission
+            if (!validateForm()) {
+                return;
+            }
+
             const name = document.getElementById('playerName').value.trim();
             const phone = document.getElementById('contactNumber').value.trim();
             const notes = document.getElementById('notes').value.trim();
-
-            // Validation
-            if (!name || !phone) {
-                showError('Please fill in all required fields');
-                return;
-            }
-
-            if (phone.length < 10) {
-                showError('Please enter a valid phone number');
-                return;
-            }
-
-            if (!selectedDate || !selectedTimeSlotData) {
-                showError('Please select a date and time');
-                return;
-            }
 
             // Show loading state
             const button = document.getElementById('confirmButton');
@@ -761,12 +868,20 @@
                 };
 
                 const response = await createBooking(bookingData);
+                console.log(response, 'response')
 
-                // Show success modal with booking details
-                showSuccessModal(response);
+                if (response.success && response.booking_id) {
+                    const bookingId = response.booking_id;
+                    window.location.href = `/confirmation/${bookingId}/`;
+                } else if (response.error === 'Authentication required' && response.redirect_to) {
+                    window.location.href = response.redirect_to;
+                }
+                else {
+                    showFormErrors([response.error || "Booking failed. Please try again."]);
+                }
 
             } catch (error) {
-                showError(error.message || 'Failed to create booking. Please try again.');
+                showFormErrors([error.message || 'Failed to create booking. Please try again.']);
             } finally {
                 // Reset button state
                 button.disabled = false;
@@ -775,75 +890,12 @@
             }
         });
 
-        // Modal functions
-        function showSuccessModal(bookingResponse) {
-            const modal = document.getElementById('successModal');
-            const detailsDiv = document.getElementById('bookingConfirmationDetails');
-
-            // Populate booking details
-            detailsDiv.innerHTML = `
-                <div class="space-y-2">
-                    <div class="flex justify-between">
-                        <span class="font-medium">Booking ID:</span>
-                        <span class="font-bold text-futsal-orange">${bookingResponse.booking_id}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="font-medium">Player:</span>
-                        <span>${bookingResponse.booking_details.player_name}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="font-medium">Date:</span>
-                        <span>${bookingResponse.booking_details.date}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="font-medium">Time:</span>
-                        <span>${bookingResponse.booking_details.time}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="font-medium">Court:</span>
-                        <span>${bookingResponse.booking_details.court}</span>
-                    </div>
-                    <div class="flex justify-between border-t pt-2">
-                        <span class="font-bold">Total Amount:</span>
-                        <span class="font-bold text-futsal-orange">NPR ${bookingResponse.booking_details.total_amount.toLocaleString()}</span>
-                    </div>
-                </div>
-            `;
-
-            // Store booking ID for viewing details
-            window.currentBookingId = bookingResponse.booking_id;
-
-            modal.classList.remove('hidden');
-        }
-
-        function showError(message) {
-            const modal = document.getElementById('errorModal');
-            const messageEl = document.getElementById('errorMessage');
-            messageEl.textContent = message;
-            modal.classList.remove('hidden');
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            // Reset form and selections
-            resetForm();
-        }
-
-        function closeErrorModal() {
-            document.getElementById('errorModal').classList.add('hidden');
-        }
-
-        function viewBookingDetails() {
-            if (window.currentBookingId) {
-                window.location.href = `/confirmation/${window.currentBookingId}/`;
-            }
-        }
-
         function resetForm() {
             selectedDate = null;
             selectedTimeSlot = null;
             selectedTimeSlotData = null;
             document.getElementById('bookingForm').reset();
+            clearAllErrors();
             updateCalendar();
             document.getElementById('timeSection').classList.add('hidden');
             updateSummary();
@@ -852,12 +904,26 @@
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function () {
             initCalendar();
+            setupRealTimeValidation();
 
             // Check if we have CSRF token
             if (!getCSRFToken()) {
                 console.warn('CSRF token not found. Make sure to include {% csrf_token %} in your Django template.');
             }
         });
+
+        // Auto-hide messages after 5 seconds
+        document.querySelectorAll('.message-alert').forEach(function (alert) {
+            setTimeout(function () {
+                alert.style.transition = 'all 0.3s ease';
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-10px)';
+                setTimeout(function () {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        });
+
     </script>
 </body>
 

@@ -8,13 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
-    {% load static %}
-
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -34,11 +31,6 @@
             }
         }
     </script>
-    <style>
-        .message-alert {
-            animation: slideDown 0.3s ease-out;
-        }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -51,58 +43,7 @@
 
 
 
-    <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden mt-12">
-        <!-- Django Messages -->
 
-
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 z-10"></div>
-        <img src="{% static './futsalimages.jpg' %}" alt="Futsal Court"
-            class="absolute inset-0 w-full h-full object-cover">
-
-        <div class="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-            <!-- Top badge -->
-            <p
-                class="text-sm text-futsal-orange uppercase tracking-widest mb-2 animate__animated animate__fadeInDown animate__delay-1s">
-                Since 2020 • Jhapa, Nepal
-            </p>
-
-            <!-- Heading with fade & bounce -->
-            <h1
-                class="text-5xl md:text-7xl font-bold mb-6 leading-tight animate__animated animate__fadeInUp animate__delay-1s">
-                Experience <span class="text-futsal-orange">Kankai's</span> Ultimate Futsal Arena
-            </h1>
-
-            <!-- Subtitle with delay -->
-            <p
-                class="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-2s">
-                कनकाईको पहिलो अत्याधुनिक फुटसल — प्रो खेलाडी जस्तै खेल्नुहोस्, जुनसुकै समयमा, जुनसुकै दिन!
-            </p>
-
-            <!-- Buttons with staggered animation -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{% url 'booking_page' %}"
-                    class="bg-futsal-orange text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-600 transition-all transform hover:scale-105 animate__animated animate__zoomIn animate__delay-3s">
-                    Book a Match
-                </a>
-                <button
-                    class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-futsal-green transition-all animate__animated animate__zoomIn animate__delay-3s">
-                    Explore Facilities
-                </button>
-            </div>
-        </div>
-
-
-
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-            <div class="animate-bounce">
-                <i class="fas fa-chevron-down text-white text-2xl"></i>
-            </div>
-        </div>
-    </section>
 
     <!-- Welcome Section -->
     <section class="py-24 gradient-bg section-pattern relative overflow-hidden">
@@ -412,303 +353,12 @@
     </section>
 
 
-    <!-- Latest News Section -->
-    <section id="news" class="py-20 bg-futsal-gray">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-futsal-green mb-6">
-                    Latest News & Events
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Stay updated with the latest happenings, tournaments, and exciting events at FutsalPro.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- News Card 1 -->
-                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    <img src="{% static './winner.jpg' %}" alt="Tournament" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center text-sm text-gray-500 mb-3">
-                            <i class="fas fa-calendar mr-2"></i>
-                            <span>December 15, 2024</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-futsal-green mb-3">Annual Championship Tournament</h3>
-                        <p class="text-gray-600 mb-4">Join our biggest tournament of the year with prizes worth $10,000.
-                            Registration now open for teams of all skill levels.</p>
-                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
-                    </div>
-                </article>
-
-                <!-- News Card 2 -->
-                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    <img src="{% static './opening.jpg' %}" alt="New Court" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center text-sm text-gray-500 mb-3">
-                            <i class="fas fa-calendar mr-2"></i>
-                            <span>December 10, 2024</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-futsal-green mb-3">New Premium Court Opening</h3>
-                        <p class="text-gray-600 mb-4">We're excited to announce the opening of our 5th premium indoor
-                            court with enhanced features and technology.</p>
-                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
-                    </div>
-                </article>
-
-                <!-- News Card 3 -->
-                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                    <img src="{% static './trainning.jpg' %}" alt="Training" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center text-sm text-gray-500 mb-3">
-                            <i class="fas fa-calendar mr-2"></i>
-                            <span>December 5, 2024</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-futsal-green mb-3">Youth Training Program Launch</h3>
-                        <p class="text-gray-600 mb-4">Introducing our comprehensive youth training program designed to
-                            develop the next generation of futsal stars.</p>
-                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Gallery Section -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-20">
-                <div
-                    class="inline-flex items-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mb-4 border border-white/20">
-                    <div class="w-2 h-2 bg-futsal-orange rounded-full mr-2 animate-pulse"></div>
-                    <span class="text-futsal-green font-semibold text-sm uppercase tracking-widest">
-                        Visual Showcase
-                    </span>
-                </div>
-
-                <!-- Main Heading -->
-                <h2 class="text-4xl md:text-5xl font-extrabold text-futsal-green mb-4 leading-tight">
-                    Explore Our <span class="text-futsal-orange">Gallery</span>
-                </h2>
-
-                <!-- Decorative Line -->
-                <div class="flex items-center justify-center mb-6">
-                    <div class="h-1 w-12 bg-gradient-to-r from-futsal-green to-futsal-orange rounded-full"></div>
-                    <div class="w-3 h-3 bg-futsal-orange rounded-full mx-3"></div>
-                    <div class="h-1 w-12 bg-gradient-to-l from-futsal-green to-futsal-orange rounded-full"></div>
-                </div>
-
-                <!-- Description -->
-                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                    Take a visual tour through our modern, FIFA-grade futsal facility. Whether you're training,
-                    competing, or
-                    watching – see why <span class="font-semibold text-futsal-green">Kankai Futsal</span> is Jhapa's
-                    top choice.
-                </p>
-            </div>
 
 
-            <!-- Gallery Carousel -->
-            <div class="relative max-w-6xl mx-auto">
-                <div id="gallery-carousel" class="overflow-hidden rounded-xl">
-                    <div class="flex transition-transform duration-500 ease-in-out" id="gallery-track">
-                        <div class="w-full flex-shrink-0">
-                            <img src="{% static './cafe.jpeg' %}" alt="Gallery Image 1"
-                                class="w-full h-96 object-cover">
-                        </div>
-                        <div class="w-full flex-shrink-0">
-                            <img src="{% static './futsalimages.jpg' %}" alt="Gallery Image 2"
-                                class="w-full h-96 object-cover">
-                        </div>
-                        <div class="w-full flex-shrink-0">
-                            <img src="{% static './lockerroom.jpeg' %}" alt="Gallery Image 3"
-                                class="w-full h-96 object-cover">
-                        </div>
-                        <div class="w-full flex-shrink-0">
-                            <img src="{% static './winner.jpg' %}" alt="Gallery Image 4"
-                                class="w-full h-96 object-cover">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Carousel Controls -->
-                <button id="prev-btn"
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-futsal-green p-3 rounded-full shadow-lg transition-all">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button id="next-btn"
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-futsal-green p-3 rounded-full shadow-lg transition-all">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-
-                <!-- Carousel Indicators -->
-                <div class="flex justify-center mt-6 space-x-2" id="gallery-indicators">
-                    <button class="w-3 h-3 rounded-full bg-futsal-orange" data-slide="0"></button>
-                    <button class="w-3 h-3 rounded-full bg-gray-300" data-slide="1"></button>
-                    <button class="w-3 h-3 rounded-full bg-gray-300" data-slide="2"></button>
-                    <button class="w-3 h-3 rounded-full bg-gray-300" data-slide="3"></button>
-                </div>
-            </div>
-
-            <!-- Thumbnail Gallery -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-                <img src="{% static './opening.jpg' %}" alt="Thumbnail 1"
-                    class="w-full h-32 object-cover rounded-lg hover:opacity-75 transition-opacity cursor-pointer">
-                <img src="{% static './sports.jpeg' %}" alt="Thumbnail 2"
-                    class="w-full h-32 object-cover rounded-lg hover:opacity-75 transition-opacity cursor-pointer">
-                <img src="{% static './trainning.jpg' %}" alt="Thumbnail 3"
-                    class="w-full h-32 object-cover rounded-lg hover:opacity-75 transition-opacity cursor-pointer">
-                <img src="{% static './winner.jpg' %}" alt="Thumbnail 4"
-                    class="w-full h-32 object-cover rounded-lg hover:opacity-75 transition-opacity cursor-pointer">
-            </div>
-        </div>
-    </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-futsal-gray">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-20">
-                <!-- Animated Subheading Badge -->
-                <div
-                    class="inline-flex items-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mb-4 border border-white/20">
-                    <div class="w-2 h-2 bg-futsal-orange rounded-full mr-2 animate-pulse"></div>
-                    <span class="text-futsal-green font-semibold text-sm uppercase tracking-widest">
-                        Contact Us
-                    </span>
-                </div>
 
-                <!-- Main Heading -->
-                <h2 class="text-4xl md:text-5xl font-extrabold text-futsal-green mb-4 leading-tight">
-                    Let’s <span class="text-futsal-orange">Get In Touch</span>
-                </h2>
-
-                <!-- Decorative Divider -->
-                <div class="flex items-center justify-center mb-6">
-                    <div class="h-1 w-12 bg-gradient-to-r from-futsal-green to-futsal-orange rounded-full"></div>
-                    <div class="w-3 h-3 bg-futsal-orange rounded-full mx-3 animate-bounce"></div>
-                    <div class="h-1 w-12 bg-gradient-to-l from-futsal-green to-futsal-orange rounded-full"></div>
-                </div>
-
-                <!-- Description Text -->
-                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                    Ready to book your court or have questions? We’re here to help you start your <span
-                        class="font-semibold text-futsal-green">futsal journey</span> with confidence and ease.
-                </p>
-            </div>
-
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                <!-- Contact Form -->
-                <div class="bg-white rounded-xl shadow-lg p-8">
-                    <h3 class="text-2xl font-semibold text-futsal-green mb-6">Send us a Message</h3>
-                    <form id="contact-form" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First
-                                    Name</label>
-                                <input type="text" id="firstName" name="firstName" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                            </div>
-                            <div>
-                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last
-                                    Name</label>
-                                <input type="text" id="lastName" name="lastName" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            <input type="email" id="email" name="email" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                            <input type="tel" id="phone" name="phone"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                        </div>
-                        <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-                            <select id="subject" name="subject" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                                <option value="">Select a subject</option>
-                                <option value="booking">Court Booking</option>
-                                <option value="facilities">Facilities Inquiry</option>
-                                <option value="tournament">Tournament Information</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent"></textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-futsal-orange text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Contact Information -->
-                <div class="space-y-8">
-                    <div class="bg-white rounded-xl shadow-lg p-8">
-                        <h3 class="text-2xl font-semibold text-futsal-green mb-6">Contact Information</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-futsal-orange text-white p-3 rounded-lg">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Address</h4>
-                                    <p class="text-gray-600">Kankai Municipalicty-3<br>Kankai Futsal(shreshacademy)</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-futsal-orange text-white p-3 rounded-lg">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Phone</h4>
-                                    <p class="text-gray-600">+1 (555) 123-4567</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-futsal-orange text-white p-3 rounded-lg">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Email</h4>
-                                    <p class="text-gray-600">shreeshacademy@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start space-x-4">
-                                <div class="bg-futsal-orange text-white p-3 rounded-lg">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900">Operating Hours</h4>
-                                    <p class="text-gray-600">
-                                        Sunday- Saturday: 6:00 AM - 10:00 PM<br>
-                                        24 Hours Services
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Map Placeholder -->
-                    <div class="bg-white rounded-xl shadow-lg p-8">
-                        <h3 class="text-2xl font-semibold text-futsal-green mb-6">Find Us</h3>
-                        <div class="rounded-xl overflow-hidden shadow-lg">
-                            <iframe class="w-full h-64 sm:h-80" loading="lazy" style="border:0" allowfullscreen
-                                referrerpolicy="no-referrer-when-downgrade"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.5160637645557!2d87.73987437522428!3d26.49869227686648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef6b0e2a8ac313%3A0xc362ba6619c12f6a!2sSurunga%2C%20Kankai%20Municipality%2C%20Jhapa!5e0!3m2!1sen!2snp!4v1682959999999!5m2!1sen!2snp">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     {% include 'includes/footer.html' %}

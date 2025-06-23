@@ -13,6 +13,6 @@ urlpatterns = [
     
     # Booking management
     path('confirmation/<uuid:booking_id>/', views.booking_confirmation, name='booking_confirmation'),
-    path('my-bookings/', views.my_bookings, name='my_bookings'),
+    path('my-bookings/', views.my_bookings, name='dashboard'),
     path('cancel/<uuid:booking_id>/', views.cancel_booking, name='cancel_booking'),
 ]

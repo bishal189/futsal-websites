@@ -6,6 +6,8 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length=150, blank=True, null=True, unique=False)
     full_name = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
+    reward_points = models.PositiveIntegerField(default=0)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username'] 

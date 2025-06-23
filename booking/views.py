@@ -9,6 +9,10 @@ from datetime import datetime, date, timedelta
 import json
 from .models import Court, TimeSlot, Booking, BookingHistory
 from .forms import BookingForm
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Count
+
+
 
 def booking_page(request):
     """Main booking page view"""
@@ -49,6 +53,7 @@ def get_available_slots(request):
         
         # Get booked slots for this date and court
         booked_slots = Booking.get_booked_slots(booking_date, court)
+
         
         # Prepare response data
         slots_data = []
@@ -56,10 +61,11 @@ def get_available_slots(request):
             slots_data.append({
                 'id': slot.id,
                 'start_time': slot.start_time.strftime('%H:%M'),
+                'end_time': slot.end_time.strftime('%H:%M'),
                 'is_booked': slot.start_time in booked_slots,
-                'display_time': slot.start_time.strftime('%H:%M')  # Optional display label
-            })
-        
+               'display_time': slot.start_time.strftime('%I:%M %p').lstrip('0') 
+
+            })        
         return JsonResponse({
             'success': True,
             'slots': slots_data,
@@ -84,36 +90,48 @@ def create_booking(request):
         player_name = data.get('player_name')
         contact_number = data.get('contact_number')
         notes = data.get('notes', '')
+        booking_page_url = f"/booking/?court_id={court_id}&date={booking_date}&time_slot_id={time_slot_id}"
+
         
-        # Validate required fields
         if not all([booking_date, time_slot_id, player_name, contact_number]):
             return JsonResponse({'error': 'All required fields must be provided'}, status=400)
-        
-        # Parse date
+
+
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'error': 'Authentication required',
+                'redirect_to': f"/login/?next={booking_page_url}"
+            }, status=401)
+        # Parse and validate date
         try:
             booking_date = datetime.strptime(booking_date, '%Y-%m-%d').date()
         except ValueError:
             return JsonResponse({'error': 'Invalid date format'}, status=400)
         
-        # Check if date is not in the past
         if booking_date < date.today():
             return JsonResponse({'error': 'Cannot book for past dates'}, status=400)
-        
-        # Get court and time slot
+
         court = get_object_or_404(Court, id=court_id, is_active=True)
         time_slot = get_object_or_404(TimeSlot, id=time_slot_id, is_active=True)
-        
-        # Check if slot is already booked
+
         existing_booking = Booking.objects.filter(
             court=court,
             booking_date=booking_date,
             time_slot=time_slot,
             status__in=['pending', 'confirmed']
         ).first()
-        
         if existing_booking:
             return JsonResponse({'error': 'This time slot is already booked'}, status=400)
-        
+
+        # Determine if user should get this hour for free
+        user = request.user if request.user.is_authenticated else None
+        is_free = False
+
+        if user:
+            current_points = user.reward_points
+            if current_points > 0 and current_points % 11 == 0:
+                is_free = True
+
         # Create booking
         booking = Booking.objects.create(
             court=court,
@@ -121,23 +139,30 @@ def create_booking(request):
             time_slot=time_slot,
             player_name=player_name,
             contact_number=contact_number,
-            user=request.user if request.user.is_authenticated else None,
+            user=user,
             notes=notes,
-            status='confirmed'  # Auto-confirm for now
+            status='confirmed',
+            total_amount=0 if is_free else None  # Will auto-calculate in model if not free
         )
-        
-        # Create history entry
+
+        # Create booking history
         BookingHistory.objects.create(
             booking=booking,
             previous_status='',
             new_status='confirmed',
-            changed_by=request.user if request.user.is_authenticated else None,
+            changed_by=user,
             change_reason='Initial booking creation'
         )
-        
+
+        # Update reward points
+        if user:
+            user.reward_points += 1
+            user.save()
+
         return JsonResponse({
             'success': True,
             'booking_id': str(booking.booking_id),
+            'free_hour_used': is_free,
             'message': 'Booking created successfully!',
             'booking_details': {
                 'player_name': booking.player_name,
@@ -147,33 +172,52 @@ def create_booking(request):
                 'total_amount': float(booking.total_amount)
             }
         })
-        
+
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+
 def booking_confirmation(request, booking_id):
     """Booking confirmation page"""
     booking = get_object_or_404(Booking, booking_id=booking_id)
+    print(booking,'booking')
     
     context = {
         'booking': booking,
     }
-    return render(request, 'booking/confirmation.html', context)
+    return render(request, 'booking/confirm.html', context)
 
+@login_required(login_url='login')
 def my_bookings(request):
-    """User's booking history"""
-    if request.user.is_authenticated:
-        bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
-    else:
-        # For anonymous users, you might want to use session or phone number
-        bookings = []
-    
+    bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
+
+    # Aggregations
+    totals = bookings.aggregate(
+        total_bookings=Count('id'),
+        total_hours=Sum('duration_hours'),
+        total_cost=Sum('total_amount')
+    )
+
+    completed_bookings = bookings.filter(status='confirmed')
+    cancelled_bookings = bookings.filter(status='cancelled')
+    reward_points = request.user.reward_points or 0
+
     context = {
+
         'bookings': bookings,
-    }
-    return render(request, 'booking/my_bookings.html', context)
+        'total_bookings': totals['total_bookings'] or 0,
+        'total_hours': totals['total_hours'] or 0,
+        'total_cost': totals['total_cost'] or 0.00,
+        'reward_points': reward_points,
+        'free_games_earned': reward_points// 11,
+        "completed_bookings":completed_bookings,
+        'cancelled_bookings': cancelled_bookings,
+}
+
+    return render(request, 'home/dashboard.html', context)
+
 
 @require_http_methods(["POST"])
 def cancel_booking(request, booking_id):

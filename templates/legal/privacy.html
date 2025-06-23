@@ -1,10 +1,16 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - FutsalPro</title>
+    <title>Kankai Futsal-privacy & policy | Premium Futsal Courts in Jhapa, Nepal</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -26,6 +32,8 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #2D5016 0%, #4A7C59 100%);
@@ -35,31 +43,20 @@
 
 <body class="bg-futsal-gray font-sans">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <nav class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="/placeholder.svg?height=40&width=40&text=Logo" alt="FutsalPro Logo" class="h-10 w-10">
-                </a>
+    {% include 'includes/header.html' %}
 
-                <div class="flex items-center space-x-6">
-                    <a href="index.html" class="text-gray-600 hover:text-futsal-orange transition-colors">Home</a>
-                    <a href="booking.html" class="text-gray-600 hover:text-futsal-orange transition-colors">Book
-                        Court</a>
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8" style="margin-top: 5.5rem;">
         <!-- Page Header -->
         <div class="gradient-bg rounded-2xl p-8 mb-8 text-white relative overflow-hidden">
             <div class="absolute inset-0 bg-black opacity-10"></div>
             <div class="relative z-10 text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Privacy Policy</h1>
-                <p class="text-xl text-white text-opacity-90">Your privacy is important to us</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Privacy Policy / गोपनीयता नीति</h1>
+                <p class="text-xl text-white text-opacity-90">Your privacy is important to us / तपाईंको गोपनीयता हाम्रो
+                    लागि महत्वपूर्ण छ</p>
             </div>
+
         </div>
 
         <!-- Privacy Policy Content -->
@@ -69,7 +66,7 @@
                     <div class="flex items-center space-x-3">
                         <i class="fas fa-clock text-green-600"></i>
                         <p class="text-sm text-gray-700 mb-0">
-                            <strong class="text-green-700">Last Updated:</strong> December 19, 2024
+                            <strong class="text-green-700">Last Updated:</strong> December 23, 2025
                         </p>
                     </div>
                 </div>
@@ -77,236 +74,390 @@
 
                 <!-- Introduction -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">1. Introduction</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">1. Introduction / परिचय</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
-                        Welcome to FutsalPro ("we," "our," or "us"). This Privacy Policy explains how we collect, use,
+                        Welcome to Kankai Futsal (Shreesha Academy) ("we," "our," or "us"). This Privacy Policy explains
+                        how we collect, use,
                         disclose, and safeguard your information when you visit our website and use our futsal court
                         booking services. Please read this privacy policy carefully. If you do not agree with the terms
                         of this privacy policy, please do not access the site.
                     </p>
-                    <p class="text-gray-700 leading-relaxed">
+
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        कन्काई फुटसल (श्रीषा एकेडेमी)
+                        मा स्वागत छ ("हामी", "हाम्रो", वा "हामीलाई" भनेर उल्लेख
+                        गरिएको)। यो गोपनीयता नीतिले हामीले तपाईंको जानकारी कसरी सङ्कलन, प्रयोग, खुलासा र सुरक्षा गर्छौं
+                        भन्ने कुरा स्पष्ट पार्छ जब तपाईं हाम्रो वेबसाइट भ्रमण गर्नुहुन्छ र हाम्रो फुटसल कोर्ट बुकिङ सेवा
+                        प्रयोग गर्नुहुन्छ। कृपया यो गोपनीयता नीति ध्यानपूर्वक पढ्नुहोस्। यदि तपाईं यस नीतिको सर्तहरूमा
+                        सहमत हुनुहुन्न भने कृपया वेबसाइट प्रयोग नगर्नुहोस्।
+                    </p>
+
+                    <p class="text-gray-700 leading-relaxed mb-4">
                         We reserve the right to make changes to this Privacy Policy at any time and for any reason. We
                         will alert you about any changes by updating the "Last Updated" date of this Privacy Policy.
                     </p>
+
+                    <p class="text-gray-700 leading-relaxed">
+                        हामी यो गोपनीयता नीतिमा कुनै पनि बेला र कुनै पनि कारणका लागि परिवर्तन गर्न सक्ने अधिकार सुरक्षित
+                        राख्छौं। कुनै परिवर्तन भएमा हामी "अन्तिम पटक अद्यावधिक" मिति परिवर्तन गरेर तपाईंलाई जानकारी
+                        दिनेछौं।
+                    </p>
                 </section>
+
+
 
                 <!-- Information We Collect -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">2. Information We Collect</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">2. Information We Collect / हामीले सङ्कलन
+                        गर्ने जानकारी</h2>
 
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">2.1 Personal Information</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">2.1 Personal Information / व्यक्तिगत जानकारी
+                    </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We may collect personal information that you voluntarily provide to us when you:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        तपाईंले हामीलाई स्वेच्छाले उपलब्ध गराउनु भएका व्यक्तिगत जानकारी हामीले सङ्कलन गर्न सक्छौं,
+                        जस्तै:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li>Register for an account</li>
-                        <li>Make a booking or reservation</li>
-                        <li>Subscribe to our newsletter</li>
-                        <li>Contact us with inquiries</li>
-                        <li>Participate in surveys or promotions</li>
+                        <li>Register for an account / खाता दर्ता गर्नुहुन्छ</li>
+                        <li>Make a booking or reservation / बुकिङ वा आरक्षण गर्नुहुन्छ</li>
+                        <li>Subscribe to our newsletter / हाम्रो समाचार पत्र सदस्यता लिनुहुन्छ</li>
+                        <li>Contact us with inquiries / कुनै जिज्ञासा लिएर हामीलाई सम्पर्क गर्नुहुन्छ</li>
+                        <li>Participate in surveys or promotions / सर्वेक्षण वा प्रचार कार्यक्रममा सहभागी हुनुहुन्छ</li>
                     </ul>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         This information may include:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        यसमा समावेश हुन सक्ने जानकारीहरू:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                        <li>Name and contact information (email, phone number, address)</li>
-                        <li>Date of birth</li>
-                        <li>Payment information (processed securely through third-party providers)</li>
-                        <li>Booking history and preferences</li>
-                        <li>Profile picture and other profile information</li>
+                        <li>Name and contact information (email, phone number, address) / नाम र सम्पर्क विवरण (इमेल, फोन
+                            नम्बर, ठेगाना)</li>
+                        <li>Date of birth / जन्म मिति</li>
+                        <li>Payment information (processed securely through third-party providers) / भुक्तानी विवरण
+                            (तेस्रो पक्ष सेवा प्रदायकमार्फत सुरक्षित रूपमा प्रक्रियामा गरिने)</li>
+                        <li>Booking history and preferences / बुकिङ इतिहास र प्राथमिकताहरू</li>
+                        <li>Profile picture and other profile information / प्रोफाइल फोटो र अन्य प्रोफाइल जानकारी</li>
                     </ul>
 
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">2.2 Automatically Collected Information</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">2.2 Automatically Collected Information / स्वत:
+                        सङ्कलित जानकारी</h3>
                     <p class="text-gray-700 leading-relaxed mb-4">
                         When you visit our website, we may automatically collect certain information about your device
                         and usage patterns, including:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        जब तपाईं हाम्रो वेबसाइट भ्रमण गर्नुहुन्छ, हामीले तपाईंको उपकरण र प्रयोग सम्बन्धी केही जानकारी
+                        स्वत: सङ्कलन गर्न सक्छौं, जसमा निम्न समावेश छन्:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li>IP address and location data</li>
-                        <li>Browser type and version</li>
-                        <li>Operating system</li>
-                        <li>Pages visited and time spent on pages</li>
-                        <li>Referring website</li>
-                        <li>Device information</li>
+                        <li>IP address and location data / आईपी ठेगाना र स्थान विवरण</li>
+                        <li>Browser type and version / ब्राउजरको प्रकार र संस्करण</li>
+                        <li>Operating system / अपरेटिङ सिस्टम</li>
+                        <li>Pages visited and time spent on pages / हेरेका पृष्ठहरू र पृष्ठहरूमा बिताएको समय</li>
+                        <li>Referring website / रेफर गर्ने वेबसाइट</li>
+                        <li>Device information / उपकरणसम्बन्धी जानकारी</li>
                     </ul>
                 </section>
 
+
                 <!-- How We Use Your Information -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">3. How We Use Your Information</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">3. How We Use Your Information / तपाईंको
+                        जानकारी हामी कसरी प्रयोग गर्छौं</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We use the information we collect for various purposes, including:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        हामीले सङ्कलन गरेको जानकारी विभिन्न उद्देश्यका लागि प्रयोग गर्छौं, जसमा निम्न समावेश छन्:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li>Processing and managing your bookings and reservations</li>
-                        <li>Creating and maintaining your user account</li>
-                        <li>Communicating with you about your bookings and account</li>
-                        <li>Sending promotional materials and newsletters (with your consent)</li>
-                        <li>Improving our website and services</li>
-                        <li>Analyzing usage patterns and trends</li>
-                        <li>Preventing fraud and ensuring security</li>
-                        <li>Complying with legal obligations</li>
-                        <li>Managing our loyalty program and rewards</li>
+                        <li>Processing and managing your bookings and reservations / तपाईंका बुकिङ र आरक्षणहरू प्रक्रिया
+                            र व्यवस्थापन गर्नु</li>
+                        <li>Creating and maintaining your user account / तपाईंको प्रयोगकर्ता खाता सिर्जना र व्यवस्थापन
+                            गर्नु</li>
+                        <li>Communicating with you about your bookings and account / तपाईंका बुकिङ र खातासम्बन्धी
+                            जानकारीका लागि सम्पर्क गर्नु</li>
+                        <li>Sending promotional materials and newsletters (with your consent) / प्रचार सामग्री र समाचार
+                            पत्र पठाउनु (तपाईंको स्वीकृति अनुसार)</li>
+                        <li>Improving our website and services / हाम्रो वेबसाइट र सेवाहरू सुधार गर्नु</li>
+                        <li>Analyzing usage patterns and trends / प्रयोगको ढाँचा र प्रवृत्तिको विश्लेषण गर्नु</li>
+                        <li>Preventing fraud and ensuring security / धोखाधडी रोक्नु र सुरक्षाको सुनिश्चितता गर्नु</li>
+                        <li>Complying with legal obligations / कानुनी दायित्वहरूको पालना गर्नु</li>
+                        <li>Managing our loyalty program and rewards / हाम्रो लोयल्टी कार्यक्रम र पुरस्कार व्यवस्थापन
+                            गर्नु</li>
                     </ul>
                 </section>
 
                 <!-- Information Sharing -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">4. Information Sharing and Disclosure</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">4. Information Sharing and Disclosure /
+                        जानकारी साझेदारी र खुलासा</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We do not sell, trade, or otherwise transfer your personal information to third parties without
                         your consent, except in the following circumstances:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        हामी तपाईंको व्यक्तिगत जानकारी तेस्रो पक्षलाई तपाईंको स्वीकृति बिना बेच्दैनौं, व्यापार गर्दैनौं
+                        वा अन्यथा स्थानान्तरण गर्दैनौं, यस्ता विशेष परिस्थितिहरू बाहेक:
+                    </p>
 
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.1 Service Providers</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.1 Service Providers / सेवा प्रदायकहरू</h3>
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We may share your information with trusted third-party service providers who assist us in
                         operating our website and providing our services, including:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        हामीले हाम्रो वेबसाइट सञ्चालन गर्न र सेवाहरू प्रदान गर्न सहायता गर्ने भरपर्दो तेस्रो पक्ष सेवा
+                        प्रदायकहरूसँग तपाईंको जानकारी साझेदारी गर्न सक्छौं, जसमा समावेश छन्:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                        <li>Payment processors</li>
-                        <li>Email service providers</li>
-                        <li>Analytics providers</li>
-                        <li>Customer support platforms</li>
-                        <li>Cloud storage providers</li>
+                        <li>Payment processors / भुक्तानी प्रक्रिया गर्ने सेवा प्रदायकहरू</li>
+                        <li>Email service providers / इमेल सेवा प्रदायकहरू</li>
+                        <li>Analytics providers / विश्लेषण सेवा प्रदायकहरू</li>
+                        <li>Customer support platforms / ग्राहक सहायता प्लेटफर्महरू</li>
+                        <li>Cloud storage providers / क्लाउड भण्डारण सेवा प्रदायकहरू</li>
                     </ul>
 
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.2 Legal Requirements</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.2 Legal Requirements / कानुनी आवश्यकताहरू
+                    </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We may disclose your information if required to do so by law or in response to valid requests by
                         public authorities.
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        यदि कानुन अनुसार वा सार्वजनिक निकायको वैध अनुरोध अनुसार आवश्यक परेमा हामी तपाईंको जानकारी खुलासा
+                        गर्न सक्छौं।
+                    </p>
 
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.3 Business Transfers</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">4.3 Business Transfers / व्यवसाय हस्तान्तरण
+                    </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">
                         In the event of a merger, acquisition, or sale of assets, your information may be transferred as
                         part of the transaction.
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        यदि एकीकरण, अधिग्रहण वा सम्पत्तिको बिक्री हुने अवस्था आयो भने, तपाईंको जानकारी त्यस कारोबारको
+                        भागका रूपमा स्थानान्तरण हुन सक्छ।
+                    </p>
                 </section>
+
 
                 <!-- Data Security -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">5. Data Security</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">5. Data Security / डेटा सुरक्षा</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We implement appropriate technical and organizational security measures to protect your personal
                         information against unauthorized access, alteration, disclosure, or destruction. These measures
                         include:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        हामी तपाईंको व्यक्तिगत जानकारीलाई अनधिकृत पहुँच, परिवर्तन, खुलासा वा विनाशबाट जोगाउन उपयुक्त
+                        प्राविधिक र संस्थागत सुरक्षा उपायहरू लागू गर्छौं। यी उपायहरूमा समावेश छन्:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li>SSL encryption for data transmission</li>
-                        <li>Secure servers and databases</li>
-                        <li>Regular security audits and updates</li>
-                        <li>Access controls and authentication</li>
-                        <li>Employee training on data protection</li>
+                        <li>SSL encryption for data transmission / डेटा पठाउने क्रममा SSL इन्क्रिप्सन प्रयोग</li>
+                        <li>Secure servers and databases / सुरक्षित सर्भर र डाटाबेसहरू</li>
+                        <li>Regular security audits and updates / नियमित सुरक्षा परीक्षण र अद्यावधिकहरू</li>
+                        <li>Access controls and authentication / पहुँच नियन्त्रण र प्रमाणीकरण प्रणाली</li>
+                        <li>Employee training on data protection / कर्मचारीहरूलाई डेटा सुरक्षा सम्बन्धी तालिम</li>
                     </ul>
+
                     <p class="text-gray-700 leading-relaxed">
                         However, no method of transmission over the internet or electronic storage is 100% secure, and
                         we cannot guarantee absolute security.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        तर इन्टरनेट वा विद्युतीय भण्डारणमार्फत जानकारी आदान-प्रदानको कुनै पनि विधि पूर्ण रूपमा सुरक्षित
+                        हुँदैन, त्यसैले हामी पूर्ण सुरक्षा सुनिश्चित गर्न सक्दैनौं।
+                    </p>
                 </section>
 
-                <!-- Your Rights -->
+                <!-- Your Rights and Choices -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">6. Your Rights and Choices</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">6. Your Rights and Choices / तपाईंका अधिकार र
+                        विकल्पहरू</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         Depending on your location, you may have certain rights regarding your personal information:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        तपाईंको स्थानको आधारमा, तपाईंलाई तपाईंको व्यक्तिगत जानकारी सम्बन्धी केही अधिकारहरू हुन सक्छन्:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li><strong>Access:</strong> Request access to your personal information</li>
-                        <li><strong>Correction:</strong> Request correction of inaccurate information</li>
-                        <li><strong>Deletion:</strong> Request deletion of your personal information</li>
-                        <li><strong>Portability:</strong> Request a copy of your data in a portable format</li>
-                        <li><strong>Objection:</strong> Object to certain processing of your information</li>
-                        <li><strong>Restriction:</strong> Request restriction of processing</li>
+                        <li><strong>Access:</strong> Request access to your personal information / तपाईंको व्यक्तिगत
+                            जानकारी पहुँचको अनुरोध गर्नुहोस्</li>
+                        <li><strong>Correction:</strong> Request correction of inaccurate information / गलत जानकारी
+                            सुधारको अनुरोध गर्नुहोस्</li>
+                        <li><strong>Deletion:</strong> Request deletion of your personal information / तपाईंको व्यक्तिगत
+                            जानकारी मेटाउन अनुरोध गर्नुहोस्</li>
+                        <li><strong>Portability:</strong> Request a copy of your data in a portable format / तपाईंको
+                            डेटा पोर्टेबल स्वरूपमा प्राप्त गर्न अनुरोध गर्नुहोस्</li>
+                        <li><strong>Objection:</strong> Object to certain processing of your information / तपाईंको
+                            जानकारीको केही प्रक्रिया प्रति आपत्ति जनाउनुहोस्</li>
+                        <li><strong>Restriction:</strong> Request restriction of processing / जानकारी प्रक्रियामा
+                            प्रतिबन्धको अनुरोध गर्नुहोस्</li>
                     </ul>
+
                     <p class="text-gray-700 leading-relaxed">
                         To exercise these rights, please contact us using the information provided in the "Contact Us"
                         section below.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        यी अधिकारहरू प्रयोग गर्न, कृपया तल उल्लेखित "सम्पर्क गर्नुहोस्" खण्डमा दिइएको विवरण प्रयोग गरी
+                        हामीलाई सम्पर्क गर्नुहोस्।
+                    </p>
                 </section>
+
 
                 <!-- Cookies and Tracking -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">7. Cookies and Tracking Technologies</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">7. Cookies and Tracking Technologies / कुकीज र
+                        ट्र्याकिङ प्रविधिहरू</h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         We use cookies and similar tracking technologies to enhance your experience on our website.
                         Cookies are small data files stored on your device that help us:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        हामी हाम्रो वेबसाइटमा तपाईंको अनुभव सुधार गर्न कुकीज र यस्तै प्रकारका ट्र्याकिङ प्रविधिहरू
+                        प्रयोग गर्छौं। कुकीज साना डेटा फाइलहरू हुन् जुन तपाईंको उपकरणमा भण्डारण हुन्छन्, जसले हामीलाई
+                        निम्न कार्यहरूमा सहायता गर्छ:
+                    </p>
+
                     <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
-                        <li>Remember your preferences and settings</li>
-                        <li>Analyze website traffic and usage</li>
-                        <li>Provide personalized content and advertisements</li>
-                        <li>Improve website functionality</li>
+                        <li>Remember your preferences and settings / तपाईंका प्राथमिकता र सेटिङहरू सम्झनु</li>
+                        <li>Analyze website traffic and usage / वेबसाइट ट्राफिक र प्रयोग विश्लेषण गर्नु</li>
+                        <li>Provide personalized content and advertisements / तपाईंका लागि व्यक्तिगत सामग्री र
+                            विज्ञापनहरू प्रदान गर्नु</li>
+                        <li>Improve website functionality / वेबसाइटको कार्यक्षमता सुधार गर्नु</li>
                     </ul>
+
                     <p class="text-gray-700 leading-relaxed">
                         You can control cookie settings through your browser preferences. However, disabling cookies may
                         affect the functionality of our website.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        तपाईंले आफ्नो ब्राउजरको सेटिङमार्फत कुकीज नियन्त्रण गर्न सक्नुहुन्छ। तर कुकीज बन्द गर्दा हाम्रो
+                        वेबसाइटको कार्यक्षमतामा असर पर्न सक्छ।
                     </p>
                 </section>
 
                 <!-- Third-Party Links -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">8. Third-Party Links</h2>
-                    <p class="text-gray-700 leading-relaxed">
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">8. Third-Party Links / तेस्रो पक्षका लिङ्कहरू
+                    </h2>
+
+                    <p class="text-gray-700 leading-relaxed mb-4">
                         Our website may contain links to third-party websites. We are not responsible for the privacy
                         practices or content of these external sites. We encourage you to review the privacy policies of
                         any third-party websites you visit.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        हाम्रो वेबसाइटमा तेस्रो पक्षका वेबसाइटहरूका लिङ्कहरू हुन सक्छन्। ती बाह्य साइटहरूको गोपनीयता
+                        अभ्यास वा सामग्रीको लागि हामी जिम्मेवार हुँदैनौं। हामी तपाईंलाई ती तेस्रो पक्षका वेबसाइटहरूको
+                        गोपनीयता नीतिहरू ध्यानपूर्वक पढ्न सल्लाह दिन्छौं।
+                    </p>
                 </section>
+
 
                 <!-- Children's Privacy -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">9. Children's Privacy</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">9. Children's Privacy / बालबालिकाको गोपनीयता
+                    </h2>
+
                     <p class="text-gray-700 leading-relaxed">
                         Our services are not intended for children under the age of 13. We do not knowingly collect
                         personal information from children under 13. If we become aware that we have collected personal
                         information from a child under 13, we will take steps to delete such information promptly.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        हाम्रो सेवा १३ वर्षभन्दा कम उमेरका बालबालिकाका लागि लक्षित गरिएको छैन। हामी जानाजान १३ वर्षभन्दा
+                        कम उमेरका बालबालिकाबाट व्यक्तिगत जानकारी सङ्कलन गर्दैनौं। यदि हामीले त्यस्तो जानकारी सङ्कलन
+                        गरेको थाहा पाएमा, हामी तुरुन्तै त्यसलाई मेटाउने प्रक्रिया सुरु गर्नेछौं।
+                    </p>
                 </section>
 
                 <!-- International Transfers -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">10. International Data Transfers</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">10. International Data Transfers /
+                        अन्तर्राष्ट्रिय डेटा स्थानान्तरण</h2>
+
                     <p class="text-gray-700 leading-relaxed">
                         Your information may be transferred to and processed in countries other than your country of
                         residence. We ensure that such transfers are conducted in accordance with applicable data
                         protection laws and with appropriate safeguards in place.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        तपाईंको जानकारी तपाईंको बसोबासको देश बाहेक अन्य देशहरूमा स्थानान्तरण र प्रक्रिया हुन सक्छ। यस्ता
+                        स्थानान्तरणहरू लागू हुने डेटा सुरक्षा कानूनको पालना गर्दै आवश्यक सुरक्षा उपायहरू सहित गरिनेछ।
+                    </p>
                 </section>
 
                 <!-- Data Retention -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">11. Data Retention</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">11. Data Retention / डेटा संरक्षण अवधि</h2>
+
                     <p class="text-gray-700 leading-relaxed">
                         We retain your personal information for as long as necessary to fulfill the purposes outlined in
                         this Privacy Policy, unless a longer retention period is required or permitted by law. When we
                         no longer need your information, we will securely delete or anonymize it.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        यस गोपनीयता नीतिमा उल्लेख गरिएका उद्देश्यहरू पूरा गर्न आवश्यक पर्ने अवधि सम्म हामी तपाईंको
+                        व्यक्तिगत जानकारी राख्छौं, यदि कानुन अनुसार लामो अवधिको आवश्यकता वा अनुमति भएमा त्यस अनुरूप। जब
+                        हामीलाई तपाईंको जानकारी आवश्यक पर्दैन, त्यसलाई सुरक्षित रूपमा मेटाइने वा अज्ञात बनाइनेछ।
+                    </p>
                 </section>
 
                 <!-- Contact Information -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">12. Contact Us</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">12. Contact Us / हामीलाई सम्पर्क गर्नुहोस्
+                    </h2>
+
                     <p class="text-gray-700 leading-relaxed mb-4">
                         If you have any questions about this Privacy Policy or our data practices, please contact us:
                     </p>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        यदि तपाईंलाई यस गोपनीयता नीतिबारे वा हाम्रो डेटा अभ्यासबारे कुनै प्रश्न छ भने, कृपया हामीलाई
+                        सम्पर्क गर्नुहोस्:
+                    </p>
+
                     <div class="bg-futsal-gray rounded-lg p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <h4 class="font-semibold text-gray-900 mb-2">Email</h4>
-                                <p class="text-gray-700">privacy@futsalpro.com</p>
+                                <h4 class="font-semibold text-gray-900 mb-2">Email / इमेल</h4>
+                                <p class="text-gray-700">shreeshacademy@gmail.com,
+                                    mohanthapa@outlook.com</p>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900 mb-2">Phone</h4>
-                                <p class="text-gray-700">+1 (555) 123-4567</p>
+                                <h4 class="font-semibold text-gray-900 mb-2">Phone / फोन</h4>
+                                <p class="text-gray-700">+977 9849484878</p>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900 mb-2">Address</h4>
-                                <p class="text-gray-700">123 Sports Complex Drive<br>Futsal City, FC 12345</p>
+                                <h4 class="font-semibold text-gray-900 mb-2">Address / ठेगाना</h4>
+                                <p class="text-gray-700">Kankai Municipalicty-3 Surunga(jhapa)<br>Kankai
+                                    Fustal(ShreshaAcademy)
+                                </p>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900 mb-2">Business Hours</h4>
-                                <p class="text-gray-700">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <h4 class="font-semibold text-gray-900 mb-2">Business Hours / काम गर्ने समय</h4>
+                                <p class="text-gray-700">Sunday - Saturday: 6:00 AM - 10:00 PM</p>
                             </div>
                         </div>
                     </div>
@@ -314,13 +465,21 @@
 
                 <!-- Changes to Policy -->
                 <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-futsal-green mb-4">13. Changes to This Privacy Policy</h2>
+                    <h2 class="text-2xl font-bold text-futsal-green mb-4">13. Changes to This Privacy Policy / यस
+                        गोपनीयता नीतिमा परिवर्तनहरू</h2>
+
                     <p class="text-gray-700 leading-relaxed">
                         We may update this Privacy Policy from time to time. We will notify you of any changes by
                         posting the new Privacy Policy on this page and updating the "Last Updated" date. We encourage
                         you to review this Privacy Policy periodically for any changes.
                     </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        हामी समय-समयमा यस गोपनीयता नीति अपडेट गर्न सक्छौं। हामीले नयाँ गोपनीयता नीति यस पृष्ठमा पोस्ट
+                        गरी "अन्तिम अपडेट" मिति अद्यावधिक गरेर तपाईंलाई कुनै पनि परिवर्तनबारे जानकारी गराउनेछौं। कृपया
+                        समय-समयमा यस नीति पुनरावलोकन गर्नुस्।
+                    </p>
                 </section>
+
             </div>
         </div>
 
@@ -333,91 +492,7 @@
         </div>
     </main>
 
-    <footer class="bg-futsal-green text-white py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <img src="/logo.png" alt="Kankai Futsal Logo" class="h-12 w-12 rounded-full shadow-md">
-                        <span class="text-2xl font-extrabold text-white">Kankai Futsal</span>
-                    </div>
-
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        कनकाईको पहिलो प्रिमियम फुटसल अनुभव — अत्याधुनिक सुविधाहरू, व्यावसायिक वातावरण, र एक ऊर्जाशील खेल
-                        समुदायको साथ!
-                    </p>
-
-                    <div class="flex space-x-4">
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#home" class="text-gray-300 hover:text-futsal-orange transition-colors">Home</a>
-                        </li>
-                        <li><a href="#facilities"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Facilities</a></li>
-                        <li><a href="#news" class="text-gray-300 hover:text-futsal-orange transition-colors">News</a>
-                        </li>
-                        <li><a href="#gallery"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Gallery</a></li>
-                        <li><a href="#contact"
-                                class="text-gray-300 hover:text-futsal-orange transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Services</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Court
-                                Booking</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
-                                Rental</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Training
-                                Programs</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Tournaments</a>
-                        </li>
-                        <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Private
-                                Events</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
-                    <p class="text-gray-300 mb-4">Stay updated with our latest news and offers.</p>
-                    <form class="space-y-3">
-                        <input type="email" placeholder="Enter your email"
-                            class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
-                        <button type="submit"
-                            class="w-full bg-futsal-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="border-t border-white/20 mt-12 pt-8 text-center">
-                <p class="text-gray-300">
-                    © 2025 Kankai Fustal!. All rights reserved. |
-                    <a href="privacy.html" class="hover:text-futsal-orange transition-colors">Privacy Policy</a> |
-                    <a href="terms.html" class="hover:text-futsal-orange transition-colors">Terms of Service</a>
-                </p>
-            </div>
-        </div>
-    </footer>
+    {% include 'includes/footer.html' %}
 
 </body>
 

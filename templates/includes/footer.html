@@ -1,0 +1,95 @@
+{% load static %}
+<footer class="bg-futsal-green text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="{% static '/futsallogo.png' %}" alt="Kankai Futsal Logo"
+                        class="h-16 w-16 object-contain rounded-full shadow-md bg-white p-1">
+                    <span class="text-2xl font-extrabold text-white">Kankai Futsal</span>
+                </div>
+
+
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    कनकाईको पहिलो प्रिमियम फुटसल अनुभव — अत्याधुनिक सुविधाहरू, व्यावसायिक वातावरण, र एक ऊर्जाशील खेल
+                    समुदायको साथ!
+                </p>
+
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/profile.php?id=100089756731998"
+                        class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="bg-futsal-orange p-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="{% url 'home' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">Home</a>
+                    </li>
+                    <li><a href="{% url 'facility' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">Facilities</a></li>
+                    <li><a href="{% url 'news' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">News</a>
+                    </li>
+                    <li><a href="{% url 'gallery' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">Gallery</a>
+                    </li>
+                    <li><a href="{% url 'contact' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold mb-6">Services</h3>
+                <ul class="space-y-3">
+                    <li><a href="{% url 'booking_page' %}"
+                            class="text-gray-300 hover:text-futsal-orange transition-colors">Court
+                            Booking</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Equipment
+                            Rental</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Training
+                            Programs</a></li>
+                    <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Tournaments</a>
+                    </li>
+                    <li><a href="#" class="text-gray-300 hover:text-futsal-orange transition-colors">Private
+                            Events</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold mb-6">Newsletter</h3>
+                <p class="text-gray-300 mb-4">Stay updated with our latest news and offers.</p>
+                <form class="space-y-3">
+                    <input type="email" placeholder="Enter your email"
+                        class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
+                    <button type="submit"
+                        class="w-full bg-futsal-orange text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="border-t border-white/20 mt-12 pt-8 text-center">
+            <p class="text-gray-300">
+                © 2025 Kankai Fustal!. All rights reserved. |
+                <a href="{% url 'privacy' %}" class="hover:text-futsal-orange transition-colors">Privacy Policy</a>
+                |
+                <a href="{% url 'terms' %}" class="hover:text-futsal-orange transition-colors">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</footer>

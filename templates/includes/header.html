@@ -1,0 +1,130 @@
+{% load static %}
+
+<header class="bg-white shadow-lg fixed w-full top-0 z-50">
+    <nav class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <img src="{% static './futsallogo.png' %}" alt="FutsalPro Logo" class="h-12 w-auto object-contain">
+            </div>
+
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="{% url 'home' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/' %} !text-futsal-orange font-bold {% endif %}">
+                    Home
+                </a>
+                <a href="{% url 'facility' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/facility/' %} !text-futsal-orange font-bold {% endif %}">
+                    Facilities
+                </a>
+                <a href="{% url 'news' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/news/' %} !text-futsal-orange font-bold {% endif %}">
+                    News
+                </a>
+                <a href="{% url 'gallery' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/gallery/' %} !text-futsal-orange font-bold {% endif %}">
+                    Gallery
+                </a>
+                <!-- <a href="{% url 'contact' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/contact/' %} !text-futsal-orange font-bold {% endif %}">
+                    Contact
+                </a> -->
+            </div>
+
+            <!-- Right Section -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="{% url 'booking_page' %}"
+                    class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium">
+                    Book Now
+                </a>
+
+                {% if user.is_authenticated %}
+                <!-- Profile dropdown with Alpine.js -->
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">
+                        <img src="{% static 'default_profile.png' %}" alt="Profile"
+                            class="h-10 w-10 rounded-full border-2 border-gray-300">
+                        <span class="text-gray-700 font-medium">{{ user.full_name }}</span>
+                        <svg :class="{ 'rotate-180': open }"
+                            class="w-4 h-4 text-gray-600 transition-transform duration-200" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div x-show="open" @click.away="open = false" x-transition
+                        class="absolute right-0 mt-2 w-44 bg-white shadow-lg rounded-md py-2 z-50">
+                        <a href="{% url 'dashboard' %}"
+                            class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+
+                        <a href="{% url 'logout' %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}"
+                    class="text-gray-700 hover:text-futsal-orange transition-colors font-medium">
+                    SignIn
+                </a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-4">
+                <a href="{% url 'home' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/' %} !text-futsal-orange font-bold {% endif %}">
+                    Home
+                </a>
+                <a href="{% url 'facility' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/facility/' %} !text-futsal-orange font-bold {% endif %}">
+                    Facilities
+                </a>
+                <a href="{% url 'news' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/news/' %} !text-futsal-orange font-bold {% endif %}">
+                    News
+                </a>
+                <a href="{% url 'gallery' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/gallery/' %} !text-futsal-orange font-bold {% endif %}">
+                    Gallery
+                </a>
+                <a href="{% url 'contact' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/contact/' %} !text-futsal-orange font-bold {% endif %}">
+                    Contact
+                </a>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/dashboard/' %} !text-futsal-orange font-bold {% endif %}">
+                    Dashboard
+                </a>
+                <!-- <a href="{% url 'profile' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/profile/' %} !text-futsal-orange font-bold {% endif %}">
+                    Profile
+                </a> -->
+                <a href="{% url 'logout' %}" class="text-red-600 hover:text-red-800 transition-colors">
+                    Logout
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="text-gray-700 hover:text-futsal-orange transition-colors
+                   {% if request.path == '/login/' %} text-futsal-orange font-bold {% endif %}">
+                    SignIn
+                </a>
+                {% endif %}
+
+                <a href="{% url 'booking_page' %}"
+                    class="bg-futsal-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium w-full">
+                    Book Now
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>

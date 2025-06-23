@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
@@ -18,22 +18,25 @@ from .models import  CustomUser
 
 
 def login_view(request):
+    next_url = request.GET.get('next') or request.POST.get('next')
+
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email,password,'login')
 
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
             messages.success(request, f"Welcome back, {user.full_name}!")
+
+            if next_url:
+                return redirect(next_url)
             return redirect('home')
         else:
             messages.error(request, "Invalid email or password.")
 
-    return render(request, 'auth/login.html')
-
+    return render(request, 'auth/login.html', {'next': next_url})
 
 def register_view(request):
     if request.method == 'POST':
@@ -46,14 +49,22 @@ def register_view(request):
 
         form = RegisterForm(post_data)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Registration successful. Please log in.")
-            return redirect('login')
-        else:
-            messages.error(request, "There was a problem with your submission.")
-            print(form.errors.as_data())
+            try:
+                form.save()
+                messages.success(request, "Registration successful! Welcome to Kankai Futsal.")
+                return redirect('login')
 
-    return render(request, 'auth/register.html')
+            except Exception as e:
+                messages.error(request, "Registration failed. Please try again.")
+                print(f"Registration error: {e}")
+           
+        else:
+            messages.error(request, "Please correct the errors below.")
+            print("Form errors:", form.errors.as_data())
+    else:
+        form = RegisterForm()      
+
+    return render(request, 'auth/register.html', {'form': form})
 
 def logout_view(request):
     logout(request)

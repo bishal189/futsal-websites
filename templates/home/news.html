@@ -1,0 +1,411 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'futsal-green': '#2D5016',
+                        'futsal-light-green': '#4A7C59',
+                        'futsal-orange': '#FF6B35',
+                        'futsal-blue': '#1E40AF',
+                        'futsal-gray': '#F8FAFC'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="font-sans bg-white">
+    <!-- Header -->
+    {% include 'includes/header.html' %}
+
+
+
+
+    <!-- Welcome Section -->
+    <section class="py-24 gradient-bg section-pattern relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="decorative-dot top-20 left-10 floating-element"></div>
+        <div class="decorative-dot top-32 right-20 floating-element" style="animation-delay: 2s;"></div>
+        <div class="decorative-dot bottom-20 left-1/4 floating-element" style="animation-delay: 4s;"></div>
+
+        <!-- Subtle Background Shapes -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-futsal-green/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-40 h-40 bg-futsal-orange/5 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-5xl mx-auto text-center">
+                <!-- Header -->
+                <div class="mb-6">
+                    <div
+                        class="inline-flex items-center bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-white/20">
+                        <div class="w-2 h-2 bg-futsal-orange rounded-full mr-2 animate-pulse"></div>
+                        <span class="text-futsal-green font-semibold text-sm uppercase tracking-wider">Premium
+                            Experience</span>
+                    </div>
+
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight mb-2">
+                        Welcome to <span class="orange-gradient">Kankai Futsal</span>
+                    </h2>
+
+                    <!-- Decorative Line -->
+                    <div class="flex items-center justify-center mt-4 mb-8">
+                        <div class="h-1 w-16 bg-gradient-to-r from-futsal-green to-futsal-orange rounded-full"></div>
+                        <div class="w-3 h-3 bg-futsal-orange rounded-full mx-3"></div>
+                        <div class="h-1 w-16 bg-gradient-to-l from-futsal-green to-futsal-orange rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="max-w-4xl mx-auto mb-16">
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4 nepali-text">
+                        कनकाईको पहिलो अत्याधुनिक फुटसल अनुभव गर्नुहोस् — जहाँ तपाईंको खेल कौशल, उत्साह र समुदायको भावना
+                        एकै ठाउँमा भेटिन्छ।
+                    </p>
+                    <p class="text-xl md:text-2xl font-semibold text-futsal-green nepali-text">
+                        बुक गर्नुहोस्, खेल्नुहोस्, र आफूलाई प्रो खेलाडी जस्तै महसुस गर्नुहोस्! ⚽
+                    </p>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+                    <!-- Card 1 -->
+                    <div
+                        class="card-hover card-border rounded-2xl p-8 text-center relative overflow-hidden group bg-white shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                        <!-- Hover Gradient Background -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-futsal-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
+                        </div>
+
+                        <div class="relative z-10">
+                            <!-- Icon Container -->
+                            <div
+                                class="w-20 h-20 rounded-full mx-auto mb-6 bg-gradient-to-br from-futsal-orange to-futsal-green flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                <i class="fas fa-trophy text-white text-4xl drop-shadow-lg"></i>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-futsal-green mb-3">Premium Facilities</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Top-tier synthetic turf, professional lighting, and pro-standard futsal experience.
+                            </p>
+
+                            <div class="mt-4 flex justify-center space-x-4 text-xs text-futsal-green/70">
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    FIFA Quality
+                                </span>
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    LED Lights
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="card-hover card-border rounded-2xl p-8 text-center relative overflow-hidden group bg-white shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-futsal-orange/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="w-20 h-20 rounded-full mx-auto mb-6 bg-gradient-to-br from-futsal-orange to-futsal-green flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                <i class="fas fa-clock text-white text-4xl drop-shadow-lg"></i>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-futsal-green mb-3">Flexible Booking</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Open 6 AM to 10 PM daily with easy online booking and walk-in support.
+                            </p>
+
+                            <div class="mt-4 flex justify-center space-x-4 text-xs text-futsal-green/70">
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    16 Hours
+                                </span>
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Online/Walk-in
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div
+                        class="card-hover card-border rounded-2xl p-8 text-center relative overflow-hidden group bg-white shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-futsal-orange/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="w-20 h-20 rounded-full mx-auto mb-6 bg-gradient-to-br from-futsal-orange to-futsal-green flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                                <i class="fas fa-users text-white text-4xl drop-shadow-lg"></i>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-futsal-green mb-3">Local Community</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Join leagues, tournaments, and friendly matches with Jhapa's best players.
+                            </p>
+
+                            <div class="mt-4 flex justify-center space-x-4 text-xs text-futsal-green/70">
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Tournaments
+                                </span>
+                                <span class="flex items-center">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Leagues
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call-to-Action Button -->
+                <div class="mt-16">
+                    <button
+                        class="inline-flex items-center bg-gradient-to-r from-futsal-green to-futsal-orange rounded-full px-8 py-4 text-white font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 cursor-pointer">
+                        <i class="fas fa-calendar-plus mr-3"></i>
+                        <span>Book Your Court Today</span>
+                        <i class="fas fa-arrow-right ml-3"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Latest News Section -->
+    <section id="news" class="py-20 bg-futsal-gray">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-futsal-green mb-6">
+                    Latest News & Events
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Stay updated with the latest happenings, tournaments, and exciting events at FutsalPro.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News Card 1 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="{% static './winner.jpg' %}" alt="Tournament" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-futsal-green mb-3">Annual Championship Tournament</h3>
+                        <p class="text-gray-600 mb-4">Join our biggest tournament of the year with prizes worth $10,000.
+                            Registration now open for teams of all skill levels.</p>
+                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- News Card 2 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="{% static './opening.jpg' %}" alt="New Court" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>December 10, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-futsal-green mb-3">New Premium Court Opening</h3>
+                        <p class="text-gray-600 mb-4">We're excited to announce the opening of our 5th premium indoor
+                            court with enhanced features and technology.</p>
+                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
+                    </div>
+                </article>
+
+                <!-- News Card 3 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <img src="{% static './trainning.jpg' %}" alt="Training" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <span>December 5, 2024</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-futsal-green mb-3">Youth Training Program Launch</h3>
+                        <p class="text-gray-600 mb-4">Introducing our comprehensive youth training program designed to
+                            develop the next generation of futsal stars.</p>
+                        <a href="#" class="text-futsal-orange font-medium hover:underline">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    {% include 'includes/footer.html' %}
+
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Gallery Carousel
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const galleryTrack = document.getElementById('gallery-track');
+        const indicators = document.querySelectorAll('#gallery-indicators button');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateCarousel() {
+            galleryTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.remove('bg-gray-300');
+                    indicator.classList.add('bg-futsal-orange');
+                } else {
+                    indicator.classList.remove('bg-futsal-orange');
+                    indicator.classList.add('bg-gray-300');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Indicator clicks
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+            });
+        });
+
+        // Auto-play carousel
+        setInterval(nextSlide, 5000);
+
+        // Contact Form Validation and Submission
+        const contactForm = document.getElementById('contact-form');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Basic form validation
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!firstName || !lastName || !email || !subject || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Simulate form submission
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+
+        // Scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.facility-card, .news-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('bg-white/95', 'backdrop-blur-sm');
+            } else {
+                header.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body>
+
+</html>
