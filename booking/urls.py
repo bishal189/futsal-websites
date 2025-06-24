@@ -18,4 +18,9 @@ urlpatterns = [
 
     #for download
      path('download-receipt/<int:booking_id>/', views.download_receipt, name='download_receipt'),
+
+     #cancelled and rebook
+
+    path('bookings/cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
+    path('bookings/rebook/<int:booking_id>/', views.rebook_cancelled_booking, name='rebook'),
 ]

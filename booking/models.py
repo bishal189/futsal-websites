@@ -108,6 +108,39 @@ class Booking(models.Model):
         
         return bookings.values_list('time_slot__start_time', flat=True)
 
+    def can_be_cancelled(self):
+        """Check if booking can be cancelled"""
+        if self.status == 'cancelled':
+            return False
+        
+        # Check if booking is in the past
+        booking_datetime = timezone.datetime.combine(
+            self.booking_date, 
+            self.time_slot.start_time
+        )
+        return booking_datetime > timezone.now()
+    
+    def get_cancellation_penalty(self):
+        """Calculate reward point penalty for cancellation"""
+        if self.status == 'cancelled':
+            return 0
+            
+        booking_datetime = timezone.datetime.combine(
+            self.booking_date, 
+            self.time_slot.start_time
+        )
+        time_until_booking = booking_datetime - timezone.now()
+        
+        # If cancelling within 1 hour, penalty is 2 points
+        if time_until_booking < timezone.timedelta(hours=1):
+            return 2
+        return 0
+    
+    def __str__(self):
+        return f"{self.court.name} - {self.booking_date} - {self.user.email}"
+
+
+
     class Meta:
         ordering = ['-created_at']
         unique_together = ['court', 'booking_date', 'time_slot']
@@ -131,3 +164,33 @@ class BookingHistory(models.Model):
         ordering = ['-changed_at']
         verbose_name = "Booking History"
         verbose_name_plural = "Booking Histories"
+
+class BookingCancellation(models.Model):
+    """Track booking cancellations and penalties"""
+    booking = models.OneToOneField(
+        'Booking', 
+        on_delete=models.CASCADE, 
+        related_name='cancellation_log'
+    )
+    cancelled_by = models.ForeignKey(
+        CustomUser, 
+        on_delete=models.CASCADE,
+        related_name='cancelled_bookings'
+    )
+    cancellation_time = models.DateTimeField(auto_now_add=True)
+    reward_penalty = models.PositiveIntegerField(default=0)
+    time_before_booking = models.DurationField()
+    reason = models.TextField(blank=True, default='User cancelled')
+    
+    class Meta:
+        ordering = ['-cancellation_time']
+        verbose_name = 'Booking Cancellation'
+        verbose_name_plural = 'Booking Cancellations'
+    
+    def __str__(self):
+        return f"Cancellation: {self.booking.court.name} by {self.cancelled_by.email}"
+    
+    @property
+    def penalty_applied(self):
+        """Check if penalty was applied"""
+        return self.reward_penalty > 0
