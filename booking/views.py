@@ -435,8 +435,8 @@ def send_booking_confirmation_email(booking, user):
 def send_owner_notification_email(booking, user):
     """Send booking notification email to futsal owner with complete user details"""
     try:
-        # owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
-        owner_emails = ['umamurmu52@gmail.com']
+        owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
+        # owner_emails = ['umamurmu52@gmail.com']
 
         confirmed_bookings = Booking.objects.filter(user=user, status='confirmed')
         stats = confirmed_bookings.aggregate(
