@@ -533,7 +533,7 @@ def send_booking_confirmation_email(booking, user):
 def send_owner_notification_email(booking, user):
     """Send booking notification email to futsal owner with complete user details"""
     try:
-        owner_email = getattr(settings, 'OWNER_EMAIL', 'umamurmu52@gmail.com') 
+        owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
         
         # Email context data for owner
         context = {
@@ -559,7 +559,7 @@ def send_owner_notification_email(booking, user):
             subject=subject,
             message=plain_message,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[owner_email],
+            recipient_list=owner_emails,
             html_message=html_message,
             fail_silently=False,
         )
