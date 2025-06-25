@@ -255,31 +255,31 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td style="padding: 8px 0; font-size: 14px; color: #155724; width: 50%;">
-                                    <strong>Total Bookings:</strong> {{ user.total_booking }}
+                                    <strong>Total Bookings:</strong> {{ total_booking }}
                                 </td>
                                 <td style="padding: 8px 0; font-size: 14px; color: #155724;">
-                                    <strong>Hours Played:</strong> {{ user.hours_played }} hours
+                                    <strong>Hours Played:</strong> {{ hours_played }} hours
                                 </td>
                             </tr>
                             <tr>
                                 <td style="padding: 8px 0; font-size: 14px; color: #155724;">
-                                    <strong>Total Spent:</strong> NPR {{ user.balance }}
+                                    <strong>Total Spent:</strong> NPR {{ balance }}
                                 </td>
                                 <td style="padding: 8px 0; font-size: 14px; color: #155724;">
-                                    <strong>Reward Points:</strong> {{ user.reward_points }} points
+                                    <strong>Reward Points:</strong> {{ reward_points }} points
                                 </td>
                             </tr>
                         </table>
                         <table style="width: 100%; margin-top: 15px;">
                             <tr>
                                 <td style="padding: 0; font-size: 14px; color: #155724;">
-                                    {% if user.total_booking == 1 %}
+                                    {% if total_booking == 1 %}
                                     🎉 <strong>First-time customer!</strong> Make sure to provide excellent service.
-                                    {% elif user.total_booking >= 10 %}
+                                    {% elif total_booking >= 10 %}
                                     👑 <strong>VIP Customer!</strong> This is a loyal customer with
-                                    {{ user.total_booking }} bookings.
+                                    {{ total_booking }} bookings.
                                     {% else %}
-                                    ⭐ <strong>Regular Customer</strong> - {{ user.total_booking }} previous bookings.
+                                    ⭐ <strong>Regular Customer</strong> - {{ total_booking }} previous bookings.
                                     {% endif %}
                                 </td>
                             </tr>

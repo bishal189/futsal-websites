@@ -18,6 +18,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 import logging
+from django.db.models import Sum, Count
+
 
 # Set up logging for email debugging
 logger = logging.getLogger(__name__)
@@ -383,6 +385,14 @@ def cancel_booking(request, booking_id):
 def send_booking_confirmation_email(booking, user):
     """Send booking confirmation email with bill details"""
     try:
+        # Calculate user stats
+        confirmed_bookings = Booking.objects.filter(user=user, status='confirmed')
+        stats = confirmed_bookings.aggregate(
+            total_bookings=Count('id'),
+            total_hours=Sum('duration_hours'),
+            total_spent=Sum('total_amount')
+        )
+        
         # Email context data
         context = {
             'booking': booking,
@@ -391,21 +401,22 @@ def send_booking_confirmation_email(booking, user):
             'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
             'duration': booking.duration_hours,
             'company_name': 'Kanakai Futsal',
-            'company_address': 'Kankai-3 Surunga-jhapa',  # Update with actual address
-            'company_phone': '+977 9849484878',    # Update with actual phone
-            'company_email': 'shreeshacademy@gmail.com',  # Update with actual email
+            'company_address': 'Kankai-3 Surunga-jhapa',
+            'company_phone': '+977 9849484878',
+            'company_email': 'shreeshacademy@gmail.com',
+            
+            # Dynamically calculated user stats
+            'total_booking': stats['total_bookings'] or 0,
+            'hours_played': stats['total_hours'] or 0,
+            'reward_points': stats['total_bookings'] or 0,  # 1 reward point per confirmed booking
+            'balance': stats['total_spent'] or 0,
         }
         
-        # Render HTML email template
         html_message = render_to_string('emails/booking_confirmation.html', context)
-        
-        # Create plain text version
         plain_message = strip_tags(html_message)
         
-        # Email subject
         subject = f'Booking Confirmation - {booking.booking_id} | Kanakai Futsal'
         
-        # Send email
         send_mail(
             subject=subject,
             message=plain_message,
@@ -420,10 +431,20 @@ def send_booking_confirmation_email(booking, user):
         raise e
 
 
+        
 def send_owner_notification_email(booking, user):
     """Send booking notification email to futsal owner with complete user details"""
     try:
-        owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
+        # owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
+        owner_emails = ['umamurmu52@gmail.com']
+
+        confirmed_bookings = Booking.objects.filter(user=user, status='confirmed')
+        stats = confirmed_bookings.aggregate(
+            total_bookings=Count('id'),
+            total_hours=Sum('duration_hours'),
+            total_spent=Sum('total_amount')
+        )
+        
         
         # Email context data for owner
         context = {
@@ -433,6 +454,12 @@ def send_owner_notification_email(booking, user):
             'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
             'duration': booking.duration_hours,
             'company_name': 'Kanakai Futsal',
+
+            # for stats
+            'total_booking': stats['total_bookings'] or 0,
+            'hours_played': stats['total_hours'] or 0,
+            'reward_points': stats['total_bookings'] or 0, 
+            'balance': stats['total_spent'] or 0,
         }
         
         # Render HTML email template for owner
@@ -457,40 +484,4 @@ def send_owner_notification_email(booking, user):
     except Exception as e:
         logger.error(f"Owner notification email sending failed: {str(e)}")
         raise e
-    """Send booking confirmation email with bill details"""
-    try:
-        # Email context data
-        context = {
-            'booking': booking,
-            'user': user,
-            'booking_date': booking.booking_date.strftime('%B %d, %Y'),
-            'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
-            'duration': booking.duration_hours,
-            'company_name': 'Kanakai Futsal',
-            'company_address': 'Your Address Here',  # Update with actual address
-            'company_phone': 'Your Phone Number',    # Update with actual phone
-            'company_email': 'info@kanakifutsal.com',  # Update with actual email
-        }
-        
-        # Render HTML email template
-        html_message = render_to_string('emails/booking_confirmation.html', context)
-        
-        # Create plain text version
-        plain_message = strip_tags(html_message)
-        
-        # Email subject
-        subject = f'Booking Confirmation - {booking.booking_id} | Kanakai Futsal'
-        
-        # Send email
-        send_mail(
-            subject=subject,
-            message=plain_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            html_message=html_message,
-            fail_silently=False,
-        )
-        
-    except Exception as e:
-        logger.error(f"Email sending failed: {str(e)}")
-        raise e
+   
