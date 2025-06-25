@@ -3,16 +3,42 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Book a Court | kanakai Futsal - Premium Futsal Courts in Jhapa, Nepal</title>
+    <meta name="description"
+        content="Reserve your slot at kanakai Futsal. Check court availability, select time slots, and confirm your booking online in just a few clicks." />
+    <meta name="keywords"
+        content="kanakai Futsal booking, court reservation, futsal Jhapa, book futsal Nepal, online futsal booking" />
+    <meta name="author" content="kanakai Futsal" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Book a Futsal Court | kanakai Futsal" />
+    <meta property="og:description" content="Book your preferred time slot at kanakai Futsal in Jhapa, Nepal." />
+    <meta property="og:image" content="{% static 'images/booking-preview.png' %}" />
+    <meta property="og:url" content="https://kanakaifutsal.com/book" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Book a Court | kanakai Futsal" />
+    <meta name="twitter:description"
+        content="Choose your court and time at kanakai Futsal — fast and easy online booking." />
+
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+
+    <!-- Tailwind + Alpine.js -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -31,8 +57,14 @@
                     }
                 }
             }
-        }
+        };
     </script>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
     <style>
         .time-slot {
             white-space: nowrap;
@@ -43,7 +75,6 @@
             align-items: center;
             justify-content: center;
             height: 3rem;
-
         }
 
         .date-selected {
@@ -181,10 +212,7 @@
             }
         }
 
-        .message-alert {
-            animation: slideDown 0.3s ease-out;
-        }
-
+        .message-alert,
         .error-message {
             animation: slideDown 0.3s ease-out;
         }
@@ -201,9 +229,8 @@
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 
 <body class="bg-futsal-gray font-sans">
     {% include 'includes/header.html' %}

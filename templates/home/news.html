@@ -5,13 +5,40 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Futsal News & Updates | kanakai Futsal - Jhapa, Nepal</title>
+    <meta name="description"
+        content="Stay updated with the latest futsal news, tournaments, offers, and announcements from kanakai Futsal, Jhapa's top futsal court.">
+    <meta name="keywords"
+        content="kanakai Futsal news, futsal events Nepal, Jhapa futsal updates, futsal tournaments, futsal offers, Birtamode futsal news">
+    <meta name="author" content="kanakai Futsal Team" />
+
+    <!-- Open Graph Meta (Facebook, LinkedIn) -->
+    <meta property="og:title" content="Futsal News & Updates | kanakai Futsal - Jhapa, Nepal" />
+    <meta property="og:description"
+        content="Catch the latest events, tournaments, and futsal news from kanakai Futsal." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kanakaifutsal.com/news" /> <!-- Replace with actual URL -->
+    <meta property="og:image" content="{% static 'images/futsal-news-banner.jpg' %}" />
+    <!-- Replace with real banner -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Futsal News & Updates | kanakai Futsal - Jhapa, Nepal" />
+    <meta name="twitter:description"
+        content="Catch the latest events, tournaments, and futsal news from kanakai Futsal." />
+    <meta name="twitter:image" content="{% static 'images/futsal-news-banner.jpg' %}" />
+
+    <!-- Favicons -->
+    {% load static %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}" />
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,10 +58,13 @@
             }
         }
     </script>
+
+    <!-- Alpine.js, Animate.css, Fonts, Icons -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body class="font-sans bg-white">
@@ -67,7 +97,7 @@
                     </div>
 
                     <h2 class="text-4xl md:text-5xl font-black leading-tight mb-2">
-                        Welcome to <span class="orange-gradient">Kankai Futsal</span>
+                        Welcome to <span class="orange-gradient">kanakai Futsal</span>
                     </h2>
 
                     <!-- Decorative Line -->

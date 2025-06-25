@@ -3,13 +3,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>kanakai Futsal Dashboard | Manage Bookings, Rewards & Users</title>
+    <meta name="description"
+        content="kanakai Futsal Admin Dashboard – Manage futsal court bookings, user rewards, cancellations, profiles, and real-time statistics with ease." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="author" content="kanakai Futsal Team" />
+
+    <!-- Open Graph (Optional for internal apps) -->
+    <meta property="og:title" content="kanakai Futsal Admin Dashboard" />
+    <meta property="og:description"
+        content="Admin panel to handle futsal bookings, cancellations, user management, and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{% static 'images/dashboard-preview.png' %}" />
+    <meta property="og:url" content="https://kanakaifutsal.com/admin/dashboard" /> <!-- Replace if public -->
+
+    <!-- Twitter Card (optional) -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="kanakai Futsal Dashboard" />
+    <meta name="twitter:description" content="Admin panel for managing futsal bookings and rewards." />
+
+    <!-- Favicons -->
+    {% load static %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}" />
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,8 +54,19 @@
             }
         }
     </script>
+
+    <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Dashboard Styles -->
     <style>
         .dashboard-card {
             background: linear-gradient(135deg, #ffffff, #f8fafc);
@@ -40,7 +74,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
-
 
         .stats-card {
             background: linear-gradient(135deg, #16a34a, #22c55e);
@@ -68,8 +101,6 @@
             transition: all 0.2s ease;
         }
 
-
-
         .status-confirmed {
             background: linear-gradient(135deg, #16a34a, #22c55e);
             color: white;
@@ -90,8 +121,6 @@
             color: white;
             animation: pulse 2s infinite;
         }
-
-
 
         .progress-bar {
             background: linear-gradient(90deg, #16a34a, #22c55e);
@@ -114,17 +143,13 @@
             color: #16a34a;
         }
 
-        .message-alert {
-            animation: slideDown 0.3s ease-out;
-        }
-
+        .message-alert,
         .error-message {
             animation: slideDown 0.3s ease-out;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 
 <body class="bg-futsal-gray font-sans">
     <!-- Header -->

@@ -3,13 +3,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | kanakai Futsal - Premium Futsal Courts in Jhapa, Nepal</title>
+    <meta name="description"
+        content="Login to your kanakai Futsal account to book courts, manage reservations, and track your activity." />
+    <meta name="keywords" content="futsal login, kanakai Futsal login, court booking login Jhapa" />
+    <meta name="author" content="kanakai Futsal" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Login - kanakai Futsal" />
+    <meta property="og:description" content="Access your kanakai Futsal account to manage bookings and rewards." />
+    <meta property="og:image" content="{% static 'images/og-login.jpg' %}" />
+    <meta property="og:url" content="https://kanakaifutsal.com/login" />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}" />
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,10 +45,18 @@
                     }
                 }
             }
-        }
+        };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Alpine.js for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Custom Styles -->
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #2D5016 0%, #4A7C59 100%);
@@ -108,6 +134,7 @@
         }
     </style>
 </head>
+
 
 <body class="min-h-screen bg-futsal-gray font-sans">
     <!-- Header -->

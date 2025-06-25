@@ -3,16 +3,40 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal Confrimed Page | Premium Futsal Courts in Jhapa, Nepal</title>
+
+    <title>Booking Confirmed | kanakai Futsal - Premium Futsal Courts in Jhapa, Nepal</title>
+    <meta name="description"
+        content="Your booking has been successfully confirmed at kanakai Futsal. View your receipt, download it, or return home to book more." />
+    <meta name="keywords"
+        content="kanakai Futsal booking confirmation, futsal receipt, futsal Jhapa Nepal, confirm court slot" />
+    <meta name="author" content="kanakai Futsal" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Booking Confirmed | kanakai Futsal" />
+    <meta property="og:description"
+        content="Your futsal booking has been confirmed at kanakai Futsal. View and download your receipt." />
+    <meta property="og:image" content="{% static 'images/booking-confirmed-og.png' %}" />
+    <meta property="og:url" content="https://kanakaifutsal.com/booking/confirmed" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Booking Confirmed | kanakai Futsal" />
+    <meta name="twitter:description"
+        content="Your futsal booking at kanakai Futsal in Jhapa is now confirmed. See receipt or book again." />
+
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -31,8 +55,17 @@
                     }
                 }
             }
-        }
+        };
     </script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
     <style>
         .success-animation {
             animation: checkmark 0.6s ease-in-out;
@@ -114,9 +147,8 @@
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 
 <body class="bg-futsal-gray font-sans">
     <!-- Header -->
@@ -283,7 +315,7 @@
                         class="flex items-center justify-center bg-futsal-orange text-white rounded-full w-12 h-12 mb-3">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <span class="text-gray-700 font-medium">Kankai-3, Jhapa</span>
+                    <span class="text-gray-700 font-medium">kanakai-3, Jhapa</span>
                 </div>
 
             </div>

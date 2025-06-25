@@ -3,13 +3,38 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kankai Futsal | Premium Futsal Courts in Jhapa, Nepal</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register | kanakai Futsal - Premium Futsal Courts in Jhapa, Nepal</title>
+    <meta name="description"
+        content="Create your free account at kanakai Futsal to easily book futsal courts, manage reservations, and get updates." />
+    <meta name="keywords" content="futsal registration, join kanakai Futsal, book futsal Jhapa, create futsal account" />
+    <meta name="author" content="kanakai Futsal" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Register at kanakai Futsal" />
+    <meta property="og:description"
+        content="Sign up to book premium futsal courts in Jhapa, track reservations, and earn rewards." />
+    <meta property="og:image" content="{% static 'images/og-register.jpg' %}" />
+    <meta property="og:url" content="https://kanakaifutsal.com/register" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Register at kanakai Futsal" />
+    <meta name="twitter:description"
+        content="Join kanakai Futsal today and get access to premium court bookings and updates." />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}" />
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,10 +52,15 @@
                     }
                 }
             }
-        }
+        };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Custom Animations and Styles -->
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #2D5016 0%, #4A7C59 100%);
@@ -44,7 +74,7 @@
 
             0%,
             100% {
-                transform: translateY(0px);
+                transform: translateY(0);
             }
 
             50% {
@@ -108,6 +138,7 @@
     </style>
 </head>
 
+
 <body class="min-h-screen bg-futsal-gray font-sans">
     <!-- Header -->
     {% include 'includes/header.html' %}
@@ -163,7 +194,7 @@
                         <div class="absolute inset-0 bg-black opacity-10"></div>
                         <div class="relative z-10">
                             <h1 class="text-2xl font-bold mb-1">Create Account</h1>
-                            <p class="text-white text-opacity-80 text-sm">Join Kankai Futsal today</p>
+                            <p class="text-white text-opacity-80 text-sm">Join kanakai Futsal today</p>
                         </div>
                     </div>
 
