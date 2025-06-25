@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Booking Alert - Kanakai Futsal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .email-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .booking-summary {
+            background: #e8f4fd;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .booking-summary h2 {
+            margin: 0 0 15px 0;
+            color: #0056b3;
+            font-size: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .info-card h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 16px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 8px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #6c757d;
+        }
+
+        .detail-value {
+            color: #212529;
+            text-align: right;
+        }
+
+        .contact-urgent {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .contact-urgent h3 {
+            margin: 0 0 10px 0;
+            color: #721c24;
+        }
+
+        .contact-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .contact-info h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .contact-item strong {
+            min-width: 120px;
+        }
+
+        .user-stats {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #155724;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .urgent-notice {
+            background: #721c24;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .email-container {
+                margin: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .alert-box {
+                margin: 15px;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .booking-summary {
+                margin: 15px 0;
+                padding: 15px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 15px 0;
+            }
+
+            .info-card {
+                padding: 15px;
+            }
+
+            .info-card h3 {
+                font-size: 15px;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 6px 0;
+            }
+
+            .detail-value {
+                text-align: left;
+                margin-top: 4px;
+                font-weight: 600;
+            }
+
+            .contact-urgent,
+            .contact-info,
+            .user-stats {
+                margin: 15px 0;
+                padding: 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .stat-item {
+                padding: 8px;
+            }
+
+            .stat-number {
+                font-size: 18px;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 4px 0;
+            }
+
+            .contact-item strong {
+                min-width: auto;
+                margin-bottom: 2px;
+            }
+
+            .urgent-notice {
+                margin-top: 15px;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .email-container {
+                margin: 5px;
+            }
+
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .alert-box {
+                margin: 10px;
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            .booking-summary,
+            .info-card,
+            .contact-urgent,
+            .contact-info,
+            .user-stats {
+                padding: 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                padding: 10px;
+            }
+
+            .urgent-notice {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .footer {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚨 NEW BOOKING ALERT</h1>
+            <p>{{ company_name }} - Owner Notification</p>
+        </div>
+
+        <!-- Alert Box -->
+        <div class="alert-box">
+            🔔 You have a new booking that requires your attention!
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Booking Summary -->
+            <div class="booking-summary">
+                <h2>📋 Booking Summary</h2>
+                <p><strong>Booking ID:</strong> {{ booking.booking_id }}</p>
+                <p><strong>Status:</strong> <span style="color: #28a745; font-weight: bold;">✅ CONFIRMED</span></p>
+                <p><strong>Created:</strong> {{ booking.created_at|date:"F d, Y g:i A" }}</p>
+            </div>
+
+            <!-- Information Grid -->
+            <div class="info-grid">
+                <!-- Booking Details -->
+                <div class="info-card">
+                    <h3>🏟️ Booking Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Court:</span>
+                        <span class="detail-value">{{ booking.court.name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value">{{ booking_date }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Time:</span>
+                        <span class="detail-value">{{ booking_time }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Duration:</span>
+                        <span class="detail-value">{{ duration }} hour{{ duration|pluralize }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Amount:</span>
+                        <span class="detail-value" style="color: #28a745; font-weight: bold;">NPR
+                            {{booking.total_amount }}</span>
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="info-card">
+                    <h3>👤 Customer Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Player Name:</span>
+                        <span class="detail-value">{{ booking.player_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value">{{ booking.contact_number }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">{{ user.email }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Username:</span>
+                        <span class="detail-value">{{ user.username }}</span>
+                    </div>
+                    {% if user.first_name or user.last_name %}
+                    <div class="detail-item">
+                        <span class="detail-label">Full Name:</span>
+                        <span class="detail-value">{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Customer Notes -->
+            {% if booking.notes %}
+            <div class="info-card" style="margin: 20px 0;">
+                <h3>📝 Customer Notes</h3>
+                <p
+                    style="margin: 10px 0; padding: 10px; background: #fff; border-radius: 4px; border: 1px solid #dee2e6;">
+                    "{{ booking.notes }}"
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Emergency Contact Info -->
+            <div class="contact-urgent">
+                <h3>🚨 Emergency Contact Required</h3>
+                <p>In case of any issues, emergencies, or changes needed, use the following contact information:</p>
+            </div>
+
+            <div class="contact-info">
+                <h3>📞 Customer Contact Information</h3>
+                <div class="contact-item">
+                    <strong>Primary Phone:</strong> {{ booking.contact_number }}
+                </div>
+                <div class="contact-item">
+                    <strong>Email Address:</strong> {{ user.email }}
+                </div>
+                <div class="contact-item">
+                    <strong>Player Name:</strong> {{ booking.player_name }}
+                </div>
+
+            </div>
+
+            <!-- Customer Statistics -->
+            <div class="user-stats">
+                <h3>📊 Customer Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ user.total_booking }}</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ user.hours_played }}</div>
+                        <div class="stat-label">Hours Played</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">NPR {{ user.balance }}</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ user.reward_points }}</div>
+                        <div class="stat-label">Reward Points</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; font-size: 14px;">
+                    {% if user.total_booking == 1 %}
+                    🎉 <strong>First-time customer!</strong> Make sure to provide excellent service.
+                    {% elif user.total_booking >= 10 %}
+                    👑 <strong>VIP Customer!</strong> This is a loyal customer with {{ user.total_booking }} bookings.
+                    {% else %}
+                    ⭐ <strong>Regular Customer</strong> - {{ user.total_booking }} previous bookings.
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Action Required -->
+            <div class="urgent-notice">
+                ⚠️ IMPORTANT: Please prepare the court and ensure all facilities are ready for
+                {{ booking_date }} at {{booking_time }}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>{{ company_name }} - Owner Dashboard</strong></p>
+            <p>This is an automated notification. Please ensure the booking is handled properly.</p>
+            <p>Generated on {{ booking.created_at|date:"F d, Y g:i A" }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -189,12 +189,20 @@ def create_booking(request):
             change_reason='Initial booking creation'
         )
         
-        # Send confirmation email
+        # Send confirmation email to user
         try:
             send_booking_confirmation_email(booking, request.user)
             logger.info(f"Booking confirmation email sent successfully for booking {booking.booking_id}")
         except Exception as email_error:
             logger.error(f"Failed to send booking confirmation email: {str(email_error)}")
+            # Don't fail the booking creation if email fails
+        
+        # Send notification email to owner
+        try:
+            send_owner_notification_email(booking, request.user)
+            logger.info(f"Owner notification email sent successfully for booking {booking.booking_id}")
+        except Exception as email_error:
+            logger.error(f"Failed to send owner notification email: {str(email_error)}")
             # Don't fail the booking creation if email fails
         
         return JsonResponse({
@@ -496,6 +504,82 @@ def send_booking_confirmation_email(booking, user):
             'company_address': 'Kankai-3 Surunga-jhapa',  # Update with actual address
             'company_phone': '+977 9849484878',    # Update with actual phone
             'company_email': 'shreeshacademy@gmail.com',  # Update with actual email
+        }
+        
+        # Render HTML email template
+        html_message = render_to_string('emails/booking_confirmation.html', context)
+        
+        # Create plain text version
+        plain_message = strip_tags(html_message)
+        
+        # Email subject
+        subject = f'Booking Confirmation - {booking.booking_id} | Kanakai Futsal'
+        
+        # Send email
+        send_mail(
+            subject=subject,
+            message=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        
+    except Exception as e:
+        logger.error(f"Email sending failed: {str(e)}")
+        raise e
+
+
+def send_owner_notification_email(booking, user):
+    """Send booking notification email to futsal owner with complete user details"""
+    try:
+        owner_email = getattr(settings, 'OWNER_EMAIL', 'umamurmu52@gmail.com') 
+        
+        # Email context data for owner
+        context = {
+            'booking': booking,
+            'user': user,
+            'booking_date': booking.booking_date.strftime('%B %d, %Y'),
+            'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
+            'duration': booking.duration_hours,
+            'company_name': 'Kanakai Futsal',
+        }
+        
+        # Render HTML email template for owner
+        html_message = render_to_string('emails/owner_notification.html', context)
+        
+        # Create plain text version
+        plain_message = strip_tags(html_message)
+        
+        # Email subject for owner
+        subject = f'🔔 New Booking Alert - {booking.booking_id} | {booking.player_name}'
+        
+        # Send email to owner
+        send_mail(
+            subject=subject,
+            message=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[owner_email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        
+    except Exception as e:
+        logger.error(f"Owner notification email sending failed: {str(e)}")
+        raise e
+    """Send booking confirmation email with bill details"""
+    try:
+        # Email context data
+        context = {
+            'booking': booking,
+            'user': user,
+            'booking_date': booking.booking_date.strftime('%B %d, %Y'),
+            'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
+            'duration': booking.duration_hours,
+            'company_name': 'Kanakai Futsal',
+            'company_address': 'Your Address Here',  # Update with actual address
+            'company_phone': 'Your Phone Number',    # Update with actual phone
+            'company_email': 'info@kanakifutsal.com',  # Update with actual email
         }
         
         # Render HTML email template
