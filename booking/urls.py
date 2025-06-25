@@ -22,5 +22,4 @@ urlpatterns = [
      #cancelled and rebook
 
     path('bookings/cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
-    path('bookings/rebook/<int:booking_id>/', views.rebook_cancelled_booking, name='rebook'),
 ]

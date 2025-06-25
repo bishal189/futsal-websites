@@ -103,29 +103,23 @@ def get_available_slots(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def create_booking(request):
-    """Handle booking creation with balance tracking and email confirmation"""
+    """Handle booking creation with clean, stateless user stats tracking"""
     try:
         data = json.loads(request.body)
         
         # Extract data
-        court_id = data.get('court_id', 1)
+        court_id = data.get('court_id')
         booking_date = data.get('date')
         time_slot_id = data.get('time_slot_id')
         player_name = data.get('player_name')
         contact_number = data.get('contact_number')
         notes = data.get('notes', '')
-        booking_page_url = f"/booking/?court_id={court_id}&date={booking_date}&time_slot_id={time_slot_id}"
-        
-        # Validate required fields
-        if not all([booking_date, time_slot_id, player_name, contact_number]):
+
+        if not all([court_id, booking_date, time_slot_id, player_name, contact_number]):
             return JsonResponse({'error': 'All required fields must be provided'}, status=400)
-        
-        # Check authentication
+
         if not request.user.is_authenticated:
-            return JsonResponse({
-                'error': 'Authentication required',
-                'redirect_to': f"/login/?next={booking_page_url}"
-            }, status=401)
+            return JsonResponse({'error': 'Authentication required'}, status=401)
         
         # Parse and validate date
         try:
@@ -136,11 +130,9 @@ def create_booking(request):
         if booking_date < date.today():
             return JsonResponse({'error': 'Cannot book for past dates'}, status=400)
         
-        # Get court and time slot
         court = get_object_or_404(Court, id=court_id, is_active=True)
         time_slot = get_object_or_404(TimeSlot, id=time_slot_id, is_active=True)
-        
-        # Check if time slot is already booked
+
         existing_booking = Booking.objects.filter(
             court=court,
             booking_date=booking_date,
@@ -151,8 +143,7 @@ def create_booking(request):
         if existing_booking:
             return JsonResponse({'error': 'This time slot is already booked'}, status=400)
         
-        # Calculate total amount (court price for the time slot)
-        total_amount = court.hourly_rate 
+        total_amount = court.hourly_rate
         
         # Create booking
         booking = Booking.objects.create(
@@ -167,20 +158,7 @@ def create_booking(request):
             total_amount=total_amount
         )
         
-        # Update user's balance (total amount spent)
-        request.user.balance += total_amount
-        request.user.total_booking += 1
-
-        # Increment hours played (using booking duration)
-        request.user.hours_played += booking.duration_hours 
-
-        # Update reward points
-        request.user.reward_points += 1
-        
-        # Save user changes
-        request.user.save()
-        
-        # Create booking history
+        # Booking history
         BookingHistory.objects.create(
             booking=booking,
             previous_status='',
@@ -189,21 +167,22 @@ def create_booking(request):
             change_reason='Initial booking creation'
         )
         
-        # Send confirmation email to user
         try:
             send_booking_confirmation_email(booking, request.user)
-            logger.info(f"Booking confirmation email sent successfully for booking {booking.booking_id}")
         except Exception as email_error:
-            logger.error(f"Failed to send booking confirmation email: {str(email_error)}")
-            # Don't fail the booking creation if email fails
-        
-        # Send notification email to owner
+            logger.error(f"Booking confirmation email failed: {str(email_error)}")
+
         try:
             send_owner_notification_email(booking, request.user)
-            logger.info(f"Owner notification email sent successfully for booking {booking.booking_id}")
         except Exception as email_error:
-            logger.error(f"Failed to send owner notification email: {str(email_error)}")
-            # Don't fail the booking creation if email fails
+            logger.error(f"Owner notification email failed: {str(email_error)}")
+        
+        # Dynamically fetch user stats
+        confirmed_bookings = Booking.objects.filter(user=request.user, status='confirmed')
+        stats = confirmed_bookings.aggregate(
+            total_hours=Sum('duration_hours'),
+            total_spent=Sum('total_amount')
+        )
         
         return JsonResponse({
             'success': True,
@@ -217,8 +196,10 @@ def create_booking(request):
                 'total_amount': float(booking.total_amount)
             },
             'user_stats': {
-                'total_spent': float(request.user.balance),
-                'reward_points': request.user.reward_points
+                'total_bookings': confirmed_bookings.count(),
+                'total_hours': stats['total_hours'] or 0,
+                'total_spent': float(stats['total_spent']) if stats['total_spent'] else 0,
+                'reward_points': confirmed_bookings.count() 
             }
         })
     
@@ -227,6 +208,7 @@ def create_booking(request):
     except Exception as e:
         logger.error(f"Booking creation failed: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
+
 
 def booking_confirmation(request, booking_id):
     """Booking confirmation page"""
@@ -242,68 +224,30 @@ def booking_confirmation(request, booking_id):
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
 
+    valid_bookings = bookings.filter(status='confirmed')
+
     # Aggregations
-    # totals = bookings.aggregate(
-    #     total_bookings=Count('id'),
-    #     total_hours=Sum('duration_hours'),
-    #     total_cost=Sum('total_amount')
-    # )
+    totals = valid_bookings.aggregate(
+        total_bookings=Count('id'),
+        total_hours=Sum('duration_hours'),
+        total_cost=Sum('total_amount')
+    )
 
-    completed_bookings = bookings.filter(status='confirmed')
+    completed_bookings = valid_bookings
     cancelled_bookings = bookings.filter(status='cancelled')
-    reward_points = request.user.reward_points or 0
-    booking = request.user.total_booking or 0
-    hours_played = request.user.hours_played or 0
-    balance = request.user.balance or 0
 
+    # Fallback to 0 if None
     context = {
-
         'bookings': bookings,
-        'total_bookings': booking,
-        'total_hours':hours_played,
-        'total_cost': balance,
-        'reward_points': reward_points,
-        "completed_bookings":completed_bookings,
+        'total_bookings': totals['total_bookings'] or 0,
+        'total_hours': totals['total_hours'] or 0,
+        'total_cost': totals['total_cost'] or 0,
+        'reward_points': totals['total_bookings'] or 0, 
+        "completed_bookings": completed_bookings,
         'cancelled_bookings': cancelled_bookings,
-}
+    }
 
     return render(request, 'home/dashboard.html', context)
-
-
-@require_http_methods(["POST"])
-def cancel_booking(request, booking_id):
-    """Cancel a booking"""
-    booking = get_object_or_404(Booking, booking_id=booking_id)
-    
-    # Check if user can cancel this booking
-    if request.user.is_authenticated and booking.user != request.user:
-        return JsonResponse({'error': 'You can only cancel your own bookings'}, status=403)
-    
-    # Check if booking can be cancelled (e.g., not in the past, not already cancelled)
-    if booking.status == 'cancelled':
-        return JsonResponse({'error': 'Booking is already cancelled'}, status=400)
-    
-    if booking.is_past:
-        return JsonResponse({'error': 'Cannot cancel past bookings'}, status=400)
-    
-    # Update booking status
-    old_status = booking.status
-    booking.status = 'cancelled'
-    booking.save()
-    
-    # Create history entry
-    BookingHistory.objects.create(
-        booking=booking,
-        previous_status=old_status,
-        new_status='cancelled',
-        changed_by=request.user if request.user.is_authenticated else None,
-        change_reason='Cancelled by user'
-    )
-    
-    return JsonResponse({
-        'success': True,
-        'message': 'Booking cancelled successfully!'
-    })
 
 def booking_calendar_data(request):
     """Get booking data for calendar view"""
@@ -382,62 +326,28 @@ def download_receipt(request, booking_id):
 @require_POST
 @csrf_protect
 def cancel_booking(request, booking_id):
-    """Cancel a booking and deduct user stats"""
+    """Cancel a booking and reflect updated stats"""
     
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     
-    # Check if booking is already cancelled
+    # Check if already cancelled
     if booking.status == 'cancelled':
-        return JsonResponse({
-            'success': False, 
-            'message': 'Booking is already cancelled'
-        }, status=400)
+        return JsonResponse({'success': False, 'message': 'Booking is already cancelled'}, status=400)
     
     # Check if booking is in the past
     booking_datetime = datetime.combine(booking.booking_date, booking.time_slot.start_time)
-    current_time = timezone.now()
-    
     if timezone.is_naive(booking_datetime):
-        booking_datetime = timezone.make_aware(booking_datetime)
+        booking_datetime = timezone.make_aware(booking_datetime, timezone.get_current_timezone())
     
-    if booking_datetime < current_time:
-        return JsonResponse({
-            'success': False, 
-            'message': 'Cannot cancel past bookings'
-        }, status=400)
-    
-    # Deduct user stats (reverse what was added during booking creation)
-    
-    # Deduct balance (total amount spent)
-    if request.user.balance >= booking.total_amount:
-        request.user.balance -= booking.total_amount
-    else:
-        request.user.balance = 0
-    
-    # Deduct total booking count
-    if request.user.total_booking > 0:
-        request.user.total_booking -= 1
-    
-    # Deduct hours played
-    if request.user.hours_played >= booking.duration_hours:
-        request.user.hours_played -= booking.duration_hours
-    else:
-        request.user.hours_played = 0
-    
-    # Deduct reward points (remove the 1 point gained from booking)
-    if request.user.reward_points > 0:
-        request.user.reward_points -= 1
-    
-    # Save user changes
-    request.user.save()
+    if booking_datetime < timezone.now():
+        return JsonResponse({'success': False, 'message': 'Cannot cancel past bookings'}, status=400)
     
     # Update booking status
     booking.status = 'cancelled'
-    booking.cancelled_at = timezone.now()
-    booking.cancellation_reason = 'User cancelled'
+    booking.updated_at = timezone.now()
     booking.save()
     
-    # Create booking history
+    # Track in Booking History
     BookingHistory.objects.create(
         booking=booking,
         previous_status='confirmed',
@@ -446,49 +356,29 @@ def cancel_booking(request, booking_id):
         change_reason='User cancelled booking'
     )
     
-    success_message = f"Booking cancelled successfully. NPR {booking.total_amount} deducted from total spent."
+    # Updated aggregated stats (optional)
+    valid_bookings = Booking.objects.filter(user=request.user, status='confirmed')
     
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return JsonResponse({
-            'success': True,
-            'message': success_message,
-            'amount_deducted': float(booking.total_amount),
-            'remaining_points': request.user.reward_points,
-            'remaining_balance': float(request.user.balance),
-            'hours_deducted': booking.duration_hours
-        })
-    else:
-        messages.success(request, success_message)
-        return redirect('booking_page')
-
-@login_required
-def rebook_cancelled_booking(request, booking_id):
-    """Rebook a previously cancelled booking"""
-    
-    cancelled_booking = get_object_or_404(
-        Booking, 
-        id=booking_id, 
-        user=request.user, 
-        status='cancelled'
+    totals = valid_bookings.aggregate(
+        total_hours=Sum('duration_hours'),
+        total_cost=Sum('total_amount')
     )
     
-    # Check if the time slot is still available
-    existing_booking = Booking.objects.filter(
-        court=cancelled_booking.court,
-        booking_date=cancelled_booking.booking_date,
-        time_slot=cancelled_booking.time_slot,
-        status__in=['confirmed', 'pending']
-    ).first()
+    response_data = {
+        'success': True,
+        'message': 'Booking cancelled successfully.',
+        'total_bookings': valid_bookings.count(),
+        'total_hours': totals['total_hours'] or 0,
+        'total_cost': float(totals['total_cost']) if totals['total_cost'] else 0,
+        'reward_points': valid_bookings.count() 
+    }
     
-    if existing_booking:
-        messages.error(request, 'This time slot is no longer available.')
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse(response_data)
+    else:
+        messages.success(request, response_data['message'])
         return redirect('booking_page')
 
-    cancelled_booking.status = 'confirmed'
-    cancelled_booking.save()
-    
-    messages.success(request, 'Booking recreated successfully!')
-    return redirect('booking_page')
 
 def send_booking_confirmation_email(booking, user):
     """Send booking confirmation email with bill details"""
