@@ -82,7 +82,6 @@ def contact_form_view(request):
         owner_emails = [
             'shreeshacademy@gmail.com',
             'mohannthapa@gmail.com',
-            "umamurmu52@gmail.com",
         ]
         
         # Send email to owners

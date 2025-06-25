@@ -60,7 +60,7 @@ class Booking(models.Model):
         message="Phone number must be entered in the format: '9841234567' or '+9779841234567'"
     )
     contact_number = models.CharField(validators=[phone_regex], max_length=17)
-    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='bookings')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='bookings')
     
     # Booking details
     duration_hours = models.PositiveIntegerField(default=1)
@@ -137,7 +137,9 @@ class Booking(models.Model):
         return 0
     
     def __str__(self):
-        return f"{self.court.name} - {self.booking_date} - {self.user.email}"
+        user_email = self.user.email if self.user else "No user"
+        return f"{self.court.name} - {self.booking_date} - {user_email}"
+
 
 
 
