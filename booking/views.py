@@ -13,6 +13,14 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_protect
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
+import logging
+
+# Set up logging for email debugging
+logger = logging.getLogger(__name__)
 
 
 # for downloads 
@@ -95,7 +103,7 @@ def get_available_slots(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def create_booking(request):
-    """Handle booking creation with balance tracking"""
+    """Handle booking creation with balance tracking and email confirmation"""
     try:
         data = json.loads(request.body)
         
@@ -166,7 +174,6 @@ def create_booking(request):
         # Increment hours played (using booking duration)
         request.user.hours_played += booking.duration_hours 
 
-        
         # Update reward points
         request.user.reward_points += 1
         
@@ -182,10 +189,18 @@ def create_booking(request):
             change_reason='Initial booking creation'
         )
         
+        # Send confirmation email
+        try:
+            send_booking_confirmation_email(booking, request.user)
+            logger.info(f"Booking confirmation email sent successfully for booking {booking.booking_id}")
+        except Exception as email_error:
+            logger.error(f"Failed to send booking confirmation email: {str(email_error)}")
+            # Don't fail the booking creation if email fails
+        
         return JsonResponse({
             'success': True,
             'booking_id': str(booking.booking_id),
-            'message': 'Booking created successfully!',
+            'message': 'Booking created successfully! Confirmation email sent.',
             'booking_details': {
                 'player_name': booking.player_name,
                 'date': booking.booking_date.strftime('%Y-%m-%d'),
@@ -202,6 +217,7 @@ def create_booking(request):
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     except Exception as e:
+        logger.error(f"Booking creation failed: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
 
 def booking_confirmation(request, booking_id):
@@ -466,3 +482,41 @@ def rebook_cancelled_booking(request, booking_id):
     messages.success(request, 'Booking recreated successfully!')
     return redirect('booking_page')
 
+def send_booking_confirmation_email(booking, user):
+    """Send booking confirmation email with bill details"""
+    try:
+        # Email context data
+        context = {
+            'booking': booking,
+            'user': user,
+            'booking_date': booking.booking_date.strftime('%B %d, %Y'),
+            'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
+            'duration': booking.duration_hours,
+            'company_name': 'Kanakai Futsal',
+            'company_address': 'Kankai-3 Surunga-jhapa',  # Update with actual address
+            'company_phone': '+977 9849484878',    # Update with actual phone
+            'company_email': 'shreeshacademy@gmail.com',  # Update with actual email
+        }
+        
+        # Render HTML email template
+        html_message = render_to_string('emails/booking_confirmation.html', context)
+        
+        # Create plain text version
+        plain_message = strip_tags(html_message)
+        
+        # Email subject
+        subject = f'Booking Confirmation - {booking.booking_id} | Kanakai Futsal'
+        
+        # Send email
+        send_mail(
+            subject=subject,
+            message=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        
+    except Exception as e:
+        logger.error(f"Email sending failed: {str(e)}")
+        raise e
