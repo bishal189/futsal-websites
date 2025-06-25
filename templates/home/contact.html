@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,17 +65,93 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-</head>
 
+    <style>
+        /* Message notification styles */
+        .message-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateX(500px);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .message-notification.show {
+            transform: translateX(0);
+        }
+
+        .message-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .message-error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .message-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            border: 2px solid #ffffff30;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Form submission states */
+        .form-submitting {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-loading {
+            position: relative;
+        }
+
+        .btn-loading .btn-text {
+            opacity: 0;
+        }
+
+        .btn-loading .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
 
 <body class="font-sans bg-white">
     <!-- Header -->
     {% include 'includes/header.html' %}
 
-
-
-
-
+    <!-- Message Container -->
+    <div id="message-container"></div>
 
     <!-- Welcome Section -->
     <section class="py-24 gradient-bg section-pattern relative overflow-hidden">
@@ -234,12 +309,6 @@
         </div>
     </section>
 
-
-
-
-
-
-
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-futsal-gray">
         <div class="container mx-auto px-4">
@@ -255,7 +324,7 @@
 
                 <!-- Main Heading -->
                 <h2 class="text-4xl md:text-5xl font-extrabold text-futsal-green mb-4 leading-tight">
-                    Let’s <span class="text-futsal-orange">Get In Touch</span>
+                    Let's <span class="text-futsal-orange">Get In Touch</span>
                 </h2>
 
                 <!-- Decorative Divider -->
@@ -267,33 +336,33 @@
 
                 <!-- Description Text -->
                 <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                    Ready to book your court or have questions? We’re here to help you start your <span
+                    Ready to book your court or have questions? We're here to help you start your <span
                         class="font-semibold text-futsal-green">futsal journey</span> with confidence and ease.
                 </p>
             </div>
-
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 <!-- Contact Form -->
                 <div class="bg-white rounded-xl shadow-lg p-8">
                     <h3 class="text-2xl font-semibold text-futsal-green mb-6">Send us a Message</h3>
                     <form id="contact-form" class="space-y-6">
+                        {% csrf_token %}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First
-                                    Name</label>
+                                    Name *</label>
                                 <input type="text" id="firstName" name="firstName" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
                             </div>
                             <div>
                                 <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last
-                                    Name</label>
+                                    Name *</label>
                                 <input type="text" id="lastName" name="lastName" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
                             </div>
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                             <input type="email" id="email" name="email" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
                         </div>
@@ -303,7 +372,7 @@
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
                         </div>
                         <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
                             <select id="subject" name="subject" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent">
                                 <option value="">Select a subject</option>
@@ -314,13 +383,14 @@
                             </select>
                         </div>
                         <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                             <textarea id="message" name="message" rows="4" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-futsal-orange focus:border-transparent"></textarea>
                         </div>
-                        <button type="submit"
-                            class="w-full bg-futsal-orange text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
-                            Send Message
+                        <button type="submit" id="submit-btn"
+                            class="w-full bg-futsal-orange text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors relative">
+                            <span class="btn-text">Send Message</span>
+                            <div class="loading-spinner hidden"></div>
                         </button>
                     </form>
                 </div>
@@ -392,81 +462,115 @@
 
     <!-- JavaScript -->
     <script>
+        // Get CSRF token from Django
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Show notification message
+        function showMessage(message, type = 'success') {
+            const messageContainer = document.getElementById('message-container');
+
+            // Remove any existing messages
+            const existingMessages = messageContainer.querySelectorAll('.message-notification');
+            existingMessages.forEach(msg => msg.remove());
+
+            // Create new message element
+            const messageEl = document.createElement('div');
+            messageEl.className = `message-notification message-${type}`;
+
+            // Set icon based on message type
+            let icon = '';
+            switch (type) {
+                case 'success':
+                    icon = '<i class="fas fa-check-circle"></i>';
+                    break;
+                case 'error':
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                    break;
+                case 'warning':
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                    break;
+                default:
+                    icon = '<i class="fas fa-info-circle"></i>';
+            }
+
+            messageEl.innerHTML = `
+                ${icon}
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+            messageContainer.appendChild(messageEl);
+
+            // Show message with animation
+            setTimeout(() => {
+                messageEl.classList.add('show');
+            }, 100);
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                if (messageEl && messageEl.parentElement) {
+                    messageEl.classList.remove('show');
+                    setTimeout(() => {
+                        if (messageEl && messageEl.parentElement) {
+                            messageEl.remove();
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Set button loading state
+        function setButtonLoading(isLoading) {
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            const form = document.getElementById('contact-form');
+
+            if (isLoading) {
+                submitBtn.classList.add('btn-loading');
+                btnText.style.opacity = '0';
+                spinner.classList.remove('hidden');
+                form.classList.add('form-submitting');
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.classList.remove('btn-loading');
+                btnText.style.opacity = '1';
+                spinner.classList.add('hidden');
+                form.classList.remove('form-submitting');
+                submitBtn.disabled = false;
+            }
+        }
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-
-        // Gallery Carousel
-        let currentSlide = 0;
-        const totalSlides = 4;
-        const galleryTrack = document.getElementById('gallery-track');
-        const indicators = document.querySelectorAll('#gallery-indicators button');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        function updateCarousel() {
-            galleryTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Update indicators
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.classList.remove('bg-gray-300');
-                    indicator.classList.add('bg-futsal-orange');
-                } else {
-                    indicator.classList.remove('bg-futsal-orange');
-                    indicator.classList.add('bg-gray-300');
-                }
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        // Indicator clicks
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                currentSlide = index;
-                updateCarousel();
-            });
-        });
-
-        // Auto-play carousel
-        setInterval(nextSlide, 5000);
-
-        // Contact Form Validation and Submission
+        // Contact Form Submission
         const contactForm = document.getElementById('contact-form');
+        const csrftoken = getCookie('csrftoken');
 
-        contactForm.addEventListener('submit', function (e) {
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             // Basic form validation
@@ -477,54 +581,125 @@
             const message = document.getElementById('message').value.trim();
 
             if (!firstName || !lastName || !email || !subject || !message) {
-                alert('Please fill in all required fields.');
+                showMessage('Please fill in all required fields.', 'warning');
                 return;
             }
 
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
+                showMessage('Please enter a valid email address.', 'error');
                 return;
             }
 
-            // Simulate form submission
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
-        });
+            // Set loading state
+            setButtonLoading(true);
 
-        // Scroll-based animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('email', email);
+            formData.append('phone', document.getElementById('phone').value.trim());
+            formData.append('subject', subject);
+            formData.append('message', message);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            try {
+                // Submit form to Django API
+                const response = await fetch('/api/contact/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                    },
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Success
+                    showMessage(data.message || 'Thank you for your message! We will get back to you soon.', 'success');
+                    contactForm.reset();
+                } else {
+                    // Error from server
+                    if (data.errors) {
+                        // Handle field-specific errors
+                        let errorMessage = 'Please correct the following errors:\n';
+                        for (const [field, errors] of Object.entries(data.errors)) {
+                            errorMessage += `• ${errors.join(', ')}\n`;
+                        }
+                        showMessage(errorMessage, 'error');
+                    } else {
+                        showMessage(data.message || 'Something went wrong. Please try again.', 'error');
+                    }
                 }
-            });
-        }, observerOptions);
 
-        // Observe elements for animation
-        document.querySelectorAll('.facility-card, .news-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.classList.add('bg-white/95', 'backdrop-blur-sm');
-            } else {
-                header.classList.remove('bg-white/95', 'backdrop-blur-sm');
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                showMessage('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                // Remove loading state
+                setButtonLoading(false);
             }
         });
+
+        // Add real-time validation
+        function addFieldValidation() {
+            const emailField = document.getElementById('email');
+            const phoneField = document.getElementById('phone');
+
+            // Email validation on blur
+            emailField.addEventListener('blur', function () {
+                const email = this.value.trim();
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    this.classList.add('border-red-500');
+                    this.classList.remove('border-gray-300');
+                } else {
+                    this.classList.remove('border-red-500');
+                    this.classList.add('border-gray-300');
+                }
+            });
+
+            // Phone validation (optional, for international numbers)
+            phoneField.addEventListener('blur', function () {
+                const phone = this.value.trim();
+                if (phone && !/^[\+]?[1-9][\d]{0,15}$/.test(phone.replace(/[\s\-\(\)]/g, ''))) {
+                    this.classList.add('border-yellow-500');
+                    this.classList.remove('border-gray-300');
+                } else {
+                    this.classList.remove('border-yellow-500');
+                    this.classList.add('border-gray-300');
+                }
+            });
+
+            // Remove validation styling on focus
+            const formFields = contactForm.querySelectorAll('input, select, textarea');
+            formFields.forEach(field => {
+                field.addEventListener('focus', function () {
+                    this.classList.remove('border-red-500', 'border-yellow-500');
+                    this.classList.add('border-gray-300');
+                });
+            });
+        }
+
+        // Initialize field validation
+        addFieldValidation();
+
+        // Handle form reset
+        function resetForm() {
+            contactForm.reset();
+            const formFields = contactForm.querySelectorAll('input, select, textarea');
+            formFields.forEach(field => {
+                field.classList.remove('border-red-500', 'border-yellow-500');
+                field.classList.add('border-gray-300');
+            });
+        }
+
+        // Add a reset button handler if needed
+        const resetBtn = document.getElementById('reset-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', resetForm);
+        }
     </script>
 </body>
 
