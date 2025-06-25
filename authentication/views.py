@@ -124,6 +124,7 @@ def forget_password(request):
                     html_message=html_message,
                     fail_silently=False,
                 )
+                print(send_mail,'send')
                 
                 messages.success(
                     request, 
@@ -132,7 +133,7 @@ def forget_password(request):
                 
                 # Store email in session for success page
                 request.session['reset_email'] = email
-                print(request.session['reset_email'], dict(request.session))
+                print('hello world')
                 return render(request, 'auth/forgot_password.html', {'email_sent': True})
                 
             except Exception as e:
@@ -149,7 +150,7 @@ def forget_password(request):
                 f'If an account with {email} exists, password reset instructions have been sent to that email address.'
             )
             request.session['reset_email'] = email
-            return render(request, 'forgot_password.html', {'email_sent': True})
+            return render(request, 'auth/forgot_password.html', {'email_sent': True})
     
     return render(request, 'auth/forgot_password.html')
 

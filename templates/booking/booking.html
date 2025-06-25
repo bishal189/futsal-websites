@@ -228,6 +228,12 @@
                 transform: translateY(0);
             }
         }
+
+        .time-passed {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+            color: #6b7280 !important;
+            border: 1px solid #d1d5db !important;
+        }
     </style>
 </head>
 
@@ -469,6 +475,35 @@
         let currentCourtId = 1; // Default court ID
         let currentCourtData = null;
         let availableSlots = [];
+
+        // 1. ADD this function anywhere in your JavaScript section
+        function getNepalTime() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const nepalTime = new Date(utc + (5.75 * 3600000)); // Nepal is UTC+5:45
+            return nepalTime;
+        }
+
+        function isTimeSlotPassed(date, timeString) {
+            const nepalNow = getNepalTime();
+            const selectedDate = new Date(date);
+
+            // Check if selected date is today in Nepal time
+            const nepalToday = new Date(nepalNow.getFullYear(), nepalNow.getMonth(), nepalNow.getDate());
+            const selectedDateOnly = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+
+            if (selectedDateOnly.getTime() !== nepalToday.getTime()) {
+                return false;
+            }
+
+            // Parse time (format: "17:00")
+            const [hours, minutes] = timeString.split(':').map(num => parseInt(num));
+            const slotTime = new Date(nepalNow.getFullYear(), nepalNow.getMonth(), nepalNow.getDate(), hours, minutes, 0, 0);
+
+            return nepalNow > slotTime;
+        }
+
+
 
         // Error handling functions
         function showFieldError(fieldId, message) {
@@ -792,7 +827,8 @@
                     const slotEl = document.createElement('div');
                     slotEl.textContent = `${slot.start_time} - ${slot.end_time}`;
                     slotEl.className = 'time-slot p-3 text-center text-sm font-medium rounded-lg cursor-pointer transition-all duration-200';
-                    if (slot.is_booked) {
+
+                    if (slot.is_booked || isTimeSlotPassed(selectedDate, slot.start_time)) {
                         slotEl.classList.add('time-booked');
                     } else {
                         slotEl.classList.add('time-available');
@@ -801,6 +837,7 @@
 
                     container.appendChild(slotEl);
                 });
+
 
                 if (availableSlots.length === 0) {
                     container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No time slots available for this date</div>';
