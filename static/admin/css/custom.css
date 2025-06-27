@@ -1,6 +1,8 @@
-/* Resize logo in the top header */
-.brand-link .brand-image {
-  height: 50px !important; /* Adjust as needed */
-  width: auto !important; /* Or set fixed width if needed */
-  object-fit: contain;
+.brand-image img {
+  width: 36px;
+  height: 33px;
+}
+
+img {
+  max-width: 180px !important;
 }

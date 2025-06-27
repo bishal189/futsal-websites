@@ -829,10 +829,9 @@
                     slotEl.textContent = `${slot.start_time} - ${slot.end_time}`;
                     slotEl.className = 'time-slot p-3 text-center text-sm font-medium rounded-lg cursor-pointer transition-all duration-200';
 
-                    // Check if slot is 6:00 AM or 7:00 AM
-                    const isDisabledSlot = slot.start_time === '06:00' || slot.end_time === '07:00';
+                    const isPassed = isTimeSlotPassed(selectedDate, slot.start_time);
 
-                    if (slot.is_booked || isTimeSlotPassed(selectedDate, slot.start_time) || isDisabledSlot) {
+                    if (slot.is_booked || isPassed) {
                         slotEl.classList.add('time-booked');
                     } else {
                         slotEl.classList.add('time-available');
@@ -841,6 +840,7 @@
 
                     container.appendChild(slotEl);
                 });
+
 
                 if (availableSlots.length === 0) {
                     container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No time slots available for this date</div>';
