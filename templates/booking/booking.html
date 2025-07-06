@@ -234,6 +234,56 @@
             color: #6b7280 !important;
             border: 1px solid #d1d5db !important;
         }
+
+
+        .time-passed {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+            color: #6b7280 !important;
+            border: 1px solid #d1d5db !important;
+            cursor: not-allowed !important;
+        }
+
+        .status-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-available {
+            background: linear-gradient(135deg, #ffffff, #f0fdf4);
+        }
+
+        .legend-booked {
+            background: linear-gradient(135deg, #fca5a5, #f87171);
+        }
+
+        .legend-passed {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        }
+
+        .legend-selected {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
     </style>
 </head>
 
@@ -313,6 +363,24 @@
                         Available Time Slots
                         <div id="timeSlotLoader" class="spinner ml-3 hidden"></div>
                     </h2>
+                    <div class="status-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot legend-available"></div>
+                            <span class="text-gray-700">Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot legend-booked"></div>
+                            <span class="text-gray-700">Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot legend-passed"></div>
+                            <span class="text-gray-700">Time Passed</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot legend-selected"></div>
+                            <span class="text-gray-700">Selected</span>
+                        </div>
+                    </div>
                     <div id="timeSlots" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-fr"></div>
                     <div id="timeSlotError" class="hidden text-red-600 text-sm mt-2">
                         <i class="fas fa-exclamation-triangle mr-1"></i>
@@ -823,7 +891,6 @@
                 loader.classList.add('hidden');
 
                 // Display time slots
-                // Display time slots
                 availableSlots.forEach(slot => {
                     const slotEl = document.createElement('div');
                     slotEl.textContent = `${slot.start_time} - ${slot.end_time}`;
@@ -831,16 +898,20 @@
 
                     const isPassed = isTimeSlotPassed(selectedDate, slot.start_time);
 
-                    if (slot.is_booked || isPassed) {
+                    if (slot.is_booked) {
                         slotEl.classList.add('time-booked');
+                        slotEl.title = 'This time slot is already booked';
+                    } else if (isPassed) {
+                        slotEl.classList.add('time-passed');
+                        slotEl.title = 'This time slot has already passed';
                     } else {
                         slotEl.classList.add('time-available');
                         slotEl.addEventListener('click', () => selectTimeSlot(slot, slotEl));
+                        slotEl.title = 'Click to select this time slot';
                     }
 
                     container.appendChild(slotEl);
                 });
-
 
                 if (availableSlots.length === 0) {
                     container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">No time slots available for this date</div>';
