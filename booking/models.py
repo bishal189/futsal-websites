@@ -46,7 +46,7 @@ class Booking(models.Model):
     ]
 
     # Booking identification
-    booking_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    booking_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=False)
     
     # Court and timing details
     court = models.ForeignKey(Court, on_delete=models.CASCADE, related_name='bookings')

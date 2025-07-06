@@ -324,6 +324,9 @@ def download_receipt(request, booking_id):
     
     return HttpResponse('Error generating PDF', status=500)
 
+
+    
+
 @login_required
 @require_POST
 @csrf_protect
