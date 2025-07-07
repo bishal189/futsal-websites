@@ -1,0 +1,18 @@
+name: Issue Events Listener
+
+on:
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  display-issue-details:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print event details
+        run: |
+          echo "Issue Event Type: ${{ github.event.action }}"
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Number: ${{ github.event.issue.number }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
+          echo "Triggered by: ${{ github.actor }}"
