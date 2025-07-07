@@ -1,0 +1,13 @@
+name: Django Project Simple Check
+
+on: push
+jobs:
+  just-print:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Print confirmation
+        run: echo "It's OK"
