@@ -1,8 +1,10 @@
 name: Issue Events Listener
 
 on:
-  issues:
-    types: [opened, edited, closed]
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
 
 jobs:
   display-issue-details:
