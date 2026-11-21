@@ -13,22 +13,56 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load .env from the project root (works no matter which directory you run from).
+load_dotenv(BASE_DIR / '.env')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+def env_list(name, default=''):
+    """Read a comma-separated list from .env."""
+    return [item.strip() for item in os.getenv(name, default).split(',') if item.strip()]
+
+
+# ---------------------------------------------------------------------------
+# Only three settings come from .env:
+#   DJANGO_ENV                 development | production
+#   ALLOWED_HOSTS              comma-separated domains
+#   OWNER_NOTIFICATION_EMAILS  comma-separated emails (see the email section)
+# (plus the email login, EMAIL_HOST_USER / EMAIL_HOST_PASSWORD, which must stay secret)
+# Everything else is set here.
+# ---------------------------------------------------------------------------
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'development').strip().lower()
+IS_PRODUCTION = DJANGO_ENV == 'production'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-*0^l@d#2962+xpcfb8=j*i5=^=wk%5#3d-f&*9&$mqtaso18n='
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Debug is on in development and off in production.
+DEBUG = not IS_PRODUCTION
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', '' if IS_PRODUCTION else 'localhost,127.0.0.1')
+
+# Allow form posts from every allowed host, over http and https.
+CSRF_TRUSTED_ORIGINS = [
+    f'{scheme}://{host.lstrip(".")}'
+    for host in ALLOWED_HOSTS
+    if host not in ('*', 'localhost', '127.0.0.1')
+    for scheme in ('https', 'http')
+]
+
+# Set to True once the live site has an SSL certificate (HTTPS).
+# Leave False on a plain-HTTP server, or logins will stop working.
+USE_HTTPS = False
+if IS_PRODUCTION and USE_HTTPS:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
@@ -147,18 +181,14 @@ EMAIL_HOST = 'mail.shreeshacademy.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
+# Email login stays in .env so the password is never committed.
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Who receives owner alerts for new bookings and cancellations.
-# Comma-separated in .env, e.g. OWNER_NOTIFICATION_EMAILS=a@x.com,b@y.com
-OWNER_NOTIFICATION_EMAILS = [
-    e.strip()
-    for e in os.getenv('OWNER_NOTIFICATION_EMAILS', 'shreeshacademy@gmail.com,mohannthapa@gmail.com').split(',')
-    if e.strip()
-]
+OWNER_NOTIFICATION_EMAILS = env_list('OWNER_NOTIFICATION_EMAILS', 'shreeshacademy@gmail.com,mohannthapa@gmail.com')
 
 
 
