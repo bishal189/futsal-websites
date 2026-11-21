@@ -1,0 +1,48 @@
+<script>
+    (function () {
+        // Contact form
+        const form = document.getElementById('contact-form');
+        if (form) {
+            const status = document.getElementById('contact-status');
+            const setStatus = (text, ok) => {
+                status.textContent = text;
+                status.className = 'text-sm ' + (ok ? 'text-green-700' : 'text-red-700');
+            };
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                    setStatus('Please fill in all required fields.', false);
+                    form.reportValidity();
+                    return;
+                }
+
+                const btn = form.querySelector('button[type="submit"]');
+                const label = btn.textContent;
+                btn.textContent = 'Sending…';
+                btn.disabled = true;
+                status.textContent = '';
+
+                try {
+                    const res = await fetch('/api/contact/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        setStatus('Thanks. We’ll get back to you soon.', true);
+                        form.reset();
+                    } else {
+                        setStatus(data.message || 'Something went wrong. Please try again.', false);
+                    }
+                } catch (err) {
+                    setStatus('Something went wrong. Please try again.', false);
+                } finally {
+                    btn.textContent = label;
+                    btn.disabled = false;
+                }
+            });
+        }
+    })();
+</script>

@@ -23,17 +23,6 @@ def profile(request):
 def Booking(request):
     return render(request, 'home/dashboard.html')
 
-def facility(request):
-    return render(request, 'home/facility.html')
-
-def news(request):
-    return render(request, 'home/news.html')
-
-def contact(request):
-    return render(request, 'home/contact.html')
-
-def gallery(request):
-    return render(request, 'home/gallery.html')
 
 
 

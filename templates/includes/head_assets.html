@@ -1,0 +1,45 @@
+{% load static %}
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                // 3-color system: white/#F8FAFC canvas, slate-900/#475569 ink, brand accent.
+                // Accent is reserved for primary actions and active states.
+                colors: { brand: '#D9480F' },
+                fontFamily: {
+                    sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'],
+                },
+            },
+        },
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+<style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    [x-cloak] { display: none !important; }
+    section[id] { scroll-margin-top: 4rem; } /* clear the fixed header when jumping to a section */
+    .np { font-family: 'Noto Sans Devanagari', 'Inter', sans-serif; }
+
+    /* Subtle diagonal crosshatch. Add .bg-cross-full to keep it at full strength instead of fading out. */
+    .bg-cross { position: relative; isolation: isolate; }
+    .bg-cross::before {
+        content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background-image:
+            repeating-linear-gradient(45deg, rgba(15, 23, 42, .06) 0 1px, transparent 1px 32px),
+            repeating-linear-gradient(-45deg, rgba(15, 23, 42, .06) 0 1px, transparent 1px 32px);
+        -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+                mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+    }
+    .bg-cross-full::before { -webkit-mask-image: none; mask-image: none; }
+</style>

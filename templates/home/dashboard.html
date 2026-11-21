@@ -737,8 +737,8 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn?.addEventListener('click', () => {
+            mobileMenu?.classList.toggle('hidden');
         });
 
         // Smooth Scrolling for Navigation Links
@@ -752,7 +752,7 @@
                         block: 'start'
                     });
                     // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
+                    mobileMenu?.classList.add('hidden');
                 }
             });
         });

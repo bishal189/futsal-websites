@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Kanakai Futsal | Book a Futsal Court in Jhapa, Nepal{% endblock %}</title>
+    <meta name="description"
+        content="{% block meta_description %}Book your game at Kanakai Futsal – FIFA-grade turf, floodlit evenings and online booking in Kanakai, Jhapa. Open daily 6 AM to 10 PM.{% endblock %}">
+    <meta name="author" content="Kanakai Futsal">
+    <meta property="og:site_name" content="Kanakai Futsal">
+    <meta property="og:type" content="website">
+    {% block meta_extra %}{% endblock %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon_io/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon_io/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon_io/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome is kept for monochrome utility icons used by page scripts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        /*
+         * Design system — strictly 3 colors:
+         *   paper  #FAFAFA  page background
+         *   ink    #111111  text, borders (use opacity: ink/10 borders, ink/60 muted text)
+         *   accent #D9480F  primary CTAs and key highlights only (max one accent CTA per viewport)
+         * Status colors (red/green) are reserved for form errors / success messages only.
+         */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#FAFAFA',
+                        ink: '#111111',
+                        accent: '#D9480F',
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    maxWidth: { page: '1100px' },
+                },
+            },
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            html { scroll-behavior: smooth; }
+            body { -webkit-font-smoothing: antialiased; }
+            [x-cloak] { display: none !important; }
+        }
+        @layer components {
+            /* Layout */
+            .container-page { @apply max-w-page mx-auto px-4 sm:px-6; }
+            .section { @apply py-24; }
+
+            /* Type */
+            .eyebrow { @apply text-xs uppercase tracking-[0.14em] text-ink/40; }
+            .h-display { @apply text-[2.5rem] leading-[1.05] sm:text-6xl font-semibold tracking-tight; }
+            .h-section { @apply text-3xl sm:text-4xl font-semibold tracking-tight; }
+            .lead { @apply text-lg text-ink/60 leading-relaxed; }
+
+            /* Buttons */
+            .btn { @apply inline-flex items-center justify-center gap-2 text-[15px] font-medium px-5 py-3 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed; }
+            .btn-primary { @apply btn bg-accent text-white hover:brightness-95; }
+            .btn-dark { @apply btn bg-ink text-paper hover:bg-ink/85; }
+            .btn-outline { @apply btn border border-ink/15 text-ink hover:border-ink/40; }
+
+            /* Surfaces */
+            .card { @apply bg-white border border-ink/10 rounded-xl; }
+
+            /* Forms */
+            .label { @apply block text-sm font-medium mb-2; }
+            .input { @apply w-full bg-white border border-ink/15 rounded-md px-3.5 py-2.5 text-[15px] placeholder:text-ink/35 focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition; }
+            .help { @apply mt-1.5 text-sm text-ink/50; }
+            .error { @apply mt-1.5 text-sm text-red-700; }
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-paper text-ink font-sans min-h-screen flex flex-col">
+
+    {% include 'includes/header.html' %}
+
+    {% block messages %}
+    {% if messages %}
+    <div class="container-page pt-6 space-y-2" x-data>
+        {% for message in messages %}
+        <div x-data="{ show: true }" x-show="show"
+            class="flex items-start justify-between gap-4 border rounded-md px-4 py-3 text-sm bg-white
+            {% if message.tags == 'error' %}border-red-200 text-red-800{% elif message.tags == 'success' %}border-green-200 text-green-800{% else %}border-ink/10{% endif %}">
+            <span>{{ message }}</span>
+            <button type="button" @click="show = false" class="text-ink/40 hover:text-ink" aria-label="Dismiss">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

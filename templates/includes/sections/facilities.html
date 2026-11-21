@@ -1,0 +1,42 @@
+{% load static %}
+<section id="facilities" class="py-24 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight">Facilities</h2>
+            <p class="md:max-w-md text-slate-600 leading-relaxed">Everything you need for a proper game, from the turf to the changing rooms.</p>
+        </div>
+
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+            <article>
+                <img src="{% static 'indoor.jpg' %}" alt="Indoor court" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Indoor courts</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Climate-controlled, professional-grade flooring and even lighting.</p>
+            </article>
+            <article>
+                <img src="{% static 'outdoor.jpg' %}" alt="Outdoor court" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Outdoor courts</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Open-air courts with floodlights and proper drainage.</p>
+            </article>
+            <article>
+                <img src="{% static 'lockerroom.jpeg' %}" alt="Locker room" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Locker rooms</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Secure lockers, hot showers and clean towels.</p>
+            </article>
+            <article>
+                <img src="{% static 'parking.jpg' %}" alt="Parking area" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Free parking</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">200+ well-lit spaces with security cameras.</p>
+            </article>
+            <article>
+                <img src="{% static 'cafe.jpeg' %}" alt="Sports café" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Sports café</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Healthy snacks, cold drinks and Wi-Fi after the match.</p>
+            </article>
+            <article>
+                <img src="{% static 'shop.jpg' %}" alt="Equipment rental" loading="lazy" class="w-full aspect-[4/3] object-cover rounded-xl">
+                <h3 class="mt-5 font-semibold tracking-tight">Equipment rental</h3>
+                <p class="mt-1.5 text-sm text-slate-600 leading-relaxed">Balls, shoes and jerseys in all sizes, at fair rates.</p>
+            </article>
+        </div>
+    </div>
+</section>

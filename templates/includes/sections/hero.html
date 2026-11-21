@@ -1,0 +1,56 @@
+{% load static %}
+<section id="home" class="pt-16 sm:pt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-x-10 gap-y-8 items-end">
+            <div class="lg:col-span-8">
+                <p class="text-sm text-slate-500">Since 2025 &middot; Kanakai, Jhapa</p>
+                <h1 class="mt-5 text-[2.6rem] leading-[1.04] sm:text-6xl lg:text-[4.25rem] font-semibold tracking-[-0.035em]">
+                    Kanakai’s home<br class="hidden sm:block"> for <span class="whitespace-nowrap">five-a-side.</span>
+                </h1>
+            </div>
+            <div class="lg:col-span-4 lg:pb-2">
+                <p class="np text-[17px] leading-relaxed text-slate-600">
+                    कनकाईको पहिलो अत्याधुनिक फुटसल — प्रो खेलाडी जस्तै खेल्नुहोस्, जुनसुकै समयमा, जुनसुकै दिन।
+                </p>
+                <div class="mt-7 flex items-center gap-6">
+                    <a href="{% url 'booking_page' %}" class="inline-flex items-center bg-brand text-white text-[15px] font-medium px-5 py-3 rounded-md hover:brightness-95 transition">
+                        Book a match
+                    </a>
+                    <a href="#facilities" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 underline underline-offset-4 decoration-slate-300 hover:decoration-slate-900 transition">
+                        Explore facilities
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <figure class="mt-14 sm:mt-16">
+            <img src="{% static 'futsalimages.jpg' %}" alt="The main court at Kanakai Futsal"
+                class="w-full aspect-[16/10] sm:aspect-[21/9] object-cover rounded-lg">
+        </figure>
+
+        <!-- Key facts (from the former Welcome section) -->
+        <div class="mt-10 grid sm:grid-cols-3 gap-y-8 border-y border-slate-200 py-8">
+            <div class="flex gap-4 sm:pr-8">
+                <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-900" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h2.5a1.5 1.5 0 0 1 1.5 1.5V7a4 4 0 0 1-4 4M7 5H4.5A1.5 1.5 0 0 0 3 6.5V7a4 4 0 0 0 4 4"/></svg>
+                <div>
+                    <h3 class="font-semibold tracking-tight">Premium turf</h3>
+                    <p class="mt-1 text-sm text-slate-600 leading-relaxed">FIFA-quality synthetic turf and LED lighting.</p>
+                </div>
+            </div>
+            <div class="flex gap-4 sm:px-8 sm:border-l border-slate-200">
+                <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-900" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <div>
+                    <h3 class="font-semibold tracking-tight">Open 6 AM – 10 PM</h3>
+                    <p class="mt-1 text-sm text-slate-600 leading-relaxed">Every day. Book online or walk in.</p>
+                </div>
+            </div>
+            <div class="flex gap-4 sm:pl-8 sm:border-l border-slate-200">
+                <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-900" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div>
+                    <h3 class="font-semibold tracking-tight">Local community</h3>
+                    <p class="mt-1 text-sm text-slate-600 leading-relaxed">Leagues, tournaments and friendly matches.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
