@@ -152,6 +152,14 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# Who receives owner alerts for new bookings and cancellations.
+# Comma-separated in .env, e.g. OWNER_NOTIFICATION_EMAILS=a@x.com,b@y.com
+OWNER_NOTIFICATION_EMAILS = [
+    e.strip()
+    for e in os.getenv('OWNER_NOTIFICATION_EMAILS', 'shreeshacademy@gmail.com,mohannthapa@gmail.com').split(',')
+    if e.strip()
+]
+
 
 
 # settings jazmize

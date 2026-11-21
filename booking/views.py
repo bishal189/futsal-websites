@@ -25,8 +25,6 @@ from django.db.models import Sum, Count
 # Set up logging for email debugging
 logger = logging.getLogger(__name__)
 
-# Who receives owner notifications (new bookings and cancellations).
-OWNER_NOTIFICATION_EMAILS = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
 
 
 # for downloads 
@@ -596,7 +594,7 @@ def send_booking_confirmation_email(booking, user):
 def send_owner_notification_email(booking, user):
     """Send booking notification email to futsal owner with complete user details"""
     try:
-        owner_emails = OWNER_NOTIFICATION_EMAILS
+        owner_emails = settings.OWNER_NOTIFICATION_EMAILS
 
         confirmed_bookings = Booking.objects.filter(user=user, status='confirmed')
         stats = confirmed_bookings.aggregate(
@@ -685,7 +683,7 @@ def send_owner_cancellation_email(booking, user):
         subject=f'Booking Cancelled - {booking.booking_date:%b %d} {booking.time_slot.start_time:%I:%M %p} | {booking.player_name}',
         message=strip_tags(html_message),
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=OWNER_NOTIFICATION_EMAILS,
+        recipient_list=settings.OWNER_NOTIFICATION_EMAILS,
         html_message=html_message,
         fail_silently=False,
     )
