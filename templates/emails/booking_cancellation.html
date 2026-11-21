@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancelled - {{ company_name }}</title>
+</head>
+
+<body style="margin:0; padding:0; font-family:Arial, sans-serif; background-color:#f8f9fa; color:#333333; line-height:1.6;">
+    <div style="max-width:600px; margin:20px auto; background-color:#ffffff; border:1px solid #e1e5e9; border-radius:8px; overflow:hidden;">
+
+        <div style="background-color:#2c3e50; color:#ffffff; padding:36px 30px; text-align:center;">
+            <h1 style="margin:0; font-size:24px; font-weight:600; letter-spacing:0.5px;">{{ company_name }}</h1>
+            <p style="margin:8px 0 0 0; font-size:15px; color:#cbd5e1;">Booking cancelled</p>
+        </div>
+
+        <div style="padding:36px 30px;">
+            <p style="margin:0 0 16px 0; font-size:16px;">
+                Hi {{ user.first_name|default:booking.player_name }}, your booking has been cancelled as requested.
+            </p>
+            <p style="margin:0 0 28px 0;">
+                <span style="display:inline-block; background-color:#f1f5f9; border:1px solid #e1e5e9; border-radius:4px; padding:6px 10px; font-size:13px; color:#475569;">
+                    Booking ID: {{ booking.booking_id }}
+                </span>
+            </p>
+
+            <h2 style="font-size:18px; font-weight:600; color:#2c3e50; margin:0 0 16px 0; padding-bottom:8px; border-bottom:2px solid #e1e5e9;">Cancelled booking</h2>
+            <table style="border-collapse:collapse; width:100%; font-size:15px;">
+                <tr>
+                    <td style="padding:10px 0; color:#6c757d; width:40%; border-bottom:1px solid #f1f3f5;">Court</td>
+                    <td style="padding:10px 0; color:#212529; border-bottom:1px solid #f1f3f5;">{{ booking.court.name }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; color:#6c757d; border-bottom:1px solid #f1f3f5;">Date</td>
+                    <td style="padding:10px 0; color:#212529; border-bottom:1px solid #f1f3f5;">{{ booking_date }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; color:#6c757d; border-bottom:1px solid #f1f3f5;">Time</td>
+                    <td style="padding:10px 0; color:#212529; border-bottom:1px solid #f1f3f5;">{{ booking_time }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; color:#6c757d; border-bottom:1px solid #f1f3f5;">Amount</td>
+                    <td style="padding:10px 0; color:#212529; border-bottom:1px solid #f1f3f5;">NPR {{ booking.total_amount }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0; color:#6c757d;">Cancelled on</td>
+                    <td style="padding:10px 0; color:#212529;">{{ cancelled_at }}</td>
+                </tr>
+            </table>
+
+            <p style="margin:28px 0 0 0; color:#475569;">
+                If you paid in advance, please contact us about your refund. If you didn’t cancel this booking, call us right away.
+            </p>
+
+            {% if booking_url %}
+            <p style="margin:28px 0 0 0; text-align:center;">
+                <a href="{{ booking_url }}" style="display:inline-block; background-color:#2c3e50; color:#ffffff; text-decoration:none; font-weight:600; padding:12px 24px; border-radius:6px;">Book another slot</a>
+            </p>
+            {% endif %}
+        </div>
+
+        <div style="background-color:#2c3e50; color:#ffffff; padding:26px 30px; text-align:center; font-size:13px;">
+            <p style="font-weight:600; font-size:15px; margin:0 0 8px 0;">{{ company_name }}</p>
+            <p style="margin:4px 0; color:#cbd5e1;">{{ company_address }}</p>
+            <p style="margin:4px 0; color:#cbd5e1;">{{ company_phone }} | {{ company_email }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

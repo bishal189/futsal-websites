@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancelled - {{ company_name }}</title>
+</head>
+
+<body style="margin:0; padding:0; font-family:Arial, sans-serif; background-color:#f8f9fa; color:#333333; line-height:1.6;">
+    <div style="max-width:600px; margin:20px auto; background-color:#ffffff; border:1px solid #e1e5e9; border-radius:8px; overflow:hidden;">
+
+        <div style="background-color:#2c3e50; color:#ffffff; padding:30px; text-align:center;">
+            <h1 style="margin:0; font-size:22px; font-weight:600;">Booking cancelled</h1>
+            <p style="margin:6px 0 0 0; font-size:14px; color:#cbd5e1;">The slot below is free again.</p>
+        </div>
+
+        <div style="padding:32px 30px;">
+            <h2 style="font-size:17px; font-weight:600; color:#2c3e50; margin:0 0 14px 0; padding-bottom:8px; border-bottom:2px solid #e1e5e9;">Slot</h2>
+            <table style="border-collapse:collapse; width:100%; font-size:15px;">
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d; width:40%;">Booking ID</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking.booking_id }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Court</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking.court.name }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Date</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking_date }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Time</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking_time }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Amount</td>
+                    <td style="padding:8px 0; color:#212529;">NPR {{ booking.total_amount }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Cancelled on</td>
+                    <td style="padding:8px 0; color:#212529;">{{ cancelled_at }}</td>
+                </tr>
+            </table>
+
+            <h2 style="font-size:17px; font-weight:600; color:#2c3e50; margin:28px 0 14px 0; padding-bottom:8px; border-bottom:2px solid #e1e5e9;">Player</h2>
+            <table style="border-collapse:collapse; width:100%; font-size:15px;">
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d; width:40%;">Name</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking.player_name }}</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Phone</td>
+                    <td style="padding:8px 0; color:#212529;"><a href="tel:{{ booking.contact_number }}" style="color:#2c3e50;">{{ booking.contact_number }}</a></td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d;">Account email</td>
+                    <td style="padding:8px 0; color:#212529;"><a href="mailto:{{ user.email }}" style="color:#2c3e50;">{{ user.email }}</a></td>
+                </tr>
+                {% if booking.notes %}
+                <tr>
+                    <td style="padding:8px 0; color:#6c757d; vertical-align:top;">Booking notes</td>
+                    <td style="padding:8px 0; color:#212529;">{{ booking.notes }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+
+        <div style="background-color:#f1f5f9; color:#6c757d; padding:18px 30px; text-align:center; font-size:12px;">
+            Automatic notification from {{ company_name }} booking system.
+        </div>
+    </div>
+</body>
+
+</html>

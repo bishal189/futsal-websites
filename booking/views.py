@@ -1,5 +1,6 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.http import JsonResponse
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -23,6 +24,9 @@ from django.db.models import Sum, Count
 
 # Set up logging for email debugging
 logger = logging.getLogger(__name__)
+
+# Who receives owner notifications (new bookings and cancellations).
+OWNER_NOTIFICATION_EMAILS = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
 
 
 # for downloads 
@@ -503,7 +507,18 @@ def cancel_booking(request, booking_id):
         changed_by=request.user,
         change_reason='User cancelled booking'
     )
-    
+
+    # Notify the player and the owners. A mail failure must not undo the cancellation.
+    try:
+        send_cancellation_email(booking, request.user, request)
+    except Exception as email_error:
+        logger.error(f"Cancellation email failed: {str(email_error)}")
+
+    try:
+        send_owner_cancellation_email(booking, request.user)
+    except Exception as email_error:
+        logger.error(f"Owner cancellation email failed: {str(email_error)}")
+
     # Updated aggregated stats (optional)
     valid_bookings = Booking.objects.filter(user=request.user, status='confirmed')
     
@@ -581,8 +596,7 @@ def send_booking_confirmation_email(booking, user):
 def send_owner_notification_email(booking, user):
     """Send booking notification email to futsal owner with complete user details"""
     try:
-        owner_emails = ['shreeshacademy@gmail.com', 'mohannthapa@gmail.com']
-        # owner_emails = ['umamurmu52@gmail.com']
+        owner_emails = OWNER_NOTIFICATION_EMAILS
 
         confirmed_bookings = Booking.objects.filter(user=user, status='confirmed')
         stats = confirmed_bookings.aggregate(
@@ -631,3 +645,47 @@ def send_owner_notification_email(booking, user):
         logger.error(f"Owner notification email sending failed: {str(e)}")
         raise e
    
+
+def _cancellation_context(booking, user):
+    """Shared template context for the cancellation emails."""
+    return {
+        'booking': booking,
+        'user': user,
+        'booking_date': booking.booking_date.strftime('%B %d, %Y'),
+        'booking_time': f"{booking.time_slot.start_time.strftime('%I:%M %p')} - {booking.time_slot.end_time.strftime('%I:%M %p')}",
+        'cancelled_at': timezone.localtime(timezone.now()).strftime('%B %d, %Y at %I:%M %p'),
+        'company_name': 'Kanakai Futsal',
+        'company_address': 'Kankai-3 Surunga-jhapa',
+        'company_phone': '+977 9849484878',
+        'company_email': 'shreeshacademy@gmail.com',
+    }
+
+
+def send_cancellation_email(booking, user, request=None):
+    """Tell the player their booking was cancelled."""
+    context = _cancellation_context(booking, user)
+    if request is not None:
+        context['booking_url'] = request.build_absolute_uri(reverse('booking_page'))
+
+    html_message = render_to_string('emails/booking_cancellation.html', context)
+    send_mail(
+        subject=f'Booking Cancelled - {booking.booking_id} | Kanakai Futsal',
+        message=strip_tags(html_message),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user.email],
+        html_message=html_message,
+        fail_silently=False,
+    )
+
+
+def send_owner_cancellation_email(booking, user):
+    """Tell the owners a slot has been freed by a cancellation."""
+    html_message = render_to_string('emails/owner_cancellation.html', _cancellation_context(booking, user))
+    send_mail(
+        subject=f'Booking Cancelled - {booking.booking_date:%b %d} {booking.time_slot.start_time:%I:%M %p} | {booking.player_name}',
+        message=strip_tags(html_message),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=OWNER_NOTIFICATION_EMAILS,
+        html_message=html_message,
+        fail_silently=False,
+    )
