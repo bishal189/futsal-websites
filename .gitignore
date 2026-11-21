@@ -1,0 +1,35 @@
+# --- Secrets & local config ---
+.env
+.env.*
+!.env.example
+
+# --- Database ---
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+
+# --- Django ---
+media/
+*.log
+
+# --- Editors & OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Claude Code local settings ---
+.claude/settings.local.json
